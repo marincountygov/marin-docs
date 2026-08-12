@@ -1,6 +1,6 @@
 # MarinDocs
 
-MarinDocs is the County of Marin documentation hub. It uses the MarinOS Docs shell from `marinappsbrand` and currently contains one collection: standard operating procedures.
+MarinDocs is the County of Marin documentation hub. It uses the MarinOS Docs shell from `marin-ui` and currently contains one collection: standard operating procedures.
 
 ## Structure
 
@@ -12,7 +12,7 @@ MarinDocs is the County of Marin documentation hub. It uses the MarinOS Docs she
 
 ## Brand bundle
 
-The installed bundle version is recorded in `BRAND_VERSION`. Update the files from the matching `marinappsbrand` release together; do not update individual shared files independently.
+The installed bundle version is recorded in `BRAND_VERSION`. Update the files from the matching `marin-ui` release together; do not update individual shared files independently.
 
 ## Run locally
 
