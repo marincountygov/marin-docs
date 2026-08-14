@@ -35,7 +35,11 @@ function findHtmlFiles(dir) {
 }
 
 function formatDate(date) {
-  return date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+  // Pin UTC explicitly — otherwise this renders a different calendar date
+  // depending on the machine's local timezone (a run here vs. a GitHub
+  // Actions runner, which defaults to UTC, can disagree by a day near
+  // midnight).
+  return date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
 }
 
 function targetDate(file) {
