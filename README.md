@@ -14,6 +14,16 @@ MarinDocs is the County of Marin documentation hub. It uses the MarinOS Docs she
 
 The installed bundle version is recorded in `BRAND_VERSION`. Update the files from the matching `marin-ui` release together; do not update individual shared files independently.
 
+## Keeping the "Updated" date accurate
+
+Each SOP page's "Updated [date]" line reflects git history, not a typed-once string. Before committing content changes, run:
+
+```text
+node scripts/stamp-updated-dates.js
+```
+
+A dirty file gets stamped with today's date; a clean file gets its actual last-commit date. `.github/workflows/check-updated-date.yml` fails the PR if a page's date doesn't match (`node scripts/stamp-updated-dates.js --check`).
+
 ## Run locally
 
 Open `index.html` directly or serve this folder with any static web server. Document headings receive hover/focus anchor links, and the current section is highlighted in the “On this page” navigation as the reader scrolls.

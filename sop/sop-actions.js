@@ -3,18 +3,6 @@
     return button.closest(".doc-actions")?.querySelector(".doc-action-status") ?? null;
   }
 
-  document.querySelectorAll('[data-action="share"]').forEach((button) => {
-    button.addEventListener("click", async () => {
-      const status = statusFor(button);
-      try {
-        await navigator.clipboard.writeText(window.location.href);
-        if (status) status.textContent = "Link copied";
-      } catch {
-        if (status) status.textContent = "Couldn't copy — copy the address bar link instead";
-      }
-    });
-  });
-
   document.querySelectorAll('[data-action="download-json"]').forEach((button) => {
     button.addEventListener("click", () => {
       const status = statusFor(button);
