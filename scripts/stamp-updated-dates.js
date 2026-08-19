@@ -37,10 +37,19 @@ function findHtmlFiles(dir) {
 function formatDate(date) {
   // Pin America/Los_Angeles explicitly — County of Marin is a Pacific-time
   // organization, and otherwise this renders a different calendar date
-  // depending on the machine's local timezone (a run here vs. a GitHub
-  // Actions runner, which defaults to UTC, can disagree by a day near
-  // midnight Pacific).
-  return date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "America/Los_Angeles" });
+  // (or time) depending on the machine's local timezone (a run here vs. a
+  // GitHub Actions runner, which defaults to UTC, can disagree by a day
+  // near midnight Pacific). timeZoneName: "short" renders PST/PDT
+  // correctly across the DST boundary rather than a hardcoded label.
+  return date.toLocaleString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    timeZone: "America/Los_Angeles",
+    timeZoneName: "short",
+  });
 }
 
 function targetDate(file) {
