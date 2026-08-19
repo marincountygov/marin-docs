@@ -1,0 +1,147 @@
+/* Brand Center — page-specific styles layered on top of the vendored MarinOS brand bundle. */
+
+.logo-grid,
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0 0;
+}
+
+.logo-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border: 1px solid var(--app-border);
+  border-radius: var(--pico-border-radius);
+  background: var(--app-surface);
+}
+
+.logo-card__preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 6.5rem;
+  margin-bottom: 0.85rem;
+  padding: 0.75rem;
+  border: 1px dashed var(--app-border);
+  border-radius: var(--pico-border-radius);
+  background: var(--app-bg-soft);
+}
+
+.logo-card__preview img {
+  max-width: 100%;
+  max-height: 6rem;
+}
+
+.logo-card__preview--reversed {
+  background: var(--marin-black);
+}
+
+.logo-card h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+}
+
+.logo-card p {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  color: var(--app-muted);
+}
+
+.logo-card p:last-child {
+  margin-bottom: 0;
+}
+
+.logo-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+}
+
+.logo-card__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.logo-card__label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--app-muted);
+}
+
+.logo-card__value {
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+
+.logo-card__value a {
+  overflow-wrap: anywhere;
+}
+
+.swatch {
+  overflow: hidden;
+  border: 1px solid var(--app-border);
+  border-radius: var(--pico-border-radius);
+  background: var(--app-surface);
+}
+
+.swatch__block {
+  height: 4.5rem;
+}
+
+.swatch__meta {
+  padding: 0.75rem 0.9rem;
+}
+
+.swatch__meta h3 {
+  margin: 0 0 0.35rem;
+  font-size: 0.95rem;
+}
+
+.swatch__meta dl {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--app-muted);
+}
+
+.swatch__meta dt {
+  display: inline;
+  font-weight: 700;
+}
+
+.swatch__meta dd {
+  display: inline;
+  margin: 0 0.75rem 0 0.3rem;
+}
+
+.swatch__usage {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+  color: var(--app-muted);
+}
+
+.digital-note {
+  margin: 1.25rem 0 0;
+  padding: 1rem;
+  border-left: 0.375rem solid var(--marin-blue);
+  background: var(--app-surface);
+}
+
+.digital-note h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+}
+
+.digital-note p {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+}
+
+.digital-note p:last-child {
+  margin-bottom: 0;
+}
