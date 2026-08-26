@@ -154,8 +154,15 @@
   margin-left: 0.35rem;
 }
 
+.chart-legend__swatch--event {
+  border-radius: 50%;
+  border: 2px solid var(--app-text);
+}
+
 .chart-legend__swatch--decision {
+  border-radius: 0;
   border: 2px solid var(--marin-gold);
+  transform: rotate(45deg) scale(0.8);
 }
 
 .chart-legend__swatch--terminal {
@@ -207,6 +214,27 @@
   font-style: italic;
 }
 
+/* BPMN start/end events: plain circles, decorative markers distinct from every
+   task/gateway shape — a thin border for start, a thick border for end, per
+   standard BPMN 2.0 notation. */
+.chart-node--event {
+  justify-self: center;
+  width: 2rem;
+  height: 2rem;
+  min-width: 0;
+  max-width: none;
+  border-radius: 50%;
+  background: var(--app-surface);
+}
+
+.chart-node--event-start {
+  border: 2px solid var(--app-text);
+}
+
+.chart-node--event-end {
+  border: 4px solid var(--app-text);
+}
+
 .chart-node__toggle {
   display: flex;
   width: 100%;
@@ -237,18 +265,48 @@
   flex: 1 1 auto;
 }
 
+/* BPMN exclusive-gateway marker: a small fixed-size diamond with an "X" —
+   not stretched to fit the question text (that's shown separately, in
+   .chart-node__question), which is what makes a literal diamond legible
+   here regardless of how long the question is. */
 .chart-node__decision-mark {
+  position: relative;
   display: inline-flex;
   flex: 0 0 auto;
-  align-items: center;
-  justify-content: center;
-  width: 1.25rem;
-  height: 1.25rem;
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--marin-gold) 35%, transparent);
-  color: var(--marin-black);
-  font-size: 0.75rem;
-  font-weight: 700;
+  width: 0.9rem;
+  height: 0.9rem;
+  margin-left: 0.15rem;
+  border: 2px solid var(--marin-gold);
+  transform: rotate(45deg);
+}
+
+.chart-node__decision-mark::before,
+.chart-node__decision-mark::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.65rem;
+  height: 2px;
+  background: var(--marin-gold);
+  transform-origin: center;
+}
+
+.chart-node__decision-mark::before {
+  transform: translate(-50%, -50%);
+}
+
+.chart-node__decision-mark::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.chart-node__question {
+  margin: 0.4rem 0 0;
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--app-border);
+  color: var(--app-muted);
+  font-size: 0.85rem;
+  font-style: italic;
 }
 
 .chart-node__detail {
@@ -262,10 +320,6 @@
 
 .chart-node__detail p {
   margin: 0 0 0.5rem;
-}
-
-.chart-node__question {
-  font-weight: 700;
 }
 
 .chart-node__branches {
@@ -306,7 +360,11 @@
 }
 
 .flow-chart__arrowhead {
-  fill: var(--app-border);
+  fill: none;
+  stroke: var(--app-border);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
 }
 
 .flow-chart__edge-label {
@@ -336,6 +394,22 @@
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
   gap: 1rem;
   margin-top: 2rem;
+}
+
+/* Applied to .docs-layout only while Flow view is active (sop/flow-view.js) —
+   a branching chart needs real width, which the fixed 15.5rem TOC column
+   doesn't leave room for. Same full-viewport-breakout technique already
+   shipped in Marin Decision Maker's diagram (.way-diagram-card--wide). */
+.docs-layout--wide {
+  grid-template-columns: 1fr;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: 0 1.5rem;
+}
+
+.docs-layout--wide .toc {
+  display: none;
 }
 
 .card {

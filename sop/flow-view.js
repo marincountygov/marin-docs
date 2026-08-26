@@ -4,6 +4,7 @@
   const flowView = document.getElementById("flow-view");
   if (!tablist || !textView || !flowView) return;
 
+  const docsLayout = document.querySelector(".docs-layout");
   const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
 
   function activate(view, { focus = false } = {}) {
@@ -16,6 +17,10 @@
     });
     textView.hidden = target !== "text";
     flowView.hidden = target !== "flow";
+    // A branching chart needs real width the fixed TOC column doesn't leave
+    // room for — expand automatically with the tab switch rather than adding
+    // a second control (see sop/styles.css, .docs-layout--wide).
+    docsLayout?.classList.toggle("docs-layout--wide", target === "flow");
     if (target === "flow") drawChartEdges();
 
     const url = new URL(window.location.href);
@@ -247,9 +252,10 @@
 
     const legend = document.createElement("p");
     legend.className = "chart-legend";
-    legend.appendChild(document.createTextNode("Rectangle = action"));
+    legend.appendChild(document.createTextNode("Rectangle = task"));
     [
-      ["decision", "gold border = decision"],
+      ["event", "circle = start/end"],
+      ["decision", "diamond = decision"],
       ["terminal", "green = complete"],
       ["undocumented", "dashed = not specified in source"],
     ].forEach(([kind, text]) => {
@@ -282,7 +288,7 @@
 
       const nodeEl = buildNodeEl({
         className: isTerminal ? "chart-node--terminal" : isDecision ? "chart-node--decision" : "chart-node--action",
-        gridRow: r + 1,
+        gridRow: r + 2, // row 1 is reserved for the start-event circle
         gridColumn: c + 1,
         id: slugFrom(id),
       });
@@ -318,7 +324,6 @@
           const mark = document.createElement("span");
           mark.className = "chart-node__decision-mark";
           mark.setAttribute("aria-hidden", "true");
-          mark.textContent = "?";
           toggle.appendChild(mark);
         }
 
@@ -338,11 +343,6 @@
 
         const edges = stepEdges(step);
         if (isDecision && edges.length) {
-          const question = document.createElement("p");
-          question.className = "chart-node__question";
-          question.textContent = step["marin:decision"].question || "";
-          detail.appendChild(question);
-
           const branchList = document.createElement("ul");
           branchList.className = "chart-node__branches";
           edges.forEach((edge) => {
@@ -382,7 +382,14 @@
           drawChartEdges();
         });
 
-        nodeEl.append(toggle, detail);
+        nodeEl.appendChild(toggle);
+        if (isDecision && step["marin:decision"]?.question) {
+          const question = document.createElement("p");
+          question.className = "chart-node__question";
+          question.textContent = step["marin:decision"].question;
+          nodeEl.appendChild(question);
+        }
+        nodeEl.appendChild(detail);
       }
 
       chart.appendChild(nodeEl);
@@ -404,7 +411,7 @@
           laneWidthByRank.set(placeholderRank, width + 1);
           const placeholder = buildNodeEl({
             className: "chart-node--undocumented",
-            gridRow: placeholderRank + 1,
+            gridRow: placeholderRank + 2, // row 1 is reserved for the start-event circle
             gridColumn: width + 1,
             id: "chart-undocumented-" + undocumentedCount,
           });
@@ -419,6 +426,33 @@
       }
     });
 
+    // BPMN start/end events: genuine circles distinct from every task/gateway shape,
+    // not a restyle of the entry/terminal step itself — those keep their own content.
+    const startEvent = buildNodeEl({
+      className: "chart-node--event chart-node--event-start",
+      gridRow: 1,
+      gridColumn: "1 / -1",
+      id: "chart-start-event",
+    });
+    startEvent.setAttribute("aria-hidden", "true"); // decorative marker; DOM/tab order starts at the real entry step
+    chart.appendChild(startEvent);
+    paintableEdges.push({ from: startEvent.id, to: slugFrom(entryId), label: "" });
+
+    const terminalIds = Array.from(stepsById.entries())
+      .filter(([id, step]) => rank.has(id) && step["marin:terminalNode"])
+      .map(([id]) => id);
+    terminalIds.forEach((terminalId, index) => {
+      const endEvent = buildNodeEl({
+        className: "chart-node--event chart-node--event-end",
+        gridRow: maxRank + 3,
+        gridColumn: "1 / -1",
+        id: "chart-end-event-" + index,
+      });
+      endEvent.setAttribute("aria-hidden", "true"); // decorative; the terminal step's own "Complete" status is the real signal
+      chart.appendChild(endEvent);
+      paintableEdges.push({ from: slugFrom(terminalId), to: endEvent.id, label: "" });
+    });
+
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.setAttribute("class", "flow-chart__edges");
     svg.setAttribute("aria-hidden", "true");
@@ -428,11 +462,11 @@
     marker.setAttribute("viewBox", "0 0 10 10");
     marker.setAttribute("refX", "8");
     marker.setAttribute("refY", "5");
-    marker.setAttribute("markerWidth", "6");
-    marker.setAttribute("markerHeight", "6");
+    marker.setAttribute("markerWidth", "7");
+    marker.setAttribute("markerHeight", "7");
     marker.setAttribute("orient", "auto-start-reverse");
     const arrowPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    arrowPath.setAttribute("d", "M0,0 L10,5 L0,10 z");
+    arrowPath.setAttribute("d", "M1,1 L9,5 L1,9"); // open/unfilled triangle — BPMN's standard sequence-flow marker
     arrowPath.setAttribute("class", "flow-chart__arrowhead");
     marker.appendChild(arrowPath);
     defs.appendChild(marker);
