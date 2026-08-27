@@ -161,7 +161,7 @@
 
 .chart-legend__swatch--decision {
   border-radius: 0;
-  border: 2px solid var(--marin-gold);
+  border: 2px solid var(--app-accent);
   transform: rotate(45deg) scale(0.8);
 }
 
@@ -253,7 +253,7 @@
 }
 
 .chart-node--decision .chart-node__toggle {
-  border-color: var(--marin-gold);
+  border-color: var(--app-accent);
 }
 
 .chart-node__toggle:hover,
@@ -276,7 +276,7 @@
   width: 0.9rem;
   height: 0.9rem;
   margin-left: 0.15rem;
-  border: 2px solid var(--marin-gold);
+  border: 2px solid var(--app-accent);
   transform: rotate(45deg);
 }
 
@@ -288,7 +288,7 @@
   left: 50%;
   width: 0.65rem;
   height: 2px;
-  background: var(--marin-gold);
+  background: var(--app-accent);
   transform-origin: center;
 }
 
