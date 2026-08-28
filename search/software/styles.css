@@ -1,0 +1,48 @@
+@import url("../../vendor/pico.min.css");
+@import url("../../shared/app-brand.css");
+@import url("../shared/search-layout.css");
+
+.software-card__name {
+  margin: 0 0 0.15rem;
+  font-size: 1.05rem;
+}
+
+.software-card__vendor {
+  margin: 0 0 0.5rem;
+  color: var(--app-muted);
+  font-size: 0.875rem;
+}
+
+.software-card__purpose {
+  margin: 0;
+}
+
+.software-card__details {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--app-border);
+}
+
+.software-card__details summary {
+  color: var(--app-accent);
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mini-dl {
+  margin: 0.4rem 0 0;
+}
+
+.mini-dl dt {
+  font-weight: 700;
+}
+
+.mini-dl dt,
+.mini-dl dd {
+  display: inline;
+}
+
+.mini-dl dd {
+  margin-left: 0.35rem;
+}
