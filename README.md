@@ -1,15 +1,29 @@
 # MarinDocs
 
-MarinDocs is the County of Marin documentation hub. It uses the MarinOS Docs shell from `marin-ui` and currently contains two collections: standard operating procedures, and the Brand Center.
+MarinDocs is the County of Marin documentation hub. It uses the MarinOS Docs shell from `marin-ui` and currently contains three collections: standard operating procedures, the Brand Center, and Guides.
 
 ## Structure
 
 - `index.html`: documentation landing page
 - `sop/`: SOP collection, HTML documents, JSON-LD, and source files
 - `brand/`: Brand Center collection — see "Brand Center" below
+- `guide/`: longer, multi-section reference documents — see "Guides" below
+- `search/`: search tools collection (software catalog, etc.)
 - `shared/`, `vendor/`, and `BRAND_VERSION`: vendored MarinOS brand bundle
 - root-level document stubs: compatibility redirects for URLs that existed before the SOP collection moved
 - root-level `sops.json` and `source-documents/`: compatibility copies retained for existing consumers
+
+## Guides
+
+`guide/` is for longer, multi-section documents meant to be used as a day-to-day reference rather than read cover to cover (the county's SB272/policy-length material) — see `marin-digital-standards/content-design/content-patterns.md`'s "Guide or explainer" content type and `marin-skills/forms-and-documents-skill`'s `pdf-vs-html-decision.md`/`document-conversion.md` for the standards this collection applies.
+
+Like `sop/`, there is no generator: each guide page (`guide/<guide-slug>/*.html`) is a hand/AI-authored, standalone HTML file using the `.site-header`/`.breadcrumb-nav`/`.content`/`.doc-title`/`.doc-description`/`.doc-updated`/`.doc-actions` docs-shell pattern already shared with SOPs. A guide adds one new local layout on top of that: `.guide-layout` (defined in `guide/styles.css`), a three-column grid — a left-hand **guide outline** (every page in the guide, grouped by section, hand-duplicated across every page the same way `.topic-filters` already is in `sop/`), the page content, and the existing `.toc`/"On this page" right-hand column (automatic — no new JS — as long as the page's headings live inside `<article class="content">`; see `shared/app-shell.js`'s heading-anchor/scroll-spy behavior). Mark the current guide-outline link with `aria-current="page"` by hand, same as `.topic-filters` does today.
+
+`guide/styles.css` also defines `.guide-callout--required`/`.guide-callout--best-practice` (a REQUIRED/BEST PRACTICE distinction, common in county policy documents) and `.guide-pager` (previous/next page links) — reuse these for any new guide rather than inventing another variant.
+
+Keep the original source PDF in `guide/<guide-slug>/source-documents/` and link it from every page's `.doc-actions` ("Download PDF") — the PDF remains the official adopted record; the HTML is the day-to-day reading experience.
+
+Add a new guide by: adding its pages under a new `guide/<guide-slug>/` folder, adding a card to `guide/index.html`, and adding an entry to `guide/guides.json` (a lightweight `schema.org ItemList`, structured exactly like `sop/sops.json` — not read by any page's JS, just a structured-data companion).
 
 ## Brand Center
 
