@@ -10,6 +10,7 @@ This is a static, zero-build MarinOS docs-shell application. It uses the shared 
 2. Prefer existing semantic tokens over raw values.
 3. Keep the default view immediately functional — info/how-to content belongs in the About tab, not stacked above or alongside the content.
 4. Individual SOP sub-pages (`sop/*.html`) use the `.site-header`/`.site-footer` docs-shell pattern and stay always-visible (no JS-dependent tabs) — see the landing page for where the tab-section pattern applies instead.
+5. Guide pages (`guide/<guide-slug>/*.html`) follow the same docs-shell pattern as SOPs, plus a local `.guide-layout` three-column grid (guide outline / content / on-this-page) defined in `guide/styles.css` — see the "Guides" section of `README.md` before adding a new guide or a new guide page.
 
 ## Before finishing
 
