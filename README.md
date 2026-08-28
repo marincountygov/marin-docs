@@ -49,7 +49,7 @@ Each SOP page's "Updated [date]" line reflects git history, not a typed-once str
 node scripts/stamp-updated-dates.js
 ```
 
-A dirty file gets stamped with today's date; a clean file gets its actual last-commit date. `.github/workflows/check-updated-date.yml` fails the PR if a page's date doesn't match (`node scripts/stamp-updated-dates.js --check`).
+A dirty file gets stamped with today's date; a clean file gets its actual last-commit date. There is no CI gate enforcing this (the stamp is written before the commit that fixes it exists, so a `--check` step in CI reliably fails against the just-created commit) — run the script yourself before committing instead.
 
 ## Run locally
 
