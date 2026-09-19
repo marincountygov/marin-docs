@@ -1,0 +1,41 @@
+[
+  {
+    "@type": "HowTo",
+    "id": "POL-00002-P001",
+    "title": "Resolution Process",
+    "steps": [
+      {
+        "@type": "HowToStep",
+        "id": "POL-00002-P001-01",
+        "position": 1,
+        "title": "Step 1",
+        "description": "Step 1:\nWithin three calendar weeks after a formal grievance is filed, the department head will investigate the grievance, confer with the grievant in an attempt to resolve the grievance, and make a decision in writing.",
+        "rules": []
+      },
+      {
+        "@type": "HowToStep",
+        "id": "POL-00002-P001-02",
+        "position": 2,
+        "title": "Step 2",
+        "description": "Step 2: If the grievance is not resolved in Step 1 to the satisfaction of the grievant, he or she may, within not more than five working days from his/her receipt of the department head’s decision, request consideration of the grievance by the County Administrator, by so notifying the Human Resources Department in writing. Within fourteen calendar days after such notification, the County Administrator will begin the process of investigating the grievance, conferring with persons affected and their representatives to the extent he or she deems necessary, and will render a decision in writing within fourteen calendar days of the conclusion of the hearing or findings of fact. If the written decision of the County Administrator resolves the grievance to the satisfaction of the grievant and the County, it will bind the County, subject to ratification by the Board of Supervisors if the decision requires an unbudgeted expenditure. If the written decision of the Administrator is likely to not resolve the grievance to the satisfaction of the grievant, he/she will advise the grievant, in writing, of the decision and the alternatives under Step 3, should the grievant choose to proceed further.",
+        "rules": []
+      },
+      {
+        "@type": "HowToStep",
+        "id": "POL-00002-P001-03",
+        "position": 3,
+        "title": "Step 3",
+        "description": "Step 3:\nA final consideration of the grievance to Step 3 may be filed in writing with the Human Resources Department not more than seven calendar days from receipt of the County Administrator’s decision. The grievant may, to the extent provided below, select either Alternative A or Alternative B as the final appeal step.\nAlternative A. The grievance will be determined by the Personnel Commission. The decision of the Commission will be made in writing within sixty calendar days after the filing of the appeal at Step 3, and will be final and binding on all parties, subject to ratification by the Board of Supervisors if the decision requires an unbudgeted expenditure.\nAlternative B. The grievance will be determined by an arbitrator selected by mutual agreement between the County and the grievant, provided that: The County and the grievant agree on the issues to be arbitrated, or The grievance pertains to the specific terms of an existing collective bargaining agreement.",
+        "rules": []
+      }
+    ],
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.3 Formal Grievance",
+      "anchor": "24-3-formal-grievance",
+      "htmlElement": "ol",
+      "order": 504
+    }
+  }
+]

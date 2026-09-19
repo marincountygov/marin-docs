@@ -1,0 +1,566 @@
+[
+  {
+    "id": "POL-00002-S001",
+    "statement": "This Personnel Management Regulation (PMR) defines the process and rules for grievances, applicable to regular and probationary employees.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "Applicability & Purpose",
+      "anchor": "applicability-purpose",
+      "htmlElement": "p",
+      "order": 472
+    }
+  },
+  {
+    "id": "POL-00002-S002",
+    "statement": "A. This procedure applies to all probationary and regular employees unless an applicable memorandum of understanding (collective bargaining agreement) provides otherwise.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.1 Definition, Scope and Right to File",
+      "anchor": "24-1-definition-scope-and-right-to-file",
+      "htmlElement": "p",
+      "order": 473
+    }
+  },
+  {
+    "id": "POL-00002-S003",
+    "statement": "B. A grievance is a claimed violation, misinterpretation, inequitable application or non-compliance with provisions of:",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.1 Definition, Scope and Right to File",
+      "anchor": "24-1-definition-scope-and-right-to-file",
+      "htmlElement": "p",
+      "order": 474
+    }
+  },
+  {
+    "id": "POL-00002-S004",
+    "statement": "Collective bargaining agreement",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.1 Definition, Scope and Right to File",
+      "anchor": "24-1-definition-scope-and-right-to-file",
+      "htmlElement": "li",
+      "order": 476
+    }
+  },
+  {
+    "id": "POL-00002-S005",
+    "statement": "County ordinances",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.1 Definition, Scope and Right to File",
+      "anchor": "24-1-definition-scope-and-right-to-file",
+      "htmlElement": "li",
+      "order": 477
+    }
+  },
+  {
+    "id": "POL-00002-S006",
+    "statement": "Resolutions",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.1 Definition, Scope and Right to File",
+      "anchor": "24-1-definition-scope-and-right-to-file",
+      "htmlElement": "li",
+      "order": 478
+    }
+  },
+  {
+    "id": "POL-00002-S007",
+    "statement": "Rules",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.1 Definition, Scope and Right to File",
+      "anchor": "24-1-definition-scope-and-right-to-file",
+      "htmlElement": "li",
+      "order": 479
+    }
+  },
+  {
+    "id": "POL-00002-S008",
+    "statement": "Policies",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.1 Definition, Scope and Right to File",
+      "anchor": "24-1-definition-scope-and-right-to-file",
+      "htmlElement": "li",
+      "order": 480
+    }
+  },
+  {
+    "id": "POL-00002-S009",
+    "statement": "Regulations",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.1 Definition, Scope and Right to File",
+      "anchor": "24-1-definition-scope-and-right-to-file",
+      "htmlElement": "li",
+      "order": 481
+    }
+  },
+  {
+    "id": "POL-00002-S010",
+    "statement": "Existing practices affecting the status or working conditions of County employees",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.1 Definition, Scope and Right to File",
+      "anchor": "24-1-definition-scope-and-right-to-file",
+      "htmlElement": "li",
+      "order": 482
+    }
+  },
+  {
+    "id": "POL-00002-S011",
+    "statement": "C. Selection appeals, disciplinary action, examination appeals, release from probation, complaints of discrimination and the content of performance evaluations and reviews are not grievable hereunder.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.1 Definition, Scope and Right to File",
+      "anchor": "24-1-definition-scope-and-right-to-file",
+      "htmlElement": "p",
+      "order": 483
+    }
+  },
+  {
+    "id": "POL-00002-S012",
+    "statement": "D. A grievance may be filed by an employee in his/her own behalf, or jointly by any group of employees, or by a recognized employee organization.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.1 Definition, Scope and Right to File",
+      "anchor": "24-1-definition-scope-and-right-to-file",
+      "htmlElement": "p",
+      "order": 484
+    }
+  },
+  {
+    "id": "POL-00002-S013",
+    "statement": "E. A grievance may be filed by an employee organization only when claiming a violation within its scope of representation.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.1 Definition, Scope and Right to File",
+      "anchor": "24-1-definition-scope-and-right-to-file",
+      "htmlElement": "p",
+      "order": 485
+    }
+  },
+  {
+    "id": "POL-00002-S014",
+    "statement": "F. If it is asserted that a grievance is outside the scope of procedures or definitions contained herein, such assertion will be evaluated and ruled upon at each step. Such claim will not halt the further processing of the grievance until Step 2 is reached, as defined under 24.3.B, below. At Step 2, the County Administrator will evaluate the assertion, and make a ruling prior to hearing the grievance on the merits. If the County Administrator rules that the matter is not grievable hereunder, the grievance will be dismissed and cannot be processed further.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.1 Definition, Scope and Right to File",
+      "anchor": "24-1-definition-scope-and-right-to-file",
+      "htmlElement": "p",
+      "order": 486
+    }
+  },
+  {
+    "id": "POL-00002-S015",
+    "statement": "G. Disputes concerning the applicability of the Grievance Procedure that persist beyond Step 2 may be submitted for determination by a court, unless the grievant and the County agree otherwise.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.1 Definition, Scope and Right to File",
+      "anchor": "24-1-definition-scope-and-right-to-file",
+      "htmlElement": "p",
+      "order": 487
+    }
+  },
+  {
+    "id": "POL-00002-S016",
+    "statement": "A. Within seven calendar days of the event giving rise to a grievance, the grievant will present the grievance informally for disposition by the immediate supervisor or at any appropriate level of authority within the department.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.2 Informal Grievance",
+      "anchor": "24-2-informal-grievance",
+      "htmlElement": "p",
+      "order": 488
+    }
+  },
+  {
+    "id": "POL-00002-S017",
+    "statement": "B. Presentation of an informal grievance will be a prerequisite to the institution of a formal grievance.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.2 Informal Grievance",
+      "anchor": "24-2-informal-grievance",
+      "htmlElement": "p",
+      "order": 489
+    }
+  },
+  {
+    "id": "POL-00002-S018",
+    "statement": "A. Grievance Form. If the grievant believes that the informal grievance has not been redressed within 14 calendar days, he or she may initiate a formal grievance within seven calendar days thereafter. A formal grievance can only be initiated by completing and filing with the Human Resources Department a Grievance Form provided by the Human Resources Department for this purpose. This form is attached. The form must contain:",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.3 Formal Grievance",
+      "anchor": "24-3-formal-grievance",
+      "htmlElement": "p",
+      "order": 490
+    }
+  },
+  {
+    "id": "POL-00002-S019",
+    "statement": "Name(s) of grievant;",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.3 Formal Grievance",
+      "anchor": "24-3-formal-grievance",
+      "htmlElement": "li",
+      "order": 492
+    }
+  },
+  {
+    "id": "POL-00002-S020",
+    "statement": "Class Title(s);",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.3 Formal Grievance",
+      "anchor": "24-3-formal-grievance",
+      "htmlElement": "li",
+      "order": 493
+    }
+  },
+  {
+    "id": "POL-00002-S021",
+    "statement": "Department(s);",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.3 Formal Grievance",
+      "anchor": "24-3-formal-grievance",
+      "htmlElement": "li",
+      "order": 494
+    }
+  },
+  {
+    "id": "POL-00002-S022",
+    "statement": "Mailing address(es);",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.3 Formal Grievance",
+      "anchor": "24-3-formal-grievance",
+      "htmlElement": "li",
+      "order": 495
+    }
+  },
+  {
+    "id": "POL-00002-S023",
+    "statement": "A clear statement of the nature of the grievance (citing applicable ordinance, rule or regulation, or contract language);",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.3 Formal Grievance",
+      "anchor": "24-3-formal-grievance",
+      "htmlElement": "li",
+      "order": 496
+    }
+  },
+  {
+    "id": "POL-00002-S024",
+    "statement": "The date upon which the event giving rise to the alleged grievance occurred;",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.3 Formal Grievance",
+      "anchor": "24-3-formal-grievance",
+      "htmlElement": "li",
+      "order": 497
+    }
+  },
+  {
+    "id": "POL-00002-S025",
+    "statement": "The date upon which the informal discussion with the supervisor took place;",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.3 Formal Grievance",
+      "anchor": "24-3-formal-grievance",
+      "htmlElement": "li",
+      "order": 498
+    }
+  },
+  {
+    "id": "POL-00002-S026",
+    "statement": "A proposed solution to the grievance;",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.3 Formal Grievance",
+      "anchor": "24-3-formal-grievance",
+      "htmlElement": "li",
+      "order": 499
+    }
+  },
+  {
+    "id": "POL-00002-S027",
+    "statement": "The date of execution of the grievance form;",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.3 Formal Grievance",
+      "anchor": "24-3-formal-grievance",
+      "htmlElement": "li",
+      "order": 500
+    }
+  },
+  {
+    "id": "POL-00002-S028",
+    "statement": "The signature of the grievant; and",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.3 Formal Grievance",
+      "anchor": "24-3-formal-grievance",
+      "htmlElement": "li",
+      "order": 501
+    }
+  },
+  {
+    "id": "POL-00002-S029",
+    "statement": "The name of the organization, if any, representing the grievant followed by the signature of the organization’s representative.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.3 Formal Grievance",
+      "anchor": "24-3-formal-grievance",
+      "htmlElement": "li",
+      "order": 502
+    }
+  },
+  {
+    "id": "POL-00002-S030",
+    "statement": "B. Resolution Process. After filing the Grievance Form with Human Resources, the process for resolving the grievance is as follows:",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.3 Formal Grievance",
+      "anchor": "24-3-formal-grievance",
+      "htmlElement": "p",
+      "order": 503
+    }
+  },
+  {
+    "id": "POL-00002-S031",
+    "statement": "Step 1:\nWithin three calendar weeks after a formal grievance is filed, the department head will investigate the grievance, confer with the grievant in an attempt to resolve the grievance, and make a decision in writing.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.3 Formal Grievance",
+      "anchor": "24-3-formal-grievance",
+      "htmlElement": "li",
+      "order": 505
+    }
+  },
+  {
+    "id": "POL-00002-S032",
+    "statement": "Step 2: If the grievance is not resolved in Step 1 to the satisfaction of the grievant, he or she may, within not more than five working days from his/her receipt of the department head’s decision, request consideration of the grievance by the County Administrator, by so notifying the Human Resources Department in writing. Within fourteen calendar days after such notification, the County Administrator will begin the process of investigating the grievance, conferring with persons affected and their representatives to the extent he or she deems necessary, and will render a decision in writing within fourteen calendar days of the conclusion of the hearing or findings of fact. If the written decision of the County Administrator resolves the grievance to the satisfaction of the grievant and the County, it will bind the County, subject to ratification by the Board of Supervisors if the decision requires an unbudgeted expenditure. If the written decision of the Administrator is likely to not resolve the grievance to the satisfaction of the grievant, he/she will advise the grievant, in writing, of the decision and the alternatives under Step 3, should the grievant choose to proceed further.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.3 Formal Grievance",
+      "anchor": "24-3-formal-grievance",
+      "htmlElement": "li",
+      "order": 506
+    }
+  },
+  {
+    "id": "POL-00002-S033",
+    "statement": "Step 3:\nA final consideration of the grievance to Step 3 may be filed in writing with the Human Resources Department not more than seven calendar days from receipt of the County Administrator’s decision. The grievant may, to the extent provided below, select either Alternative A or Alternative B as the final appeal step.\nAlternative A. The grievance will be determined by the Personnel Commission. The decision of the Commission will be made in writing within sixty calendar days after the filing of the appeal at Step 3, and will be final and binding on all parties, subject to ratification by the Board of Supervisors if the decision requires an unbudgeted expenditure.\nAlternative B. The grievance will be determined by an arbitrator selected by mutual agreement between the County and the grievant, provided that: The County and the grievant agree on the issues to be arbitrated, or The grievance pertains to the specific terms of an existing collective bargaining agreement.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.3 Formal Grievance",
+      "anchor": "24-3-formal-grievance",
+      "htmlElement": "li",
+      "order": 507
+    }
+  },
+  {
+    "id": "POL-00002-S034",
+    "statement": "The decision will be final and binding on all parties, subject to ratification by the Board of Supervisors, if the decision requires an unbudgeted expenditure.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.3 Formal Grievance",
+      "anchor": "24-3-formal-grievance",
+      "htmlElement": "p",
+      "order": 508
+    }
+  },
+  {
+    "id": "POL-00002-S035",
+    "statement": "Both parties will endeavor to submit the grievance to the arbitrator within 60 calendar days after filing of the appeal to Step 3.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.3 Formal Grievance",
+      "anchor": "24-3-formal-grievance",
+      "htmlElement": "p",
+      "order": 509
+    }
+  },
+  {
+    "id": "POL-00002-S036",
+    "statement": "A. The Hearing Officer(s) will neither add to, detract from, nor modify the language of the collective bargaining agreement or of departmental rules and regulations in considering any issue properly before them.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.4 Limitations in Decision of Personnel Commission or Arbitrator (Hearing Officer(s))",
+      "anchor": "24-4-limitations-in-decision-of-personnel-commission-or-arbitrator-hearing-officer-s",
+      "htmlElement": "p",
+      "order": 510
+    }
+  },
+  {
+    "id": "POL-00002-S037",
+    "statement": "B. The Hearing Officer(s) will expressly confine themselves to the precise issues raised by the grievance and submitted to them, and will have no authority to consider any other issue not so submitted.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.4 Limitations in Decision of Personnel Commission or Arbitrator (Hearing Officer(s))",
+      "anchor": "24-4-limitations-in-decision-of-personnel-commission-or-arbitrator-hearing-officer-s",
+      "htmlElement": "p",
+      "order": 511
+    }
+  },
+  {
+    "id": "POL-00002-S038",
+    "statement": "C. Any monetary award in favor of the grievant is limited to lost wages suffered measured from the date of the grievance forward. In no event will the Hearing Officer(s) award any other type of monetary award, including, but not limited to attorneys’ fees.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.4 Limitations in Decision of Personnel Commission or Arbitrator (Hearing Officer(s))",
+      "anchor": "24-4-limitations-in-decision-of-personnel-commission-or-arbitrator-hearing-officer-s",
+      "htmlElement": "p",
+      "order": 512
+    }
+  },
+  {
+    "id": "POL-00002-S039",
+    "statement": "A. The Human Resources Department will act as a central repository for all grievance records.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.5 General Conditions",
+      "anchor": "24-5-general-conditions",
+      "htmlElement": "p",
+      "order": 513
+    }
+  },
+  {
+    "id": "POL-00002-S040",
+    "statement": "B. Any time limit may be extended only by mutual agreement in writing.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.5 General Conditions",
+      "anchor": "24-5-general-conditions",
+      "htmlElement": "p",
+      "order": 514
+    }
+  },
+  {
+    "id": "POL-00002-S041",
+    "statement": "C. An aggrieved employee may be represented by any person or organization certified to represent a majority of employees in a representation unit in which an aggrieved employee is included and is entitled to be present at all formal meetings, conferences, and hearings pertaining to the grievance.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.5 General Conditions",
+      "anchor": "24-5-general-conditions",
+      "htmlElement": "p",
+      "order": 515
+    }
+  },
+  {
+    "id": "POL-00002-S042",
+    "statement": "D. All expenses of arbitration will be shared equally by the County and the grievant.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.5 General Conditions",
+      "anchor": "24-5-general-conditions",
+      "htmlElement": "p",
+      "order": 516
+    }
+  },
+  {
+    "id": "POL-00002-S043",
+    "statement": "E. Failure on the part of the County or the grievant to appear in any case before the Personnel Commission, or an arbitrator, without good cause, will result in forfeiture of the case and responsibility for payment of all costs of arbitration or the Personnel Commission.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.5 General Conditions",
+      "anchor": "24-5-general-conditions",
+      "htmlElement": "p",
+      "order": 517
+    }
+  },
+  {
+    "id": "POL-00002-S044",
+    "statement": "F. The grievant’s signature is required at each step of the grievance procedure.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.5 General Conditions",
+      "anchor": "24-5-general-conditions",
+      "htmlElement": "p",
+      "order": 518
+    }
+  },
+  {
+    "id": "POL-00002-S045",
+    "statement": "G. A copy of the grievance will be provided to the department head at each step of the grievance procedure.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.5 General Conditions",
+      "anchor": "24-5-general-conditions",
+      "htmlElement": "p",
+      "order": 519
+    }
+  },
+  {
+    "id": "POL-00002-S046",
+    "statement": "H. There will be no amendments of a grievance without the approval of both parties in writing.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.5 General Conditions",
+      "anchor": "24-5-general-conditions",
+      "htmlElement": "p",
+      "order": 520
+    }
+  },
+  {
+    "id": "POL-00002-S047",
+    "statement": "I. Mediation may be used by both parties to assist them in resolving grievances. The decision to utilize mediation will be voluntary. Mediation may be held at any time prior to submission of the final appeal under Step 3 of the grievance procedure. If mediation is used, it will be voluntary only.",
+    "source": {
+      "document": "PMR 24",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "24.5 General Conditions",
+      "anchor": "24-5-general-conditions",
+      "htmlElement": "p",
+      "order": 521
+    }
+  }
+]

@@ -103,6 +103,83 @@
   color: var(--app-success);
 }
 
+/* Generic tab-toggle chrome, ported as-is from sop/styles.css's
+   .view-toggle (its BPMN-specific rules, e.g. .docs-layout--wide, are not
+   included - this guide's two views are the same width). */
+.view-toggle {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border: 1px solid var(--app-border);
+  border-radius: 999px;
+  background: var(--app-surface);
+}
+
+.view-toggle button {
+  padding: 0.35rem 0.9rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--app-muted);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.view-toggle button:hover {
+  color: var(--app-text);
+}
+
+.view-toggle button[aria-selected="true"] {
+  background: var(--app-accent);
+  color: var(--app-bg);
+}
+
+.original-subsection {
+  margin: 1.75rem 0;
+}
+
+.original-subsection h2 {
+  font-size: 1.05rem;
+}
+
+.rules-permitted {
+  margin: 1.5rem 0;
+}
+
+.rules-filter-toolbar {
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.rules-filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.rules-filter {
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--app-border);
+  border-radius: var(--pico-border-radius);
+  background: none;
+  color: var(--app-text);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.rules-filter:hover {
+  border-color: var(--app-accent);
+}
+
+.rules-filter[aria-pressed="true"] {
+  border-color: var(--app-accent);
+  background: color-mix(in srgb, var(--app-accent) 14%, transparent);
+  color: var(--app-accent);
+}
+
 .guide-example {
   margin: 1.5rem 0;
   padding: 1rem;
