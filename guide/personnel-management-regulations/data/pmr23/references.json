@@ -1,0 +1,17 @@
+[
+  {
+    "@type": "Legislation",
+    "id": "POL-00001-X001",
+    "title": "California Public Records Act",
+    "citation": "California Public Records Act",
+    "url": "",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "p",
+      "order": 429
+    }
+  }
+]

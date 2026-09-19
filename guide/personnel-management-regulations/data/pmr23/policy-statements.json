@@ -1,0 +1,602 @@
+[
+  {
+    "id": "POL-00001-S001",
+    "statement": "This Personnel Management Regulation (PMR) presents policy and procedure for the use of electronic media by County employees.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "Applicability & Purpose",
+      "anchor": "applicability-purpose",
+      "htmlElement": "p",
+      "order": 417
+    }
+  },
+  {
+    "id": "POL-00001-S002",
+    "statement": "This Personnel Management Regulation applies to all Marin County employees who use any electronic media provided by the County. Electronic media is defined as computers, computer peripherals, electronic connections, computer software, laptops, voice mail, electronic mail (e-mail), Internet access, World Wide Web access, Intranet (MINE) access, on-line information services, electronic facsimile (fax) files, instant messaging, and any other electronic type of equipment that the County deems as electronic media.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.1 Scope",
+      "anchor": "23-1-scope",
+      "htmlElement": "p",
+      "order": 418
+    }
+  },
+  {
+    "id": "POL-00001-S003",
+    "statement": "A. General. This section defines general policy on the use of electronic media. Please also refer to 23.3 and 23.4, for additional requirements associated with e-mail/voice mail and World Wide Web usage, respectively. County sworn peace officers using electronic media for criminal investigations are excepted from this policy when compliance would interfere with the effectiveness of the investigation.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "p",
+      "order": 419
+    }
+  },
+  {
+    "id": "POL-00001-S004",
+    "statement": "B. Business Purposes. Electronic media, as outlined in the scope above, are provided for the use of Marin County employees for business-related purposes and as such do not offer privacy protections that one might expect from a personal system.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "p",
+      "order": 420
+    }
+  },
+  {
+    "id": "POL-00001-S005",
+    "statement": "C. Limited Personal Use, as Authorized. Reasonable and limited personal use is allowed at the sole discretion of the County, normally by the department head. Use of electronic media for personal reasons will be kept to a minimum. Such use will be brief, to the point, and conducted during breaks or lunch, or as otherwise specifically authorized by the department head.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "p",
+      "order": 421
+    }
+  },
+  {
+    "id": "POL-00001-S006",
+    "statement": "D. Right to Search and Monitor. Supervisors, managers, department heads, as well as computer support personnel, as authorized by the department head, reserve the right to enter, search and monitor the computer files, voice mail, e-mail, encrypted files, or any type of electronic file of any employee without advance notice. Justification for such actions may include monitoring work flow or productivity, and investigating theft, disclosure of confidential business or proprietary information, or personal abuse of the system.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "p",
+      "order": 422
+    }
+  },
+  {
+    "id": "POL-00001-S007",
+    "statement": "E. Facsimiles. Electronic files of facsimiles (fax’s) sent, received, and/or stored using County equipment should be considered County property and may be subject to search for such reasons as stated above.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "p",
+      "order": 423
+    }
+  },
+  {
+    "id": "POL-00001-S008",
+    "statement": "F. Computers, Computer Software, Laptops and Computer Files. The County’s computers, software and files stored on the computer or network will be considered as County property. Therefore, these devices may be subject to search for reasons stated above. In addition, all software that resides on any of the County’s computers will be licensed and may be considered the property of Marin County.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "p",
+      "order": 424
+    }
+  },
+  {
+    "id": "POL-00001-S009",
+    "statement": "G. Software Installations. No employee will install software on any County computer without first receiving permission from the Information Services and Technology Department or authorized department technical staff.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "p",
+      "order": 425
+    }
+  },
+  {
+    "id": "POL-00001-S010",
+    "statement": "H. No Hardware Tampering. No employee will alter or tamper with any County computer or interfere with its operation. All hardware failures will be immediately reported to the departmental computer specialist or Information Services and Technology (IST). Personnel will not attempt hardware repair unless directed so by the departmental technical staff or IST.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "p",
+      "order": 426
+    }
+  },
+  {
+    "id": "POL-00001-S011",
+    "statement": "I. Deleted Data. It should be noted that even though an employee may have deleted information or files from any of the electronic media, it does not mean that it is permanently deleted from the system.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "p",
+      "order": 427
+    }
+  },
+  {
+    "id": "POL-00001-S012",
+    "statement": "J. Records Retention Policy. Electronic media which are considered “County records” will be subject to the County’s record’s retention policies, including the same legal retention periods as paper documents. For the purposes of this PMR, “County records” include: 1) permanent electronic computer files, and 2) telecommunications (e.g., e-mail, instant messaging, and voice mail) which have been downloaded/converted into permanent electronic files, or have been printed to hard copies and stored as permanent files for the purposes of records retention. Thus, e-mail and voice mail which have not been converted to “County records” will be considered transitory communication, and treated similar to unrecorded phone calls, since they are not permanent records.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "p",
+      "order": 428
+    }
+  },
+  {
+    "id": "POL-00001-S013",
+    "statement": "K. Public Records Act. Under the California Public Records Act, any electronic media message (e.g., e-mail or voice mail) or permanent computer file which has been generated on the County of Marin equipment and system may constitute a “public record”, and may be provided to the public through the California Public Records Act, or may be otherwise discoverable. Thus, employees must always assume that e-mail, instant messaging, voice mail, and permanent computer files are subject to disclosure unless a specific legal basis for non-disclosure exists.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "p",
+      "order": 429
+    }
+  },
+  {
+    "id": "POL-00001-S014",
+    "statement": "L. General Allowable Uses of Electronic Media. Allowable uses of electronic media for Marin County business purposes include the following (also see 23.3 and 23.4, below, for additional allowable uses):",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "p",
+      "order": 430
+    }
+  },
+  {
+    "id": "POL-00001-S015",
+    "statement": "To facilitate performance of job functions.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "li",
+      "order": 432
+    }
+  },
+  {
+    "id": "POL-00001-S016",
+    "statement": "To facilitate communication of information within the County.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "li",
+      "order": 433
+    }
+  },
+  {
+    "id": "POL-00001-S017",
+    "statement": "To coordinate meeting of individuals, locations and resources of Marin County.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "li",
+      "order": 434
+    }
+  },
+  {
+    "id": "POL-00001-S018",
+    "statement": "To communicate with outside organizations as required in order to perform an employee’s job function.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "li",
+      "order": 435
+    }
+  },
+  {
+    "id": "POL-00001-S019",
+    "statement": "M. General Prohibited Uses of Electronic Media. Prohibited uses of electronic media include, but are not limited to the following (also see 23.3 and 23.4, below, for additional prohibited uses):",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "p",
+      "order": 436
+    }
+  },
+  {
+    "id": "POL-00001-S020",
+    "statement": "Illegal or impermissible activities as defined as a violation of County policies, regulations, and state and/or federal law.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "li",
+      "order": 438
+    }
+  },
+  {
+    "id": "POL-00001-S021",
+    "statement": "Committing fraud or stealing data, or equipment.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "li",
+      "order": 439
+    }
+  },
+  {
+    "id": "POL-00001-S022",
+    "statement": "Using the network for an illegal activity, including violation of copyright, license agreements and other contracts, e.g. downloading music.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "li",
+      "order": 440
+    }
+  },
+  {
+    "id": "POL-00001-S023",
+    "statement": "Anything that may be construed as harassment or disparagement of others based on race, national origin, sex, sexual orientation, age, disability, religious or political beliefs, or any other protected status pursuant to PMR 21 will not be tolerated. These include, but are not limited to, slurs, obscene messages, materials and pictures.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "li",
+      "order": 441
+    }
+  },
+  {
+    "id": "POL-00001-S024",
+    "statement": "Threatening messages.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "li",
+      "order": 442
+    }
+  },
+  {
+    "id": "POL-00001-S025",
+    "statement": "Political endorsements.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "li",
+      "order": 443
+    }
+  },
+  {
+    "id": "POL-00001-S026",
+    "statement": "Commercial activities including areas of financial gain.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "li",
+      "order": 444
+    }
+  },
+  {
+    "id": "POL-00001-S027",
+    "statement": "Intentionally disrupting network traffic or crashing the network and connected systems (for example: sabotage, intentionally introducing a computer virus).",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "li",
+      "order": 445
+    }
+  },
+  {
+    "id": "POL-00001-S028",
+    "statement": "Unauthorized access to others’ files with no substantial business purpose, or vandalizing the data of another user.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "li",
+      "order": 446
+    }
+  },
+  {
+    "id": "POL-00001-S029",
+    "statement": "N. Network Security and Integrity. County employees must also abide by policies and procedures established by Information Services and Technology (IST) for the purposes of maintaining security and integrity of the County’s network system and supporting infrastructure.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "p",
+      "order": 447
+    }
+  },
+  {
+    "id": "POL-00001-S030",
+    "statement": "O. Violation of Policy. Violation of this policy will be reviewed on a case-by-case basis and may result in disciplinary action, up to and including discharge.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.2 General Policy and the Use of Electronic Media",
+      "anchor": "23-2-general-policy-and-the-use-of-electronic-media",
+      "htmlElement": "p",
+      "order": 448
+    }
+  },
+  {
+    "id": "POL-00001-S031",
+    "statement": "A. Right to Review and Monitor. The County reserves the right to access all voice mail, instant messaging, and e-mail left on or transmitted via the County’s communication systems. Since e-mail, instant messaging, and voice mail messages are County property and intended for County business, County employees will have no right or expectation of privacy in any e-mail or voice mail message in the County’s communication systems. Supervisors and managers will have the right to review any e-mail, instant message, or voice mail messages of any employee supervised by them at any time and for any reason. If the messages to be reviewed are no longer available within the department, the messages may be searched for in other department systems with the approval of the head of that department. The Information Services and Technology Department (IST) monitors the use of the County’s e-mail, instant messages, and voice mail systems and may report to departments any suspected misuses of e-mail or voice mail.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.3 E-mail, Instant Messaging and Voice Mail",
+      "anchor": "23-3-e-mail-instant-messaging-and-voice-mail",
+      "htmlElement": "p",
+      "order": 449
+    }
+  },
+  {
+    "id": "POL-00001-S032",
+    "statement": "B. Purpose of E-mail, Instant Messaging, and Voice Mail. The purpose of e-mail, instant messaging, and voice mail is to provide a work related communication channel between individuals and groups, and to promote effective and efficient use of time and resources in order to carry out the business of the County. Employees are expected to utilize the County’s communications systems with the same degree of respect, professionalism, and courtesy as is expected of personal face-to-face interactions. As with the telephone, personal e-mail, instant messaging, and voice mail should be: a) confined to those absolutely necessary; b) kept to a minimum; c) brief and to the point; d) to the extent practical, performed on breaks or lunch time, rather than on County work time.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.3 E-mail, Instant Messaging and Voice Mail",
+      "anchor": "23-3-e-mail-instant-messaging-and-voice-mail",
+      "htmlElement": "p",
+      "order": 450
+    }
+  },
+  {
+    "id": "POL-00001-S033",
+    "statement": "C. Mailing Lists. Administration of the County e-mail and instant messaging systems is a distributed function with each department responsible for the creation and maintenance of its user community and mailing lists appropriate to that department. The Countywide-All Employees mailing list is the consolidation of all departmental All Employees mailing lists. Use of this mailing list is prohibited without the prior approval of the County Administrator or his or her designee.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.3 E-mail, Instant Messaging and Voice Mail",
+      "anchor": "23-3-e-mail-instant-messaging-and-voice-mail",
+      "htmlElement": "p",
+      "order": 451
+    }
+  },
+  {
+    "id": "POL-00001-S034",
+    "statement": "D. Uses of E-mail, Instant Messaging, and Voice Mail. Listed below are examples of appropriate and inappropriate e-mail, and where applicable, instant messaging and voice mail use.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.3 E-mail, Instant Messaging and Voice Mail",
+      "anchor": "23-3-e-mail-instant-messaging-and-voice-mail",
+      "htmlElement": "p",
+      "order": 452
+    }
+  },
+  {
+    "id": "POL-00001-S035",
+    "statement": "Examples of Appropriate Use: Providing or requesting information regarding County business (e.g., meeting notification, budget issues, etc. Transmitting a document or file (vs. printing and mailing the document). General announcements within the scope of the sender’s job responsibilities (e.g., employee benefits information sent by the Employee Benefits Supervisor). Informational announcements that need to be communicated to County employees (e.g., parking lot repair schedule). Union business that meets the criteria and standards for Union business as outlined in the applicable collective bargaining agreement and PMR No. 4, Employee Relations Resolution.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.3 E-mail, Instant Messaging and Voice Mail",
+      "anchor": "23-3-e-mail-instant-messaging-and-voice-mail",
+      "htmlElement": "li",
+      "order": 454
+    }
+  },
+  {
+    "id": "POL-00001-S036",
+    "statement": "Examples of Inappropriate Use: Illegal or impermissible activities as defined as a violation of County policy, state, and/or federal law. Anything that may be construed as harassment or disparagement of others based on race, national origin, sex, sexual orientation, age, disability or religious or political beliefs, or any other protected status pursuant to PMR 21 will not be tolerated. These include, but are not limited to, slurs, obscene messages, materials, and pictures, or religious materials. Anything that may be construed as disruptive, threatening, offensive to others or harmful to morale. Copyright infringement. Items of political nature or having to do with political activities. Unauthorized distribution of personnel or medical information. Use of E-mail when signed documents are required (Note: Use of E-mail to distribute documents for signature is acceptable). Purposely creating any message that purports to be from another person without their permission. Unauthorized use of County mailing lists. Unauthorized access to others’ files with no substantial business purpose, or vandalizing the data of another user. Personal messages such as chain letters, broadly distributed e-mails regarding personal matters or interests. Forging electronic mail messages.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.3 E-mail, Instant Messaging and Voice Mail",
+      "anchor": "23-3-e-mail-instant-messaging-and-voice-mail",
+      "htmlElement": "li",
+      "order": 455
+    }
+  },
+  {
+    "id": "POL-00001-S037",
+    "statement": "Clarification. If an employee is unsure of what constitutes authorized County business purposes in his or her department, he or she should ask the supervisor, manager, or department head.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.3 E-mail, Instant Messaging and Voice Mail",
+      "anchor": "23-3-e-mail-instant-messaging-and-voice-mail",
+      "htmlElement": "li",
+      "order": 456
+    }
+  },
+  {
+    "id": "POL-00001-S038",
+    "statement": "Violations. Violations will be investigated and may result in disciplinary action up to and including dismissal from County employment.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.3 E-mail, Instant Messaging and Voice Mail",
+      "anchor": "23-3-e-mail-instant-messaging-and-voice-mail",
+      "htmlElement": "li",
+      "order": 457
+    }
+  },
+  {
+    "id": "POL-00001-S039",
+    "statement": "A. General Usage. The purpose of County Internet services is to distribute information to public constituencies or to conduct research for County job related activities. Use of Internet services is restricted to approved plans/services provided by the Information Services and Technology Department. Access time to Internet services should be kept to a reasonable amount of time. The standard for a reasonable amount of time will be established at the discretion of the department head.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.4 Internet",
+      "anchor": "23-4-internet",
+      "htmlElement": "p",
+      "order": 458
+    }
+  },
+  {
+    "id": "POL-00001-S040",
+    "statement": "Personal use of the Internet must be authorized by the department head. The duration of reasonable personal use will be established at the discretion of the department head and will only be conducted during breaks or lunch or as otherwise specifically authorized by the department head.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.4 Internet",
+      "anchor": "23-4-internet",
+      "htmlElement": "p",
+      "order": 459
+    }
+  },
+  {
+    "id": "POL-00001-S041",
+    "statement": "B. Right to Review, Monitor, Report, and Restrict Internet Use. Since Internet access and use are intended for County business, County employees will have no right or expectation of privacy in any Internet activity using County equipment or networks. Supervisors and managers will have the right to review any Internet activity of any employee supervised by them at any time and for any reason. If the activity to be reviewed goes beyond the department, other department systems and records may be searched with the approval of the head of that department. The County may monitor and report on Internet use by County employees. Managers may restrict Internet use by anyone supervised by them at any time and for any reason. The County may restrict access to Internet sites whose content appears to have no purpose related to the business of the County.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.4 Internet",
+      "anchor": "23-4-internet",
+      "htmlElement": "p",
+      "order": 460
+    }
+  },
+  {
+    "id": "POL-00001-S042",
+    "statement": "C. Uses of the Internet. Except as otherwise noted herein, all Internet activities should be directly related to Marin County business. Use of the Internet should be handled as judiciously as the publication of County documents or the purchase of reference documents. Listed below are examples of appropriate and inappropriate Internet use.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.4 Internet",
+      "anchor": "23-4-internet",
+      "htmlElement": "p",
+      "order": 461
+    }
+  },
+  {
+    "id": "POL-00001-S043",
+    "statement": "Examples of Appropriate Use: Obtaining information regarding County business, i.e., policy, legislation, public meetings, technical research, etc. Transmitting or receiving a file or document (in conjunction with e-mail). Providing information regarding County business to the public, i.e., meeting agendas, key points of contact, forms, etc. Delivery of County services, such as tax payments, facility reservations, health education and disaster coordination.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.4 Internet",
+      "anchor": "23-4-internet",
+      "htmlElement": "li",
+      "order": 463
+    }
+  },
+  {
+    "id": "POL-00001-S044",
+    "statement": "Examples of Inappropriate Use: File downloads not connected with County business. Generating, sending, requesting, receiving or archiving material in any form, i.e., text, graphics, etc. which contain offensive language or is harassing in nature. Activities resulting in personal gain, i.e., items for sale or purchase, or other personal business. Illegal activities. Copyright infringement. Transmitting any County sensitive information over the Internet by other than secured transmission. Creating acts of fraud, waste or abuse through Internet activities. Intentionally disrupting network traffic or crashing the network and connected systems (for example: sabotage, intentionally introducing a computer virus). Other acts of misconduct such as willful misconduct, discrimination, sexual harassment and misuse of position. Multiple Internet sessions, unless needed for official County business. Use of continuous services such as PointCast, live audio, live radio, and live video feeds unless needed for official County business.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.4 Internet",
+      "anchor": "23-4-internet",
+      "htmlElement": "li",
+      "order": 464
+    }
+  },
+  {
+    "id": "POL-00001-S045",
+    "statement": "Clarification. If an employee is unsure of what constitutes authorized County business purposes in his or her department, he or she should ask the supervisor, manager, or department head.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.4 Internet",
+      "anchor": "23-4-internet",
+      "htmlElement": "li",
+      "order": 465
+    }
+  },
+  {
+    "id": "POL-00001-S046",
+    "statement": "County Department Use and Responsibilities. It is each department’s responsibility to insure appropriate use of Internet resources within its department, which is consistent with this PMR.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.4 Internet",
+      "anchor": "23-4-internet",
+      "htmlElement": "li",
+      "order": 466
+    }
+  },
+  {
+    "id": "POL-00001-S047",
+    "statement": "Alignment with County/Department Mission and Goals. Department information published on the County of Marin World Wide Web (WWW) server and links on System pages to other Web sites should be in alignment with the mission and goals of the County as well as the individual department. Any department specific information to be published on the County WWW must be approved by the department head or their designee prior to uploading to the Internet server. In addition, all department WWW pages should adhere to general County design guidelines in order for the County presence on the WWW to have the same look and feel. It will be the responsibility of each department to periodically review their respective web pages and provide timely updates.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.4 Internet",
+      "anchor": "23-4-internet",
+      "htmlElement": "li",
+      "order": 467
+    }
+  },
+  {
+    "id": "POL-00001-S048",
+    "statement": "Violations. Violations will be investigated and may result in disciplinary action up to and including dismissal from County employment.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.4 Internet",
+      "anchor": "23-4-internet",
+      "htmlElement": "li",
+      "order": 468
+    }
+  },
+  {
+    "id": "POL-00001-S049",
+    "statement": "A. Purpose. New employees who will be assigned electronic media will be required to complete the “Electronic Media Agreement and Application Form” (Attachment 1) which serves two purposes: (1) it documents each employee’s written consent to abide by rules set forth in this Electronic Media PMR; and (2) provides the necessary information for IST, or the department’s authorized technical staff, to set up a login account, an e-mail account, Internet access, and the appropriate County network access for the new employee.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.5 Electronic Media Procedure for New Employees",
+      "anchor": "23-5-electronic-media-procedure-for-new-employees",
+      "htmlElement": "p",
+      "order": 469
+    }
+  },
+  {
+    "id": "POL-00001-S050",
+    "statement": "B. Procedure. Department supervisors or managers will provide a copy of this Electronic Media PMR and the Electronic Media Agreement and Application Form to new employees on, and possibly before, their first day of employment. The completed and signed form will be promptly provided to IST Customer Services, or the department’s authorized technical staff. IST, or authorized technical staff, will use the information provided to set up the employee’s login account, e-mail account, Internet access, and County network access. Upon completion of this step, the IST representative, or other authorized technical staff, will sign and date the form and forward it to the Human Resources Department, where the original form will be placed in the employee’s official personnel file.",
+    "source": {
+      "document": "PMR 23",
+      "section": "Section 2: Personnel Conduct and Standards of Employment",
+      "heading": "23.5 Electronic Media Procedure for New Employees",
+      "anchor": "23-5-electronic-media-procedure-for-new-employees",
+      "htmlElement": "p",
+      "order": 470
+    }
+  }
+]

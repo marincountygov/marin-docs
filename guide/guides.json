@@ -5,7 +5,7 @@
       "@type": "ItemList",
       "@id": "https://data.marincounty.gov/guide/",
       "name": "Guides",
-      "numberOfItems": 1,
+      "numberOfItems": 2,
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -13,6 +13,14 @@
           "item": {
             "@id": "https://data.marincounty.gov/guide/public-engagement-plan",
             "name": "Public Engagement Plan"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@id": "https://data.marincounty.gov/guide/personnel-management-regulations",
+            "name": "Personnel Management Regulations"
           }
         }
       ]
