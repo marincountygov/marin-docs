@@ -51,6 +51,10 @@ node scripts/stamp-updated-dates.js
 
 A dirty file gets stamped with today's date; a clean file gets its actual last-commit date. There is no CI gate enforcing this (the stamp is written before the commit that fixes it exists, so a `--check` step in CI reliably fails against the just-created commit) — run the script yourself before committing instead.
 
+## Security
+
+MarinDocs follows the [MarinOS security standard](https://github.com/marincountygov/marin-digital-standards/blob/main/security/standard.md). See [`SECURITY.md`](SECURITY.md) to report an issue, or the app's own `#security` section for a plain-language summary.
+
 ## Run locally
 
 Open `index.html` directly or serve this folder with any static web server. Document headings receive hover/focus anchor links, and the current section is highlighted in the “On this page” navigation as the reader scrolls.
