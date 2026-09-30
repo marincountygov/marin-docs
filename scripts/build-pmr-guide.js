@@ -4,8 +4,7 @@
 // edit itself. That data is a copy of policy-knowledge-model's generated
 // (not hand-authored) PMR 23/24 output; re-copy it from that sibling
 // repo's examples/ after re-running its extractor, then re-run this
-// script. Matches this repo's no-build-step, run-on-demand pattern (see
-// scripts/build-brand-center.js).
+// script. Matches this repo's no-build-step, run-on-demand pattern.
 //
 //   node scripts/build-pmr-guide.js
 //
