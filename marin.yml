@@ -1,7 +1,7 @@
 schema: 1
 
 project:
-  name: MarinDocs
+  name: Marin Docs
   repo: marin-docs
   type: docs
   owner: County of Marin

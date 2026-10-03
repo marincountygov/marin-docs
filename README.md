@@ -1,6 +1,6 @@
-# MarinDocs
+# Marin Docs
 
-MarinDocs is the County of Marin documentation hub. It uses the MarinOS Docs shell from `marin-ui` and currently contains two collections: standard operating procedures and Guides.
+Marin Docs is the County of Marin documentation hub. It uses the MarinOS Docs shell from `marin-ui` and currently contains two collections: standard operating procedures and Guides.
 
 ## Structure
 
@@ -44,7 +44,7 @@ A dirty file gets stamped with today's date; a clean file gets its actual last-c
 
 ## Security
 
-MarinDocs follows the [MarinOS security standard](https://github.com/marincountygov/marin-digital-standards/blob/main/security/standard.md). See [`SECURITY.md`](SECURITY.md) to report an issue, or the app's own `#security` section for a plain-language summary.
+Marin Docs follows the [MarinOS security standard](https://github.com/marincountygov/marin-digital-standards/blob/main/security/standard.md). See [`SECURITY.md`](SECURITY.md) to report an issue, or the app's own `#security` section for a plain-language summary.
 
 ## Run locally
 
