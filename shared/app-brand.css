@@ -26,7 +26,10 @@
   --marin-red: #b45340;
 
   --app-bg: #ffffff;
-  --app-bg-soft: #f6f7f8;
+  /* Nearly white on purpose: the accent blue on the old #f6f7f8 was 4.30:1
+     (links directly on the page background, outside a card). #fdfdfe keeps
+     accent links at 4.54:1; cards stay distinct through their border. */
+  --app-bg-soft: #fdfdfe;
   --app-surface: #ffffff;
   --app-text: #1f1f1f;
   --app-muted: #4b5563;
@@ -42,6 +45,13 @@
   --app-warning: var(--marin-gold);
   --app-danger: var(--marin-red);
   --app-success: #4f5f2f;
+
+  /* Accent-colored TEXT on an accent-tinted background (a current nav link,
+     a hovered menu item, a pressed filter). Raw --app-accent on its own 14%
+     tint is only ~3.6-3.8:1 in light mode, short of AA's 4.5:1, so light mode
+     darkens it (~6.2-6.6:1 on that tint). Dark mode's accent is already a
+     light blue that clears AA on its tint (~7.3:1), so it reverts below. */
+  --app-accent-on-tint: color-mix(in srgb, var(--marin-blue) 70%, black);
 
   /* Accessibility score bands (Lighthouse's own 90 / 50 cutoffs). Each clears
      4.5:1 as text and 3:1 as a graphic on --app-surface (#fff): good 5.08,
@@ -131,6 +141,7 @@
     --app-success: #b8d18b;
     --app-danger: #ffb4a8;
     --app-danger-text: #ffb4a8;
+    --app-accent-on-tint: var(--app-accent);
     /* On --app-surface (#1d252e): good 8.44, needs-improvement 8.78, poor 6.78. */
     --app-score-good: #5cd68a;
     --app-score-needs-improvement: #ffb454;
@@ -436,7 +447,7 @@ input[type="radio"] {
 .menu-panel button:hover,
 .menu-panel button:focus-visible {
   background: color-mix(in srgb, var(--app-accent) 14%, transparent);
-  color: var(--app-accent);
+  color: var(--app-accent-on-tint);
 }
 
 .app-header {
@@ -581,7 +592,7 @@ a.app-title-row {
 .app-nav a[aria-current="page"],
 .app-nav a:hover {
   background: color-mix(in srgb, var(--app-accent) 14%, transparent);
-  color: var(--app-accent);
+  color: var(--app-accent-on-tint);
 }
 
 .app-main {
@@ -968,7 +979,7 @@ th[aria-sort="descending"] .sort-button::after {
 
 #updates .copy-button:hover {
   border-color: var(--app-accent);
-  color: var(--app-accent);
+  color: var(--app-accent-on-tint);
   background: color-mix(in srgb, var(--app-accent) 8%, var(--app-surface));
 }
 
@@ -1359,7 +1370,7 @@ th[aria-sort="descending"] .sort-button::after {
 .topic-filters a[aria-current="page"] {
   border-color: var(--app-accent);
   background: color-mix(in srgb, var(--app-accent) 14%, var(--app-surface));
-  color: var(--app-accent);
+  color: var(--app-accent-on-tint);
   font-weight: 700;
 }
 
