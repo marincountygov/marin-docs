@@ -1,5 +1,4 @@
-@import url("../vendor/pico.min.css");
-@import url("../shared/app-brand.css");
+@import url("../vendor/marinos/marinos.css");
 
 .card p {
   color: var(--app-muted);

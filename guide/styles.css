@@ -1,5 +1,4 @@
-@import url("../vendor/pico.min.css");
-@import url("../shared/app-brand.css");
+@import url("../vendor/marinos/marinos.css");
 
 /* Widen the whole docs-shell (header, page, footer) on guide pages only —
    this stylesheet is never loaded by sop/ or brand/ pages, so this can't leak

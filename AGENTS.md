@@ -2,7 +2,7 @@
 
 ## Architecture
 
-This is a static, zero-build MarinOS docs-shell application. It uses the shared `marin-ui` brand bundle (vendored via `marin-ui/scripts/sync-consumer.sh`, version recorded in `BRAND_VERSION`) and follows `marin-digital-standards`. See `marin.yml` for this project's owner, status, and platform versions.
+This is a static, zero-build MarinOS docs-shell application. It uses the MarinOS App Shell (installed with `marin-app-shell/scripts/install.sh`, version recorded in `platform.shell` in `marin.yml`) and follows `marin-digital-standards`. See `marin.yml` for this project's owner, status, and platform versions.
 
 ## Before making changes
 
