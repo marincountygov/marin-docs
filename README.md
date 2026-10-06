@@ -8,7 +8,7 @@ Marin Docs is the County of Marin documentation hub. It uses the MarinOS Docs sh
 - `sop/`: SOP collection, HTML documents, JSON-LD, and source files
 - `guide/`: longer, multi-section reference documents — see "Guides" below
 - `search/`: search tools collection (software catalog, etc.)
-- `shared/`, `vendor/`, and `BRAND_VERSION`: vendored MarinOS brand bundle
+- `vendor/`: the installed MarinOS App Shell (`vendor/marinos/`) and its fonts and icons
 - root-level document stubs: compatibility redirects for URLs that existed before the SOP collection moved
 - root-level `sops.json` and `source-documents/`: compatibility copies retained for existing consumers
 
@@ -30,7 +30,7 @@ The Brand Center (County of Marin logo, color, and typography reference, extensi
 
 ## Brand bundle
 
-The installed bundle version is recorded in `BRAND_VERSION`. Update the files from the matching `marin-ui` release together; do not update individual shared files independently.
+The installed App Shell version is recorded in `marin.yml` (`platform.shell`). Update it with the App Shell installer from `marin-app-shell`, not by editing files in `vendor/` by hand.
 
 ## Keeping the "Updated" date accurate
 

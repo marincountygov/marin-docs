@@ -73,7 +73,7 @@ const pmr24 = loadPmr("pmr24");
 const FAVICON =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='10' fill='%23000'/%3E%3Cg fill='none' stroke='%23e5b53b' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='9' y='9' width='12' height='12' rx='2'/%3E%3Crect x='27' y='9' width='12' height='12' rx='2'/%3E%3Crect x='9' y='27' width='12' height='12' rx='2'/%3E%3Crect x='27' y='27' width='12' height='12' rx='2'/%3E%3C/g%3E%3C/svg%3E";
 
-const BANNER = `<div class="marinos-banner"><div class="marinos-banner__inner"><div class="menu marinos-menu"><button type="button" class="menu-toggle marinos-menu__toggle" aria-expanded="false" aria-controls="marinos-menu-panel"><span class="marinos-banner__icon" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="7" y="7" width="13" height="13" rx="2"/><rect x="28" y="7" width="13" height="13" rx="2"/><rect x="7" y="28" width="13" height="13" rx="2"/><rect x="28" y="28" width="13" height="13" rx="2"/></svg></span>MarinOS<sup>ALPHA</sup><svg class="menu-toggle__caret" aria-hidden="true" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4"/></svg></button><div id="marinos-menu-panel" class="menu-panel marinos-menu__panel" hidden><a href="https://marincountygov.github.io/marin-magic/"><span class="marinos-menu__icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="m24 5 2.8 9.2L36 17l-9.2 2.8L24 29l-2.8-9.2L12 17l9.2-2.8zM37 28l1.6 5.4L44 35l-5.4 1.6L37 42l-1.6-5.4L30 35l5.4-1.6zM11 28l1.2 3.8L16 33l-3.8 1.2L11 38l-1.2-3.8L6 33l3.8-1.2z"/></svg></span>MarinMagic</a><a href="https://marincountygov.github.io/marin-decision-maker/"><span class="marinos-menu__icon" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="11" cy="12" r="4"/><circle cx="37" cy="12" r="4"/><circle cx="24" cy="37" r="4"/><path d="M15 12h18M35 16 26 33M13 16l9 17"/></svg></span>Marin Decision Maker</a><a href="https://marincountygov.github.io/marin-docs/"><span class="marinos-menu__icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M13 6h17l8 8v28H13z"/><path d="M30 6v9h8M19 24h13M19 31h13"/></svg></span>Marin Docs</a><a class="marinos-menu__all" href="https://marincountygov.github.io/marin-os/">Browse all in MarinOS</a></div></div></div></div>`;
+const BANNER = `<marin-os-banner></marin-os-banner>`;
 
 const DOC_ICON = `<svg viewBox="0 0 48 48"><path d="M24 12c-4-2-10-3-15-2v24c5-1 11 0 15 2 4-2 10-3 15-2V10c-5-1-11 0-15 2z"/><path d="M24 12v24"/></svg>`;
 
@@ -165,7 +165,7 @@ function pageShell({ slug, title, description, docTitle, docDescription, breadcr
 
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)} | Marin Docs</title><link rel="icon" type="image/svg+xml" href="${FAVICON}"><meta name="description" content="${esc(description)}"><link rel="stylesheet" href="../styles.css"></head><body><a class="skip-link" href="#main">Skip to main content</a>${BANNER}<header class="site-header"><div class="header-inner"><span class="docs-brand-icon" aria-hidden="true">${DOC_ICON}</span><nav class="breadcrumb-nav" aria-label="Breadcrumb">${breadcrumb}</nav></div></header><main id="main" class="page" tabindex="-1"><div class="guide-layout">${outline}<article class="content"><h1 class="doc-title">${esc(docTitle)}</h1><p class="doc-description">${esc(docDescription)}</p><p class="doc-updated">Updated recently</p>${renderDocActions(viewToggle)}
 ${content}
-${pager}</article>${toc}</div></main>${FOOTER}<script src="../../shared/app-shell.js"></script>${extraScripts
+${pager}</article>${toc}</div></main>${FOOTER}<script src="../../vendor/marinos/marinos.js" defer></script>${extraScripts
     .map((s) => `<script src="${s}"></script>`)
     .join("")}</body></html>`;
 }
@@ -189,7 +189,7 @@ const RULE_TYPE_LABEL = { Requirement: "Required", Prohibition: "Required" };
 // .topic-filters pattern (plain links between separate pre-rendered
 // pages): that pattern fits browsing a list of documents, not thinning
 // out content within a single long page. It reuses the same "toggle
-// visibility via the hidden attribute" mechanism shared/app-shell.js
+// visibility via the hidden attribute" mechanism the shell
 // already uses for tab sections, just applied to filtering instead.
 function renderRulesSection(rules) {
   if (rules.length === 0) return { html: "", hasFilters: false };
