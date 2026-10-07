@@ -9,7 +9,7 @@ project:
   status: alpha
 
 platform:
-  shell: 1.8.0
+  shell: 1.9.0
   template: manual
 
 deployment:
@@ -18,3 +18,5 @@ deployment:
 
 ai:
   used: false
+
+services: none
