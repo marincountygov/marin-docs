@@ -14,7 +14,7 @@ This is a static, zero-build MarinOS docs-shell application. It uses the MarinOS
 
 ## Before finishing
 
-There is no automated check command yet. Manually verify against the review checklist in `marin-skills/marin-app-builder/SKILL.md`: metadata placeholders replaced, nav includes About and Updates, accessibility basics, no invented components.
+Run `bash scripts/check.sh` (shell integrity, the button audit, and `tests/test_generated.py`, which fails when a generated guide page is out of date, a link or file reference is broken, a page has no single h1, or an SOP's JSON-LD does not parse) and `bash scripts/check.sh --browser` (adds `tests/browser_docs.py`: tabs, filter chips, flow steps, the Download menu, Share and the PDF link on one page of each kind; it needs Playwright for Python with Chromium). After changing the PMR generator or its data, run `node scripts/build-pmr-guide.js` then `node scripts/stamp-updated-dates.js`. Then manually verify against the review checklist in `marin-skills/marin-app-builder/SKILL.md`: metadata placeholders replaced, nav includes About and Updates, accessibility basics, no invented components.
 
 ## References
 
