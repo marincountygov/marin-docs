@@ -4,36 +4,6 @@
   color: var(--app-muted);
 }
 
-.view-toggle {
-  display: inline-flex;
-  gap: 0.25rem;
-  padding: 0.25rem;
-  border: 1px solid var(--app-border);
-  border-radius: 999px;
-  background: var(--app-surface);
-}
-
-.view-toggle button {
-  padding: 0.35rem 0.9rem;
-  border: 0;
-  border-radius: 999px;
-  background: transparent;
-  color: var(--app-muted);
-  font-family: inherit;
-  font-size: 0.875rem;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.view-toggle button:hover {
-  color: var(--app-text);
-}
-
-.view-toggle button[aria-selected="true"] {
-  background: var(--app-accent);
-  color: var(--app-bg);
-}
-
 .flow-group {
   margin-top: 1.25rem;
   padding-top: 1.5rem;
