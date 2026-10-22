@@ -18,9 +18,14 @@ command -v python3 >/dev/null 2>&1 || { printf 'ERROR: Python 3 is required.\n' 
 bash -n "$ROOT_DIR/scripts/check.sh"
 if [[ -f "$SHELL_DIR/scripts/install.py" ]]; then
   python3 "$SHELL_DIR/scripts/install.py" --check "$ROOT_DIR"
-  python3 "$SHELL_DIR/scripts/audit-buttons.py" "$ROOT_DIR" --fail
 else
-  printf 'SKIP: marin-app-shell is not next to this repo; shell integrity and the button audit were not run.\n' >&2
+  printf 'SKIP: marin-app-shell is not next to this repo; shell integrity was not checked.\n' >&2
+fi
+# The audit ships with the shell release; use the installed copy so it matches the installed shell.
+if [[ -f "$ROOT_DIR/vendor/marinos/audit-buttons.py" ]]; then
+  python3 "$ROOT_DIR/vendor/marinos/audit-buttons.py" "$ROOT_DIR" --fail
+else
+  printf 'SKIP: vendor/marinos/audit-buttons.py is missing (shell older than 1.18.0); the button audit was not run.\n' >&2
 fi
 
 if command -v node >/dev/null 2>&1; then
