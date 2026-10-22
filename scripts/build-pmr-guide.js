@@ -133,7 +133,7 @@ function renderPager(activeSlug) {
 // VIEW_TOGGLE_HTML below) - only PMR content pages pass one in; index and
 // about-this-guide pages have a single view and omit it.
 function renderDocActions(viewToggle = "") {
-  return `<div class="doc-actions">${viewToggle}<div class="menu"><button type="button" class="doc-action menu-toggle" aria-expanded="false" aria-controls="share-menu-panel">Share<svg class="menu-toggle__caret" aria-hidden="true" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4"/></svg></button><div id="share-menu-panel" class="menu-panel" hidden><button type="button" data-action="share">Copy link</button></div></div><span class="doc-action-status" role="status" aria-live="polite"></span></div>`;
+  return `${viewToggle}<div class="doc-actions"><div class="action-group" role="group" aria-label="Page actions"><button type="button" class="action-button" data-action="share" data-icon="share" aria-label="Share: copy the link to this page" title="Copy link"></button></div><span class="doc-action-status" role="status" aria-live="polite"></span></div>`;
 }
 
 // A plain in-content link, not a doc-action button - the official source
@@ -148,7 +148,7 @@ function renderSourceSection() {
 // handling, arrow-key navigation, aria-selected/tabindex wiring, and a
 // URL query-param sync - that have nothing to do with its BPMN/flow-chart
 // rendering. view-toggle.js below reuses only that generic part.
-const VIEW_TOGGLE_HTML = `<div class="view-toggle" role="tablist" aria-label="Document view"><button type="button" role="tab" id="view-tab-interactive" data-view="interactive" aria-selected="true" aria-controls="interactive-view" tabindex="0">Interactive</button><button type="button" role="tab" id="view-tab-original" data-view="original" aria-selected="false" aria-controls="original-view" tabindex="-1">Original text</button></div>`;
+const VIEW_TOGGLE_HTML = `<div class="view-toggle tab-list" role="tablist" aria-label="Document view"><button type="button" class="tab-button" role="tab" id="view-tab-interactive" data-view="interactive" aria-selected="true" aria-controls="interactive-view" tabindex="0">Interactive</button><button type="button" class="tab-button" role="tab" id="view-tab-original" data-view="original" aria-selected="false" aria-controls="original-view" tabindex="-1">Original text</button></div>`;
 
 function pageShell({ slug, title, description, docTitle, docDescription, breadcrumbLabel, content, tocItems, extraScripts = [], viewToggle = "" }) {
   const outline = renderOutline(slug);
@@ -225,9 +225,9 @@ function renderRulesSection(rules) {
     .join("\n");
 
   const filterGroup = (label, buttons) =>
-    `<div class="rules-filter-group" role="group" aria-label="${esc(label)}">${buttons.join("")}</div>`;
+    `<div class="rules-filter-group chip-group" role="group" aria-label="${esc(label)}">${buttons.join("")}</div>`;
   const filterButton = (attr, value, text, pressed) =>
-    `<button type="button" class="rules-filter" data-${attr}="${esc(value)}" aria-pressed="${pressed}">${esc(text)}</button>`;
+    `<button type="button" class="chip-button" data-${attr}="${esc(value)}" aria-pressed="${pressed}">${esc(text)}</button>`;
 
   const statusFilters = filterGroup("Filter by status", [
     filterButton("status-filter", "all", "All", true),
