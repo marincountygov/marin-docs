@@ -56,7 +56,7 @@
   }
 
   function init(options) {
-    const { input, items, facetGroups = [], countEl, emptyEl, formatCount } = options;
+    const { input, items, facetGroups = [], countEl, emptyEl, formatCount, resetButton, toggleButton } = options;
     const facetNames = facetGroups.map((group) => group.name);
     const initialState = readStateFromURL(facetNames);
 
@@ -112,6 +112,12 @@
       }
       if (emptyEl) emptyEl.hidden = visible !== 0;
 
+      // The shell turns this count into "Filters, N active" on the panel button.
+      if (toggleButton) {
+        const active = (query ? 1 : 0) + Object.values(facetState).reduce((sum, values) => sum + values.length, 0);
+        toggleButton.dataset.filterActive = String(active);
+      }
+
       writeStateToURL(query, facetState);
     }
 
@@ -125,6 +131,20 @@
         }
       });
     });
+
+    if (resetButton) {
+      resetButton.addEventListener("click", () => {
+        if (input) input.value = "";
+        facetGroups.forEach((group) => {
+          group.container
+            .querySelectorAll(`input[type="checkbox"][data-facet-filter="${group.name}"]`)
+            .forEach((checkbox) => {
+              checkbox.checked = false;
+            });
+        });
+        applyFilter();
+      });
+    }
 
     applyFilter();
   }
