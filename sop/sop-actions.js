@@ -11,14 +11,8 @@
         if (status) status.textContent = "No JSON is available for this document";
         return;
       }
-      const blob = new Blob([script.textContent], { type: "application/ld+json" });
-      const url = URL.createObjectURL(blob);
       const filename = document.title.trim().replace(/[^a-z0-9]+/gi, "-").toLowerCase() + ".json";
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = filename;
-      link.click();
-      URL.revokeObjectURL(url);
+      window.marinDownload({ content: script.textContent, name: filename, type: "application/ld+json" });
     });
   });
 })();

@@ -6,7 +6,7 @@ Marin Docs is the County of Marin documentation hub. It uses the MarinOS Docs sh
 
 - `index.html`: documentation landing page
 - `sop/`: SOP collection, HTML documents, JSON-LD, and source files
-- `guide/`: longer, multi-section reference documents — see "Guides" below
+- `guides/`: longer, multi-section reference documents — see "Guides" below
 - `search/`: search tools collection (software catalog, etc.)
 - `vendor/`: the installed MarinOS App Shell (`vendor/marinos/`) and its fonts and icons
 - root-level document stubs: compatibility redirects for URLs that existed before the SOP collection moved
@@ -14,15 +14,19 @@ Marin Docs is the County of Marin documentation hub. It uses the MarinOS Docs sh
 
 ## Guides
 
-`guide/` is for longer, multi-section documents meant to be used as a day-to-day reference rather than read cover to cover (the county's SB272/policy-length material) — see `marin-digital-standards/content-design/content-patterns.md`'s "Guide or explainer" content type and `marin-skills/forms-and-documents-skill`'s `pdf-vs-html-decision.md`/`document-conversion.md` for the standards this collection applies.
+`guides/` is for longer, multi-section documents meant to be used as a day-to-day reference rather than read cover to cover (the county's SB272/policy-length material) — see `marin-digital-standards/content-design/content-patterns.md`'s "Guide or explainer" content type and `marin-skills/forms-and-documents-skill`'s `pdf-vs-html-decision.md`/`document-conversion.md` for the standards this collection applies.
 
-Like `sop/`, there is no generator: each guide page (`guide/<guide-slug>/*.html`) is a hand/AI-authored, standalone HTML file using the `.site-header`/`.breadcrumb-nav`/`.content`/`.doc-title`/`.doc-description`/`.doc-updated`/`.doc-actions` docs-shell pattern already shared with SOPs. A guide adds one new local layout on top of that: `.guide-layout` (defined in `guide/styles.css`), a three-column grid — a left-hand **guide outline** (every page in the guide, grouped by section, hand-duplicated across every page the same way `.topic-filters` already is in `sop/`), the page content, and the existing `.toc`/"On this page" right-hand column (automatic — no new JS — as long as the page's headings live inside `<article class="content">`; see `shared/app-shell.js`'s heading-anchor/scroll-spy behavior). Mark the current guide-outline link with `aria-current="page"` by hand, same as `.topic-filters` does today.
+Like `sop/`, there is no generator: each guide page (`guides/<guide-slug>/*.html`) is a hand/AI-authored, standalone HTML file using the `.site-header`/`.breadcrumb-nav`/`.content`/`.doc-title`/`.doc-description`/`.doc-updated`/`.doc-actions` docs-shell pattern already shared with SOPs. A guide adds one new local layout on top of that: `.guide-layout` (defined in `guides/styles.css`), a three-column grid — a left-hand **guide outline** (every page in the guide, grouped by section, hand-duplicated across every page the same way `.topic-filters` already is in `sop/`), the page content, and the existing `.toc`/"On this page" right-hand column (automatic — no new JS — as long as the page's headings live inside `<article class="content">`; see `shared/app-shell.js`'s heading-anchor/scroll-spy behavior). Mark the current guide-outline link with `aria-current="page"` by hand, same as `.topic-filters` does today.
 
-`guide/styles.css` also defines `.guide-callout--required`/`.guide-callout--best-practice` (a REQUIRED/BEST PRACTICE distinction, common in county policy documents) and `.guide-pager` (previous/next page links) — reuse these for any new guide rather than inventing another variant.
+`guides/styles.css` also defines `.guide-callout--required`/`.guide-callout--best-practice` (a REQUIRED/BEST PRACTICE distinction, common in county policy documents) and `.guide-pager` (previous/next page links) — reuse these for any new guide rather than inventing another variant.
 
-Keep the original source PDF in `guide/<guide-slug>/source-documents/` and link it from every page's `.doc-actions` ("Download PDF") — the PDF remains the official adopted record; the HTML is the day-to-day reading experience.
+Keep the original source PDF in `guides/<guide-slug>/source-documents/` and link it from every page's `.doc-actions` ("Download PDF") — the PDF remains the official adopted record; the HTML is the day-to-day reading experience.
 
-Add a new guide by: adding its pages under a new `guide/<guide-slug>/` folder, adding a card to `guide/index.html`, and adding an entry to `guide/guides.json` (a lightweight `schema.org ItemList`, structured exactly like `sop/sops.json` — not read by any page's JS, just a structured-data companion).
+Add a new guide by: adding its pages under a new `guides/<guide-slug>/` folder, adding a card to `guides/index.html`, and adding an entry to `guides/guides.json` (a lightweight `schema.org ItemList`, structured exactly like `sop/sops.json` — not read by any page's JS, just a structured-data companion).
+
+### Structured guides
+
+`guides/engage-marin/` is the prototype of a guide built from data instead of hand-written HTML. Its words live in `guides/engage-marin/source/playbook.md`; `guides/engage-marin/data/guide.json` names what is structured: the lifecycle, the content limits (`specs`), the key terms, the page groups, and the links. `node scripts/build-guide.js` writes every page, a JSON-LD block in each page, and `guides/engage-marin/structured-data.json` (the whole guide). Each spec and term quotes the sentence it comes from, and the build stops if that sentence is no longer in the playbook. Edit the Markdown or the config, never the generated pages, then run `node scripts/build-guide.js` and `node scripts/stamp-updated-dates.js`. `tests/test_generated.py` fails when the pages are out of date.
 
 ## Brand Center
 

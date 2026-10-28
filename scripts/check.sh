@@ -27,9 +27,14 @@ if [[ -f "$ROOT_DIR/vendor/marinos/audit-buttons.py" ]]; then
 else
   printf 'SKIP: vendor/marinos/audit-buttons.py is missing (shell older than 1.18.0); the button audit was not run.\n' >&2
 fi
+# Lists copy, download, file reading and upload code the app does itself; it must list nothing.
+if [[ -f "$ROOT_DIR/vendor/marinos/audit-shared-helpers.py" ]]; then
+  python3 "$ROOT_DIR/vendor/marinos/audit-shared-helpers.py" "$ROOT_DIR" --fail
+fi
 
 if command -v node >/dev/null 2>&1; then
   node --check "$ROOT_DIR/scripts/build-pmr-guide.js"
+  node --check "$ROOT_DIR/scripts/build-guide.js"
   node --check "$ROOT_DIR/scripts/stamp-updated-dates.js"
   node --check "$ROOT_DIR/sop/flow-view.js"
   node --check "$ROOT_DIR/sop/sop-actions.js"
