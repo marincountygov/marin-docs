@@ -9,6 +9,8 @@
   const searchInput = document.getElementById("software-search-input");
   const departmentGroup = document.getElementById("department-facet-group");
   const departmentList = document.getElementById("department-facet-list");
+  const departmentDetails = document.getElementById("department-details");
+  const departmentSummary = document.getElementById("department-summary");
 
   function escapeHtml(value) {
     return String(value || "").replace(/[&<>"']/g, (char) =>
@@ -40,6 +42,22 @@
   function detailRow(label, value) {
     if (!value) return "";
     return `<dl class="mini-dl"><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></dl>`;
+  }
+
+  const COPY_ICON = '<svg class="copy-icon" aria-hidden="true" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>';
+  const LINK_ICON = '<svg class="copy-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>';
+  const CHECK_ICON = '<svg class="copy-check-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>';
+
+  // Copy details copies the card as plain text. Copy link opens this page filtered to the one system.
+  function copyButtons(row, name, department) {
+    const text = [name, row.system_vendor, row.system_purpose, department && `Custodian department: ${department}`]
+      .filter(Boolean)
+      .join("\n");
+    const link = `${window.location.origin}${window.location.pathname}?q=${encodeURIComponent(name)}`;
+    return `<div class="software-card__actions"><div class="action-group" role="group" aria-label="Actions: ${escapeHtml(name)}">
+      <button type="button" class="copy-button" data-copy-value="${escapeHtml(text)}" data-copy-announce="Copied details to clipboard." aria-label="Copy details: ${escapeHtml(name)}">${COPY_ICON}${CHECK_ICON}</button>
+      <button type="button" class="copy-button" data-copy-value="${escapeHtml(link)}" data-copy-announce="Copied link to clipboard." aria-label="Copy link to: ${escapeHtml(name)}">${LINK_ICON}${CHECK_ICON}</button>
+    </div></div>`;
   }
 
   function renderResults(rows) {
@@ -101,6 +119,7 @@
               ${detailRow("Collection frequency", row.data_collection_frequency)}
               ${detailRow("Update frequency", row.data_update_frequency)}
             </details>
+            ${copyButtons(row, row.system_name || "Unnamed system", department)}
           </li>
         `;
       })
@@ -112,8 +131,21 @@
       facetGroups: [{ name: "department", container: departmentGroup }],
       countEl,
       emptyEl,
+      resetButton: document.getElementById("reset-filters-button"),
+      toggleButton: document.getElementById("filter-toggle"),
       formatCount: (visible, total) => `${visible} of ${total} software systems`,
     });
+    // Added after init so Reset has already cleared the boxes when the summary is read.
+    departmentGroup.addEventListener("change", syncDepartmentSummary);
+    document.getElementById("reset-filters-button").addEventListener("click", syncDepartmentSummary);
+    syncDepartmentSummary();
+  }
+
+  // The summary says how many departments are chosen; the group opens on load when a choice came from the address.
+  function syncDepartmentSummary() {
+    const count = departmentGroup.querySelectorAll('input[data-facet-filter="department"]:checked').length;
+    departmentSummary.textContent = count ? `${count} selected` : "All departments";
+    if (count) departmentDetails.open = true;
   }
 
   function showError(message) {

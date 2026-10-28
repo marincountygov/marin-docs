@@ -1,15 +1,5 @@
-.search-layout {
-  display: grid;
-  grid-template-columns: 15.5rem minmax(0, 1fr);
-  gap: 2rem;
-  align-items: start;
-}
-
-.search-sidebar {
-  position: sticky;
-  top: 1rem;
-  align-self: start;
-}
+/* The stacked layout, the Filters button, and the panel header are Marin UI's (.search-layout, .filter-toggle,
+   .search-panel-header). This file only adds the facet list and result list look. */
 
 .search-input-field {
   margin-bottom: 1.5rem;
@@ -24,6 +14,7 @@
 
 .search-input-field input[type="search"] {
   width: 100%;
+  --pico-border-radius: var(--pico-form-element-border-radius, 0.25rem);
 }
 
 .search-facet-group {
@@ -45,18 +36,48 @@
   list-style: none;
 }
 
+/* Pico's <li> rule carries 8px of top and bottom padding; the row spacing comes from the small margin instead. */
 .search-facet-list li {
-  margin: 0.35rem 0;
+  margin: 0 0 0.45rem;
+  padding: 0;
   list-style: none;
+}
+
+.search-facet-list li:last-child {
+  margin-bottom: 0;
 }
 
 .search-facet-list label {
   display: flex;
   align-items: center;
   gap: 0.4rem;
+  margin-bottom: 0;
   font-size: 0.875rem;
   font-weight: 400;
   color: var(--app-text);
+}
+
+/* Checkboxes are 24 px square (WCAG 2.5.8 target size), with no bottom margin so rows stay tight. */
+.search-facet-list input[type="checkbox"] {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex: none;
+  margin: 0;
+}
+
+/* Each filter is a collapsed group that opens to its checkboxes. */
+.mm-facet-group {
+  margin-bottom: 0.125rem;
+}
+
+.mm-facet-group summary {
+  cursor: pointer;
+  font-weight: 400;
+  padding: 0.25rem 0;
+}
+
+.mm-facet-group .search-facet-list {
+  margin-top: 0.25rem;
 }
 
 .search-facet-count {
@@ -83,13 +104,7 @@
 }
 
 @media (max-width: 850px) {
-  .search-layout {
-    grid-template-columns: 1fr;
-  }
-
   .search-sidebar {
-    position: static;
-    order: -1;
     padding: 1rem;
     border: 1px solid var(--app-border);
     border-radius: var(--pico-border-radius);
