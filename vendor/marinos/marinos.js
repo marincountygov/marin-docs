@@ -926,10 +926,14 @@
     });
   }
 
-  document.querySelectorAll(".menu").forEach((menu) => {
+  // Each .menu (a toggle button and its panel) opens and closes with no per-page script. An app that builds a menu after the page
+  // loads (Marin Learn's notes) calls window.marinWireMenus(container) once the menu is in the page; marinFormatMenus does it for
+  // the menus inside the container it wires.
+  function wireMenu(menu) {
     const toggle = menu.querySelector(":scope > .menu-toggle");
     const panel = menu.querySelector(":scope > .menu-panel");
-    if (!toggle || !panel) return;
+    if (!toggle || !panel || menu.dataset.menuWired) return;
+    menu.dataset.menuWired = "true";
 
     function closeMenuPanel() {
       toggle.setAttribute("aria-expanded", "false");
@@ -962,7 +966,14 @@
         toggle.focus();
       }
     });
-  });
+  }
+
+  function wireMenus(root = document) {
+    root.querySelectorAll(".menu").forEach(wireMenu);
+  }
+
+  wireMenus();
+  window.marinWireMenus = wireMenus;
 
   // MarinOS banner menu: refresh from marinos/catalog.json so a new app
   // shows up in every other app's banner automatically, instead of every
@@ -1613,7 +1624,7 @@
     }
 
     function tableToMarkdown(table) {
-      const rows = Array.from(table.rows).map((row) => Array.from(row.cells).map((cell) => clean(inline(cell)).replace(/\|/g, "\\|")));
+      const rows = Array.from(table.rows).map((row) => Array.from(row.cells).map((cell) => clean(inline(cell)).replace(/\\/g, "\\\\").replace(/\|/g, "\\|")));
       if (!rows.length) return "";
       const width = Math.max(...rows.map((r) => r.length));
       const pad = (r) => Array.from({ length: width }, (_, i) => r[i] ?? "");
@@ -1722,21 +1733,26 @@
 
   /** Wire the buttons inside `container`: [data-copy-format="text|html|markdown"] copies and [data-download-format=
    * "text|html|markdown"] saves. `provider` is { text, html, markdown } or a function that returns it. The result goes to
-   * the nearest .doc-action-status (or `status`). Other formats (a JSON download, for example) are left to the app. */
-  function formatMenus(container, provider, { fileName = "page", status } = {}) {
+   * the nearest .doc-action-status (or `status`). When a copy fails, `onFail(text)` is called with that format's text so the app can show it in a box to copy by hand. Other formats (a JSON download, for example) are left to the app. */
+  function formatMenus(container, provider, { fileName = "page", status, onFail } = {}) {
     const say = (message) => {
       const target = status || container.querySelector(".doc-action-status") || document.querySelector("#app-status-message");
       if (target) target.textContent = message;
     };
+    wireMenus(container);
     container.addEventListener("click", async (event) => {
       const button = event.target instanceof Element ? event.target.closest("[data-copy-format], [data-download-format]") : null;
       if (!button || !container.contains(button)) return;
       const formats = typeof provider === "function" ? provider() : provider;
       const copy = button.dataset.copyFormat;
       const save = button.dataset.downloadFormat;
-      if (copy === "text") say((await copyRich(formats.text, formats.html)) ? "Copied rich text." : "Could not copy.");
-      else if (copy === "html") say((await copyText(formats.html)) ? "Copied HTML." : "Could not copy.");
-      else if (copy === "markdown") say((await copyText(formats.markdown)) ? "Copied Markdown." : "Could not copy.");
+      const failed = (text) => {
+        say("Could not copy.");
+        if (typeof onFail === "function") onFail(text);
+      };
+      if (copy === "text") (await copyRich(formats.text, formats.html)) ? say("Copied rich text.") : failed(formats.text);
+      else if (copy === "html") (await copyText(formats.html)) ? say("Copied HTML.") : failed(formats.html);
+      else if (copy === "markdown") (await copyText(formats.markdown)) ? say("Copied Markdown.") : failed(formats.markdown);
       else if (save === "text") { downloadFile({ content: formats.text, name: `${fileName}.txt` }); say("Text file downloaded."); }
       else if (save === "html") { downloadFile({ content: formats.html, name: `${fileName}.html` }); say("HTML file downloaded."); }
       else if (save === "markdown") { downloadFile({ content: formats.markdown, name: `${fileName}.md` }); say("Markdown file downloaded."); }
