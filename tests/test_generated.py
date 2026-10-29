@@ -57,21 +57,76 @@ class PageTests(unittest.TestCase):
                     stale.append(page.name)
             self.assertEqual(stale, [], f"These pages differ from what the generator makes; run node scripts/build-pmr-guide.js then node scripts/stamp-updated-dates.js: {stale}")
 
-    def test_engage_marin_guide_is_current(self):
-        guide = Path("guides/engage-marin")
+    def test_guides_are_current(self):
+        """Every guide built from Markdown matches what the generator makes from its source and config."""
+        guides = sorted(p.parent.parent.name for p in (ROOT / "guides").glob("*/data/guide.json"))
+        self.assertIn("engage-marin", guides)
         with tempfile.TemporaryDirectory() as temp:
             copy = Path(temp) / "repo"
             (copy / "scripts").mkdir(parents=True)
-            shutil.copy(ROOT / "scripts/build-guide.js", copy / "scripts/build-guide.js")
-            shutil.copytree(ROOT / guide, copy / guide)
+            for script in ("build-guide.js", "guide-schema.js"):
+                shutil.copy(ROOT / "scripts" / script, copy / "scripts" / script)
+            shutil.copytree(ROOT / "guides", copy / "guides")
             result = subprocess.run(["node", "scripts/build-guide.js"], cwd=copy, capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
             stale = []
-            for page in sorted([*(ROOT / guide).glob("*.html"), ROOT / guide / "structured-data.json"]):
-                made = copy / guide / page.name
-                if UPDATED.sub("", page.read_text(encoding="utf-8")) != UPDATED.sub("", made.read_text(encoding="utf-8")):
-                    stale.append(page.name)
+            for slug in guides:
+                guide = Path("guides") / slug
+                for page in sorted([*(ROOT / guide).glob("*.html"), ROOT / guide / "structured-data.json"]):
+                    made = copy / guide / page.name
+                    if UPDATED.sub("", page.read_text(encoding="utf-8")) != UPDATED.sub("", made.read_text(encoding="utf-8")):
+                        stale.append(f"{slug}/{page.name}")
             self.assertEqual(stale, [], f"These files differ from what the generator makes; run node scripts/build-guide.js then node scripts/stamp-updated-dates.js: {stale}")
+
+    def test_a_minimal_guide_builds_from_markdown_and_a_small_config(self):
+        """A second guide needs only Markdown and a small config: no lifecycle, limits, terms or links."""
+        with tempfile.TemporaryDirectory() as temp:
+            copy = Path(temp) / "repo"
+            (copy / "scripts").mkdir(parents=True)
+            for script in ("build-guide.js", "guide-schema.js"):
+                shutil.copy(ROOT / "scripts" / script, copy / "scripts" / script)
+            shutil.copytree(ROOT / "guides/schema", copy / "guides/schema")
+            guide = copy / "guides/handbook"
+            (guide / "source").mkdir(parents=True)
+            (guide / "data").mkdir()
+            (guide / "source/handbook.md").write_text(
+                "# Handbook\n\n## Welcome\n\nThis handbook explains how we work.\n\n## Meetings\n\nWe meet weekly.\n\n### Agenda\n\n- Updates\n- Decisions\n\n## Contacts\n\nAsk your supervisor.\n",
+                encoding="utf-8")
+            (guide / "data/guide.json").write_text(json.dumps({
+                "slug": "handbook", "name": "Team Handbook", "description": "How the team works.", "audience": "County of Marin staff",
+                "publisher": "County of Marin", "baseUrl": "https://data.marincounty.gov/guides/handbook", "source": "../source/handbook.md",
+                "indexPage": "Welcome", "titles": {"Welcome": "Team Handbook"},
+                "groups": [{"name": "Overview", "pages": ["Team Handbook"]}, {"name": "Working together", "pages": ["Meetings", "Contacts"]}]}), encoding="utf-8")
+            result = subprocess.run(["node", "scripts/build-guide.js", "handbook"], cwd=copy, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            self.assertEqual(sorted(p.name for p in guide.glob("*.html")), ["contacts.html", "index.html", "meetings.html"])
+            home = (guide / "index.html").read_text(encoding="utf-8")
+            self.assertIn("Working together", home)
+            self.assertIn('href="meetings.html"', home)
+            self.assertNotIn("guide-lifecycle", home, "No lifecycle bar when the guide has no lifecycle")
+            data = json.loads((guide / "structured-data.json").read_text(encoding="utf-8"))
+            self.assertEqual(len(data["@graph"][0]["hasPart"]), 3)
+            # A bad config is refused with a plain message.
+            (guide / "data/guide.json").write_text(json.dumps({"slug": "handbook"}), encoding="utf-8")
+            bad = subprocess.run(["node", "scripts/build-guide.js", "handbook"], cwd=copy, capture_output=True, text=True)
+            self.assertNotEqual(bad.returncode, 0)
+            self.assertIn('is missing "name"', bad.stderr)
+
+    def test_guide_configs_match_the_schema(self):
+        """Each guide's data/guide.json is valid against guides/schema/guide.schema.json, and a bad one is refused."""
+        for config in sorted((ROOT / "guides").glob("*/data/guide.json")):
+            result = subprocess.run(["node", "-e", """
+              const { validate } = require('./scripts/guide-schema.js');
+              const schema = require('./guides/schema/guide.schema.json');
+              const data = require(process.argv[1]);
+              const errors = validate(schema, data);
+              const bad = validate(schema, { ...data, unexpected: true });
+              console.log(JSON.stringify({ errors, refused: bad.length > 0 }));
+            """, str(config)], cwd=ROOT, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            out = json.loads(result.stdout)
+            self.assertEqual(out["errors"], [], f"{config.parent.parent.name}: {out['errors']}")
+            self.assertTrue(out["refused"], "an unknown setting must be refused")
 
     def test_engage_marin_structured_data(self):
         data = json.loads((ROOT / "guides/engage-marin/structured-data.json").read_text(encoding="utf-8"))

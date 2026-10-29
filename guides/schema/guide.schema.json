@@ -1,0 +1,155 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://data.marincounty.gov/guides/schema/guide.schema.json",
+  "title": "Marin Docs guide configuration",
+  "description": "The configuration beside a guide's Markdown (guides/<slug>/data/guide.json). The Markdown holds the words: one H2 is one page, an H3 is a section of that page, and lists, numbered steps, tables and checklists keep their shape. This file names what is structured: pages and their order, an optional lifecycle with a landing page for each step, content limits, key terms and links. scripts/build-guide.js reads it and builds the pages, a JSON-LD block in each page and structured-data.json.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["slug", "name", "description", "audience", "publisher", "baseUrl", "source", "groups"],
+  "properties": {
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "The folder name under guides/ and the guide's address." },
+    "name": { "type": "string", "minLength": 1, "description": "The guide's name, shown as the home page title and in every breadcrumb." },
+    "description": { "type": "string", "minLength": 1 },
+    "audience": { "type": "string", "minLength": 1, "description": "Who the guide is for, for example County of Marin staff." },
+    "publisher": { "type": "string", "minLength": 1 },
+    "baseUrl": { "type": "string", "pattern": "^https://", "description": "The guide's public address, with no trailing slash. Used in the JSON-LD." },
+    "source": { "type": "string", "minLength": 1, "description": "The Markdown file, relative to the data folder (../source/playbook.md)." },
+    "indexPage": { "type": "string", "description": "The H2 in the Markdown that is the guide's home page. Default: the first H2." },
+    "titles": { "type": "object", "additionalProperties": { "type": "string" }, "description": "Rename a page without changing the Markdown: { \"H2 text\": \"Page name\" }." },
+    "split": { "type": "array", "items": { "$ref": "#/definitions/split" }, "description": "Turn sections (H3) of a page into pages of their own." },
+    "groups": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/group" }, "description": "The left menu: groups of page titles, in reading order. Every page must be in one group." },
+    "home": { "$ref": "#/definitions/home" },
+    "lifecycle": { "$ref": "#/definitions/lifecycle" },
+    "pages": { "type": "object", "additionalProperties": { "$ref": "#/definitions/pageSettings" }, "description": "Settings for a page, keyed by its slug (index for the home page)." },
+    "specs": { "type": "array", "items": { "$ref": "#/definitions/spec" }, "description": "Content limits: lengths and formats, each tied to the sentence that states it." },
+    "specsPage": { "$ref": "#/definitions/titledPage" },
+    "terms": { "type": "array", "items": { "$ref": "#/definitions/term" }, "description": "Key terms for the structured data, each defined by a sentence in the Markdown." },
+    "links": { "type": "object", "additionalProperties": { "$ref": "#/definitions/link" }, "description": "Named links, listed on pages that ask for them (pages.<slug>.links) and on link pages." },
+    "linkPages": { "type": "array", "items": { "$ref": "#/definitions/linkPage" }, "description": "Pages of named links, such as Links or Learn. Each must be in a group. Without this, one Links page lists every named link." },
+    "labels": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "phase": { "type": "string", "description": "Heading of the list on a lifecycle landing page. Default: In this phase." },
+        "limits": { "type": "string", "description": "Heading of the limits table on a page. Default: Limits." },
+        "training": { "type": "string", "description": "Label on a training example. Default: Training example." },
+        "links": { "type": "string", "description": "Heading of a page's links section. Default: Links." }
+      }
+    }
+  },
+  "definitions": {
+    "titledPage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "description"],
+      "properties": { "title": { "type": "string", "minLength": 1 }, "description": { "type": "string", "minLength": 1 } },
+      "description": "A page the generator makes (content limits, links): its title, which must be in a group, and its description."
+    },
+    "linkPage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["slug", "title", "description", "links"],
+      "properties": {
+        "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+        "title": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "minLength": 1 },
+        "links": { "type": "array", "minItems": 1, "items": { "type": "string" }, "description": "Keys of named links, in order." }
+      },
+      "description": "A page the generator makes from named links: its slug, its title (which must be in a group), its description and the links it lists."
+    },
+    "split": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from", "sections"],
+      "properties": { "from": { "type": "string" }, "sections": { "type": "array", "minItems": 1, "items": { "type": "string" } } }
+    },
+    "group": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "pages"],
+      "properties": { "name": { "type": "string", "minLength": 1 }, "pages": { "type": "array", "minItems": 1, "items": { "type": "string" } } }
+    },
+    "home": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sections"],
+      "description": "The home page: sections of linked pages, each with the first sentence of every page. Without this, the home page lists the groups.",
+      "properties": {
+        "sections": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "title"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+              "title": { "type": "string", "minLength": 1 },
+              "pages": { "type": "array", "items": { "type": "string" }, "description": "Page titles to list." },
+              "lifecycle": { "type": "boolean", "description": "List the lifecycle steps, each with the sentence for the step." },
+              "source": { "type": "string", "description": "The H3 on the home page whose paragraphs open this section." }
+            }
+          }
+        }
+      }
+    },
+    "lifecycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "source", "steps"],
+      "description": "An ordered process. Each step gets a landing page (its sentence and the pages of that phase) and a place in the numbered bar above every page of the process.",
+      "properties": {
+        "label": { "type": "string", "description": "Name of the bar for assistive technology, for example Engagement lifecycle." },
+        "source": { "type": "string", "description": "The H2 that holds the numbered list of steps, each \"**Name.** sentence\"." },
+        "steps": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["stage", "page"],
+            "properties": { "stage": { "type": "string", "description": "The step's name, as written in the numbered list." }, "page": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "The slug of the step's landing page." } }
+          }
+        }
+      }
+    },
+    "pageSettings": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "stage": { "type": "string", "description": "The lifecycle step this page belongs to." },
+        "lifecycle": { "type": "boolean", "description": "Show the numbered bar with no step marked." },
+        "links": { "type": "array", "items": { "type": "string" }, "description": "Keys of links to list on the page." },
+        "specs": { "type": "array", "items": { "type": "string" }, "description": "Ids of content limits to show on the page." },
+        "training": { "type": "boolean", "description": "Label the page a training example, using the sentence that begins \"*These examples\"." }
+      }
+    },
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "evidence"],
+      "description": "Either a range (min and max, or just max, with a unit) or a plain value.",
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+        "label": { "type": "string" },
+        "min": { "type": "number" },
+        "max": { "type": "number" },
+        "unit": { "type": "string", "description": "Singular: word, sentence, second." },
+        "value": { "type": "string", "description": "A limit that is not a number, for example MP4." },
+        "evidence": { "type": "string", "description": "Text that must appear in the Markdown. The build stops if it does not." }
+      }
+    },
+    "term": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "description", "page"],
+      "properties": { "name": { "type": "string" }, "description": { "type": "string", "description": "A sentence that appears in the Markdown." }, "page": { "type": "string", "description": "The slug of the page that defines it." } }
+    },
+    "link": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "url"],
+      "properties": { "label": { "type": "string" }, "url": { "type": "string", "pattern": "^https://" }, "description": { "type": "string" } }
+    }
+  }
+}

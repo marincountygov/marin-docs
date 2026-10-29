@@ -65,6 +65,12 @@
           "@id": "https://data.marincounty.gov/guides/engage-marin/during-engagement.html"
         },
         {
+          "@id": "https://data.marincounty.gov/guides/engage-marin/set-themes.html"
+        },
+        {
+          "@id": "https://data.marincounty.gov/guides/engage-marin/post-updates.html"
+        },
+        {
           "@id": "https://data.marincounty.gov/guides/engage-marin/closing-out.html"
         },
         {
@@ -84,59 +90,89 @@
         },
         {
           "@id": "https://data.marincounty.gov/guides/engage-marin/content-limits.html"
+        },
+        {
+          "@id": "https://data.marincounty.gov/guides/engage-marin/links.html"
+        },
+        {
+          "@id": "https://data.marincounty.gov/guides/engage-marin/learn.html"
+        },
+        {
+          "@id": "https://data.marincounty.gov/guides/engage-marin/plan.html"
+        },
+        {
+          "@id": "https://data.marincounty.gov/guides/engage-marin/create.html"
+        },
+        {
+          "@id": "https://data.marincounty.gov/guides/engage-marin/partner.html"
+        },
+        {
+          "@id": "https://data.marincounty.gov/guides/engage-marin/launch.html"
+        },
+        {
+          "@id": "https://data.marincounty.gov/guides/engage-marin/monitor.html"
+        },
+        {
+          "@id": "https://data.marincounty.gov/guides/engage-marin/organize.html"
+        },
+        {
+          "@id": "https://data.marincounty.gov/guides/engage-marin/update.html"
+        },
+        {
+          "@id": "https://data.marincounty.gov/guides/engage-marin/close.html"
         }
       ],
       "mainEntity": {
         "@type": "HowTo",
-        "name": "The Engage Marin lifecycle",
+        "name": "Engage Marin Playbook: Engagement lifecycle",
         "step": [
           {
             "@type": "HowToStep",
             "position": 1,
             "name": "Plan",
-            "url": "https://data.marincounty.gov/guides/engage-marin/ready-to-start.html"
+            "url": "https://data.marincounty.gov/guides/engage-marin/plan.html"
           },
           {
             "@type": "HowToStep",
             "position": 2,
             "name": "Create",
-            "url": "https://data.marincounty.gov/guides/engage-marin/questions.html"
+            "url": "https://data.marincounty.gov/guides/engage-marin/create.html"
           },
           {
             "@type": "HowToStep",
             "position": 3,
             "name": "Partner",
-            "url": "https://data.marincounty.gov/guides/engage-marin/community-partners.html"
+            "url": "https://data.marincounty.gov/guides/engage-marin/partner.html"
           },
           {
             "@type": "HowToStep",
             "position": 4,
             "name": "Launch",
-            "url": "https://data.marincounty.gov/guides/engage-marin/before-launch.html"
+            "url": "https://data.marincounty.gov/guides/engage-marin/launch.html"
           },
           {
             "@type": "HowToStep",
             "position": 5,
             "name": "Monitor",
-            "url": "https://data.marincounty.gov/guides/engage-marin/during-engagement.html"
+            "url": "https://data.marincounty.gov/guides/engage-marin/monitor.html"
           },
           {
             "@type": "HowToStep",
             "position": 6,
             "name": "Organize",
-            "url": "https://data.marincounty.gov/guides/engage-marin/during-engagement.html"
+            "url": "https://data.marincounty.gov/guides/engage-marin/organize.html"
           },
           {
             "@type": "HowToStep",
             "position": 7,
             "name": "Update",
-            "url": "https://data.marincounty.gov/guides/engage-marin/during-engagement.html"
+            "url": "https://data.marincounty.gov/guides/engage-marin/update.html"
           },
           {
             "@type": "HowToStep",
             "position": 8,
             "name": "Close",
-            "url": "https://data.marincounty.gov/guides/engage-marin/closing-out.html"
+            "url": "https://data.marincounty.gov/guides/engage-marin/close.html"
           }
         ]
       }
@@ -168,7 +204,7 @@
           "@type": "DefinedTerm",
           "name": "Theme",
           "description": "Themes can help you see what people are saying across many responses.",
-          "url": "https://data.marincounty.gov/guides/engage-marin/during-engagement.html"
+          "url": "https://data.marincounty.gov/guides/engage-marin/set-themes.html"
         }
       ]
     },
@@ -176,8 +212,8 @@
       "@type": "TechArticle",
       "@id": "https://data.marincounty.gov/guides/engage-marin/",
       "url": "https://data.marincounty.gov/guides/engage-marin/",
-      "name": "Quick start",
-      "headline": "Quick start",
+      "name": "Engage Marin Playbook",
+      "headline": "Engage Marin Playbook",
       "description": "Start with a question. End with an answer.",
       "inLanguage": "en",
       "audience": {
@@ -239,7 +275,7 @@
       },
       "mainEntity": {
         "@type": "HowTo",
-        "name": "How an Engage Marin engagement works",
+        "name": "How it works",
         "step": [
           {
             "@type": "HowToStep",
@@ -315,7 +351,7 @@
       },
       "mainEntity": {
         "@type": "ItemList",
-        "name": "Who does what",
+        "name": "Your commitment",
         "itemListElement": [
           {
             "@type": "ListItem",
@@ -796,6 +832,50 @@
     },
     {
       "@type": "TechArticle",
+      "@id": "https://data.marincounty.gov/guides/engage-marin/set-themes.html",
+      "url": "https://data.marincounty.gov/guides/engage-marin/set-themes.html",
+      "name": "Set themes",
+      "headline": "Set themes",
+      "description": "Use Themes to group related ideas and understand common interests.",
+      "inLanguage": "en",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "County of Marin staff"
+      },
+      "publisher": {
+        "@type": "GovernmentOrganization",
+        "name": "County of Marin"
+      },
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "@id": "https://data.marincounty.gov/guides/engage-marin/",
+        "name": "Engage Marin Playbook"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://data.marincounty.gov/guides/engage-marin/post-updates.html",
+      "url": "https://data.marincounty.gov/guides/engage-marin/post-updates.html",
+      "name": "Post updates",
+      "headline": "Post updates",
+      "description": "Use Updates to keep people informed.",
+      "inLanguage": "en",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "County of Marin staff"
+      },
+      "publisher": {
+        "@type": "GovernmentOrganization",
+        "name": "County of Marin"
+      },
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "@id": "https://data.marincounty.gov/guides/engage-marin/",
+        "name": "Engage Marin Playbook"
+      }
+    },
+    {
+      "@type": "TechArticle",
       "@id": "https://data.marincounty.gov/guides/engage-marin/closing-out.html",
       "url": "https://data.marincounty.gov/guides/engage-marin/closing-out.html",
       "name": "Closing out",
@@ -1043,6 +1123,226 @@
           "unitText": "word"
         }
       ]
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://data.marincounty.gov/guides/engage-marin/links.html",
+      "url": "https://data.marincounty.gov/guides/engage-marin/links.html",
+      "name": "Links",
+      "headline": "Links",
+      "description": "Where to find Engage Marin and its Community Guidelines.",
+      "inLanguage": "en",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "County of Marin staff"
+      },
+      "publisher": {
+        "@type": "GovernmentOrganization",
+        "name": "County of Marin"
+      },
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "@id": "https://data.marincounty.gov/guides/engage-marin/",
+        "name": "Engage Marin Playbook"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://data.marincounty.gov/guides/engage-marin/learn.html",
+      "url": "https://data.marincounty.gov/guides/engage-marin/learn.html",
+      "name": "Learn",
+      "headline": "Learn",
+      "description": "Engage Marin 101 on Marin Learn: notes, slides, and a quiz.",
+      "inLanguage": "en",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "County of Marin staff"
+      },
+      "publisher": {
+        "@type": "GovernmentOrganization",
+        "name": "County of Marin"
+      },
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "@id": "https://data.marincounty.gov/guides/engage-marin/",
+        "name": "Engage Marin Playbook"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://data.marincounty.gov/guides/engage-marin/plan.html",
+      "url": "https://data.marincounty.gov/guides/engage-marin/plan.html",
+      "name": "Plan",
+      "headline": "Plan",
+      "description": "Decide what you want to learn, who you want to hear from, and how you'll use their feedback.",
+      "inLanguage": "en",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "County of Marin staff"
+      },
+      "publisher": {
+        "@type": "GovernmentOrganization",
+        "name": "County of Marin"
+      },
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "@id": "https://data.marincounty.gov/guides/engage-marin/",
+        "name": "Engage Marin Playbook"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://data.marincounty.gov/guides/engage-marin/create.html",
+      "url": "https://data.marincounty.gov/guides/engage-marin/create.html",
+      "name": "Create",
+      "headline": "Create",
+      "description": "Start a question or campaign. Add an About page, welcome video, and kickoff update.",
+      "inLanguage": "en",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "County of Marin staff"
+      },
+      "publisher": {
+        "@type": "GovernmentOrganization",
+        "name": "County of Marin"
+      },
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "@id": "https://data.marincounty.gov/guides/engage-marin/",
+        "name": "Engage Marin Playbook"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://data.marincounty.gov/guides/engage-marin/partner.html",
+      "url": "https://data.marincounty.gov/guides/engage-marin/partner.html",
+      "name": "Partner",
+      "headline": "Partner",
+      "description": "Work with trusted community groups to shape outreach and reach more people.",
+      "inLanguage": "en",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "County of Marin staff"
+      },
+      "publisher": {
+        "@type": "GovernmentOrganization",
+        "name": "County of Marin"
+      },
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "@id": "https://data.marincounty.gov/guides/engage-marin/",
+        "name": "Engage Marin Playbook"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://data.marincounty.gov/guides/engage-marin/launch.html",
+      "url": "https://data.marincounty.gov/guides/engage-marin/launch.html",
+      "name": "Launch",
+      "headline": "Launch",
+      "description": "Publish your engagement and invite people through County and partner channels.",
+      "inLanguage": "en",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "County of Marin staff"
+      },
+      "publisher": {
+        "@type": "GovernmentOrganization",
+        "name": "County of Marin"
+      },
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "@id": "https://data.marincounty.gov/guides/engage-marin/",
+        "name": "Engage Marin Playbook"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://data.marincounty.gov/guides/engage-marin/monitor.html",
+      "url": "https://data.marincounty.gov/guides/engage-marin/monitor.html",
+      "name": "Monitor",
+      "headline": "Monitor",
+      "description": "Follow ideas, comments, votes, and participation.",
+      "inLanguage": "en",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "County of Marin staff"
+      },
+      "publisher": {
+        "@type": "GovernmentOrganization",
+        "name": "County of Marin"
+      },
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "@id": "https://data.marincounty.gov/guides/engage-marin/",
+        "name": "Engage Marin Playbook"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://data.marincounty.gov/guides/engage-marin/organize.html",
+      "url": "https://data.marincounty.gov/guides/engage-marin/organize.html",
+      "name": "Organize",
+      "headline": "Organize",
+      "description": "Set themes to group related ideas and understand what people share.",
+      "inLanguage": "en",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "County of Marin staff"
+      },
+      "publisher": {
+        "@type": "GovernmentOrganization",
+        "name": "County of Marin"
+      },
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "@id": "https://data.marincounty.gov/guides/engage-marin/",
+        "name": "Engage Marin Playbook"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://data.marincounty.gov/guides/engage-marin/update.html",
+      "url": "https://data.marincounty.gov/guides/engage-marin/update.html",
+      "name": "Update",
+      "headline": "Update",
+      "description": "Post updates when appropriate to share progress and keep people informed.",
+      "inLanguage": "en",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "County of Marin staff"
+      },
+      "publisher": {
+        "@type": "GovernmentOrganization",
+        "name": "County of Marin"
+      },
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "@id": "https://data.marincounty.gov/guides/engage-marin/",
+        "name": "Engage Marin Playbook"
+      }
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://data.marincounty.gov/guides/engage-marin/close.html",
+      "url": "https://data.marincounty.gov/guides/engage-marin/close.html",
+      "name": "Close",
+      "headline": "Close",
+      "description": "End participation, review results, and publish a recap with next steps.",
+      "inLanguage": "en",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "County of Marin staff"
+      },
+      "publisher": {
+        "@type": "GovernmentOrganization",
+        "name": "County of Marin"
+      },
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "@id": "https://data.marincounty.gov/guides/engage-marin/",
+        "name": "Engage Marin Playbook"
+      }
     }
   ]
 }
