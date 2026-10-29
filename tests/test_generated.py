@@ -24,7 +24,7 @@ from pathlib import Path
 from urllib.parse import unquote, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = sorted(p for p in [ROOT / "index.html", *(ROOT / "guide").rglob("*.html"), *(ROOT / "sop").rglob("*.html")])
+PAGES = sorted(p for p in [ROOT / "index.html", *(ROOT / "guides").rglob("*.html"), *(ROOT / "sop").rglob("*.html")])
 UPDATED = re.compile(r'<p class="doc-updated">Updated [^<]*</p>')
 
 
@@ -37,14 +37,14 @@ class PageTests(unittest.TestCase):
         self.assertGreaterEqual(len(PAGES), 20)
 
     def test_generated_guide_is_current(self):
-        guide = Path("guide/personnel-management-regulations")
+        guide = Path("guides/personnel-management-regulations")
         with tempfile.TemporaryDirectory() as temp:
             copy = Path(temp) / "repo"
             (copy / "scripts").mkdir(parents=True)
             shutil.copy(ROOT / "scripts/build-pmr-guide.js", copy / "scripts/build-pmr-guide.js")
             shutil.copytree(ROOT / guide, copy / guide)
-            shutil.copytree(ROOT / "guide/public-engagement-plan", copy / "guide/public-engagement-plan", dirs_exist_ok=True)
-            for extra in ("guide/guides.json", "guide/styles.css"):
+            shutil.copytree(ROOT / "guides/public-engagement-plan", copy / "guides/public-engagement-plan", dirs_exist_ok=True)
+            for extra in ("guides/guides.json", "guides/styles.css"):
                 (copy / extra).parent.mkdir(parents=True, exist_ok=True)
                 if (ROOT / extra).exists():
                     shutil.copy(ROOT / extra, copy / extra)
@@ -56,6 +56,36 @@ class PageTests(unittest.TestCase):
                 if UPDATED.sub("", page.read_text(encoding="utf-8")) != UPDATED.sub("", made.read_text(encoding="utf-8")):
                     stale.append(page.name)
             self.assertEqual(stale, [], f"These pages differ from what the generator makes; run node scripts/build-pmr-guide.js then node scripts/stamp-updated-dates.js: {stale}")
+
+    def test_engage_marin_guide_is_current(self):
+        guide = Path("guides/engage-marin")
+        with tempfile.TemporaryDirectory() as temp:
+            copy = Path(temp) / "repo"
+            (copy / "scripts").mkdir(parents=True)
+            shutil.copy(ROOT / "scripts/build-guide.js", copy / "scripts/build-guide.js")
+            shutil.copytree(ROOT / guide, copy / guide)
+            result = subprocess.run(["node", "scripts/build-guide.js"], cwd=copy, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            stale = []
+            for page in sorted([*(ROOT / guide).glob("*.html"), ROOT / guide / "structured-data.json"]):
+                made = copy / guide / page.name
+                if UPDATED.sub("", page.read_text(encoding="utf-8")) != UPDATED.sub("", made.read_text(encoding="utf-8")):
+                    stale.append(page.name)
+            self.assertEqual(stale, [], f"These files differ from what the generator makes; run node scripts/build-guide.js then node scripts/stamp-updated-dates.js: {stale}")
+
+    def test_engage_marin_structured_data(self):
+        data = json.loads((ROOT / "guides/engage-marin/structured-data.json").read_text(encoding="utf-8"))
+        graph = {node.get("@type"): node for node in data["@graph"]}
+        guide = graph["CreativeWork"]
+        pages = sorted((ROOT / "guides/engage-marin").glob("*.html"))
+        self.assertEqual(len(guide["hasPart"]), len(pages), "every page is listed in the guide's hasPart")
+        steps = guide["mainEntity"]["step"]
+        self.assertEqual([s["name"] for s in steps], ["Plan", "Create", "Partner", "Launch", "Monitor", "Organize", "Update", "Close"])
+        for page in pages:
+            html = page.read_text(encoding="utf-8")
+            blocks = re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.S)
+            self.assertEqual(len(blocks), 1, f"{page.name}: one JSON-LD block")
+            self.assertEqual(json.loads(blocks[0])["@type"], "TechArticle", f"{page.name}: JSON-LD parses")
 
     def test_no_placeholder_dates(self):
         left = [str(p.relative_to(ROOT)) for p in PAGES if "Updated recently" in p.read_text(encoding="utf-8")]

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// guide/personnel-management-regulations/*.html is generated from the
-// JSON in guide/personnel-management-regulations/data/ — it does not
+// guides/personnel-management-regulations/*.html is generated from the
+// JSON in guides/personnel-management-regulations/data/ — it does not
 // edit itself. That data is a copy of policy-knowledge-model's generated
 // (not hand-authored) PMR 23/24 output; re-copy it from that sibling
 // repo's examples/ after re-running its extractor, then re-run this
@@ -14,7 +14,7 @@ const fs = require("fs");
 const path = require("path");
 
 const repoRoot = path.join(__dirname, "..");
-const guideDir = path.join(repoRoot, "guide", "personnel-management-regulations");
+const guideDir = path.join(repoRoot, "guides", "personnel-management-regulations");
 const dataDir = path.join(guideDir, "data");
 
 const OFFICIAL_SOURCE_URL =
@@ -68,7 +68,7 @@ function loadPmr(slug) {
 const pmr23 = loadPmr("pmr23");
 const pmr24 = loadPmr("pmr24");
 
-// --- shared chrome (byte-identical to guide/public-engagement-plan/*.html) ---
+// --- shared chrome (byte-identical to guides/public-engagement-plan/*.html) ---
 
 const FAVICON =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='10' fill='%23000'/%3E%3Cg fill='none' stroke='%23e5b53b' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='9' y='9' width='12' height='12' rx='2'/%3E%3Crect x='27' y='9' width='12' height='12' rx='2'/%3E%3Crect x='9' y='27' width='12' height='12' rx='2'/%3E%3Crect x='27' y='27' width='12' height='12' rx='2'/%3E%3C/g%3E%3C/svg%3E";

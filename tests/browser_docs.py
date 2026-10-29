@@ -21,9 +21,9 @@ from threading import Thread
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
-PMR = "guide/personnel-management-regulations/grievance-procedure.html"
+PMR = "guides/personnel-management-regulations/grievance-procedure.html"
 SOP = "sop/airfield-inspection-and-hazard-identification.html"
-GUIDE = "guide/public-engagement-plan/glossary.html"
+GUIDE = "guides/public-engagement-plan/glossary.html"
 OVERFLOW = """() => [...document.querySelectorAll('body *')]
     .filter((e) => !e.closest('.visually-hidden') && e.getBoundingClientRect().right > innerWidth + 1 && getComputedStyle(e).position !== 'fixed' && !e.closest('pre, table, .flow-chart, [class*=chart]'))
     .map((e) => e.tagName + '.' + e.className).slice(0, 5)"""
@@ -155,7 +155,7 @@ def check_guide(browser, base):
     pdf = page.locator("a.action-button[href$='.pdf']")
     require(pdf.count() == 1, "Guide: one PDF link")
     href = pdf.get_attribute("href")
-    require((ROOT / "guide/public-engagement-plan" / href).is_file(), f"Guide: the PDF exists ({href})")
+    require((ROOT / "guides/public-engagement-plan" / href).is_file(), f"Guide: the PDF exists ({href})")
     require(pdf.get_attribute("target") == "_blank" and "opens in a new tab" in pdf.get_attribute("aria-label"), "Guide: the PDF link says it opens in a new tab")
     common(page, "Guide", url)
     require(not problems, f"Guide: console or page errors: {problems}")
