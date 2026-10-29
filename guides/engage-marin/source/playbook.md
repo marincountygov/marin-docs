@@ -242,20 +242,6 @@ Tips:
 - Avoid jargon and explain technical terms.
 - End with an invitation to participate.
 
-### Content builder
-
-The Engage Marin content builder can help turn project notes into draft content.
-
-It can help create:
-
-- Campaign titles and descriptions.
-- Questions and descriptions.
-- About pages.
-- First posts.
-- Welcome video titles and descriptions.
-
-Use it to get started, then review the content with your team before publishing.
-
 ## About page
 
 Every question has an About page that gives people more background.

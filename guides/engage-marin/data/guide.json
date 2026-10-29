@@ -6,64 +6,432 @@
   "publisher": "County of Marin",
   "baseUrl": "https://data.marincounty.gov/guides/engage-marin",
   "source": "../source/playbook.md",
-  "links": {
-    "platform": { "label": "Engage Marin", "url": "https://engage.marincounty.gov" },
-    "guidelines": { "label": "Engage Marin Community Guidelines", "url": "https://engage.marincounty.gov/about/community-guidelines" }
+  "indexPage": "Quick start",
+  "titles": {
+    "Quick start": "Engage Marin Playbook"
   },
-  "lifecycle": [
-    { "stage": "Plan", "page": "ready-to-start" },
-    { "stage": "Create", "page": "questions" },
-    { "stage": "Partner", "page": "community-partners" },
-    { "stage": "Launch", "page": "before-launch" },
-    { "stage": "Monitor", "page": "during-engagement" },
-    { "stage": "Organize", "page": "during-engagement" },
-    { "stage": "Update", "page": "during-engagement" },
-    { "stage": "Close", "page": "closing-out" }
+  "split": [
+    {
+      "from": "During engagement",
+      "sections": [
+        "Set themes",
+        "Post updates"
+      ]
+    }
   ],
   "groups": [
-    { "name": "Overview", "pages": ["Quick start"] },
-    { "name": "Part 1: Getting started", "pages": ["About Engage Marin", "How it works", "Your commitment", "Why partners matter", "What to expect", "Ready to start?"] },
-    { "name": "Part 2: Creating an engagement", "pages": ["Campaigns", "Questions", "About page", "Welcome video", "First post", "Community partners", "Outreach", "Before launch", "During engagement", "Closing out", "Example engagement", "Community guidelines", "Moderation", "Brand assets", "Before you begin"] },
-    { "name": "Reference", "pages": ["Content limits"] }
+    {
+      "name": "Overview",
+      "pages": [
+        "Engage Marin Playbook"
+      ]
+    },
+    {
+      "name": "Lifecycle",
+      "pages": [
+        "Plan",
+        "Create",
+        "Partner",
+        "Launch",
+        "Monitor",
+        "Organize",
+        "Update",
+        "Close"
+      ]
+    },
+    {
+      "name": "Part 1: Getting started",
+      "pages": [
+        "About Engage Marin",
+        "How it works",
+        "Your commitment",
+        "Why partners matter",
+        "What to expect",
+        "Ready to start?"
+      ]
+    },
+    {
+      "name": "Part 2: Creating an engagement",
+      "pages": [
+        "Campaigns",
+        "Questions",
+        "About page",
+        "Welcome video",
+        "First post",
+        "Community partners",
+        "Outreach",
+        "Before launch",
+        "During engagement",
+        "Set themes",
+        "Post updates",
+        "Closing out",
+        "Example engagement",
+        "Community guidelines",
+        "Moderation",
+        "Brand assets",
+        "Before you begin"
+      ]
+    },
+    {
+      "name": "Reference",
+      "pages": [
+        "Content limits",
+        "Links",
+        "Learn"
+      ]
+    }
   ],
+  "home": {
+    "sections": [
+      {
+        "id": "lifecycle",
+        "title": "The lifecycle",
+        "source": "The lifecycle",
+        "lifecycle": true
+      },
+      {
+        "id": "getting-started",
+        "title": "Getting started",
+        "pages": [
+          "About Engage Marin",
+          "How it works",
+          "Your commitment",
+          "Why partners matter",
+          "What to expect",
+          "Ready to start?"
+        ]
+      },
+      {
+        "id": "examples-and-reference",
+        "title": "Examples and reference",
+        "pages": [
+          "Example engagement",
+          "Content limits",
+          "Links",
+          "Learn",
+          "Community guidelines",
+          "Moderation",
+          "Brand assets",
+          "Before you begin"
+        ]
+      }
+    ]
+  },
+  "lifecycle": {
+    "label": "Engagement lifecycle",
+    "source": "How it works",
+    "steps": [
+      {
+        "stage": "Plan",
+        "page": "plan"
+      },
+      {
+        "stage": "Create",
+        "page": "create"
+      },
+      {
+        "stage": "Partner",
+        "page": "partner"
+      },
+      {
+        "stage": "Launch",
+        "page": "launch"
+      },
+      {
+        "stage": "Monitor",
+        "page": "monitor"
+      },
+      {
+        "stage": "Organize",
+        "page": "organize"
+      },
+      {
+        "stage": "Update",
+        "page": "update"
+      },
+      {
+        "stage": "Close",
+        "page": "close"
+      }
+    ]
+  },
   "pages": {
-    "ready-to-start": { "stage": "Plan" },
-    "about-engage-marin": { "stage": "Plan", "links": ["platform"] },
-    "how-it-works": { "stage": "Plan" },
-    "campaigns": { "stage": "Create", "specs": ["campaign-title", "campaign-description"] },
-    "questions": { "stage": "Create", "specs": ["question", "question-description"] },
-    "about-page": { "stage": "Create", "specs": ["about-page"] },
-    "welcome-video": { "stage": "Create", "specs": ["video-length", "video-title", "video-description", "video-resolution", "video-aspect-ratio", "video-file-type", "video-captions"] },
-    "first-post": { "stage": "Create", "specs": ["first-post"] },
-    "community-partners": { "stage": "Partner" },
-    "outreach": { "stage": "Launch" },
-    "before-launch": { "stage": "Launch" },
-    "during-engagement": { "stage": "Monitor" },
-    "closing-out": { "stage": "Close" },
-    "example-engagement": { "training": true },
-    "community-guidelines": { "links": ["guidelines"] },
-    "moderation": { "links": ["guidelines"] },
-    "index": { "links": ["platform"] }
+    "ready-to-start": {
+      "stage": "Plan"
+    },
+    "about-engage-marin": {
+      "links": [
+        "platform"
+      ]
+    },
+    "how-it-works": {
+      "lifecycle": true
+    },
+    "campaigns": {
+      "stage": "Create",
+      "specs": [
+        "campaign-title",
+        "campaign-description"
+      ]
+    },
+    "questions": {
+      "stage": "Create",
+      "specs": [
+        "question",
+        "question-description"
+      ]
+    },
+    "about-page": {
+      "stage": "Create",
+      "specs": [
+        "about-page"
+      ]
+    },
+    "welcome-video": {
+      "stage": "Create",
+      "specs": [
+        "video-length",
+        "video-title",
+        "video-description",
+        "video-resolution",
+        "video-aspect-ratio",
+        "video-file-type",
+        "video-captions"
+      ]
+    },
+    "first-post": {
+      "stage": "Create",
+      "specs": [
+        "first-post"
+      ]
+    },
+    "community-partners": {
+      "stage": "Partner"
+    },
+    "outreach": {
+      "stage": "Launch"
+    },
+    "before-launch": {
+      "stage": "Launch"
+    },
+    "during-engagement": {
+      "stage": "Monitor"
+    },
+    "closing-out": {
+      "stage": "Close"
+    },
+    "example-engagement": {
+      "training": true
+    },
+    "community-guidelines": {
+      "links": [
+        "guidelines"
+      ]
+    },
+    "moderation": {
+      "links": [
+        "guidelines"
+      ]
+    },
+    "index": {
+      "lifecycle": true
+    },
+    "set-themes": {
+      "stage": "Organize"
+    },
+    "post-updates": {
+      "stage": "Update"
+    },
+    "your-commitment": {
+      "stage": "Plan"
+    },
+    "what-to-expect": {
+      "stage": "Plan"
+    },
+    "why-partners-matter": {
+      "stage": "Partner"
+    }
   },
   "specs": [
-    { "id": "campaign-title", "label": "Campaign title", "max": 6, "unit": "word", "evidence": "Aim for 6 words or fewer." },
-    { "id": "campaign-description", "label": "Campaign description", "min": 50, "max": 100, "unit": "word", "evidence": "Aim for **50–100 words**." },
-    { "id": "question", "label": "Question", "max": 10, "unit": "word", "evidence": "Aim for 10 words or fewer." },
-    { "id": "question-description", "label": "Question description", "min": 2, "max": 4, "unit": "sentence", "evidence": "Use **2–4 short sentences**" },
-    { "id": "about-page", "label": "About page", "min": 150, "max": 300, "unit": "word", "evidence": "Aim for **150–300 words**." },
-    { "id": "video-length", "label": "Welcome video length", "min": 30, "max": 60, "unit": "second", "evidence": "Aim for 30–60 seconds." },
-    { "id": "video-title", "label": "Welcome video title", "min": 3, "max": 8, "unit": "word", "evidence": "Keep the introduction title to **3–8 words**." },
-    { "id": "video-description", "label": "Welcome video description", "min": 25, "max": 50, "unit": "word", "evidence": "Aim for **25–50 words**" },
-    { "id": "video-resolution", "label": "Video resolution", "value": "1080p", "evidence": "Resolution: 1080p." },
-    { "id": "video-aspect-ratio", "label": "Video aspect ratio", "value": "16:9 or 1:1", "evidence": "Aspect ratio: 16:9 or 1:1." },
-    { "id": "video-file-type", "label": "Video file type", "value": "MP4", "evidence": "Preferred format: MP4." },
-    { "id": "video-captions", "label": "Video captions", "value": "Required, using a reviewed WebVTT (.vtt) file", "evidence": "Captions: Required, using a reviewed WebVTT (.vtt) file." },
-    { "id": "first-post", "label": "First post", "min": 75, "max": 150, "unit": "word", "evidence": "Aim for **75–150 words**." }
+    {
+      "id": "campaign-title",
+      "label": "Campaign title",
+      "max": 6,
+      "unit": "word",
+      "evidence": "Aim for 6 words or fewer."
+    },
+    {
+      "id": "campaign-description",
+      "label": "Campaign description",
+      "min": 50,
+      "max": 100,
+      "unit": "word",
+      "evidence": "Aim for **50–100 words**."
+    },
+    {
+      "id": "question",
+      "label": "Question",
+      "max": 10,
+      "unit": "word",
+      "evidence": "Aim for 10 words or fewer."
+    },
+    {
+      "id": "question-description",
+      "label": "Question description",
+      "min": 2,
+      "max": 4,
+      "unit": "sentence",
+      "evidence": "Use **2–4 short sentences**"
+    },
+    {
+      "id": "about-page",
+      "label": "About page",
+      "min": 150,
+      "max": 300,
+      "unit": "word",
+      "evidence": "Aim for **150–300 words**."
+    },
+    {
+      "id": "video-length",
+      "label": "Welcome video length",
+      "min": 30,
+      "max": 60,
+      "unit": "second",
+      "evidence": "Aim for 30–60 seconds."
+    },
+    {
+      "id": "video-title",
+      "label": "Welcome video title",
+      "min": 3,
+      "max": 8,
+      "unit": "word",
+      "evidence": "Keep the introduction title to **3–8 words**."
+    },
+    {
+      "id": "video-description",
+      "label": "Welcome video description",
+      "min": 25,
+      "max": 50,
+      "unit": "word",
+      "evidence": "Aim for **25–50 words**"
+    },
+    {
+      "id": "video-resolution",
+      "label": "Video resolution",
+      "value": "1080p",
+      "evidence": "Resolution: 1080p."
+    },
+    {
+      "id": "video-aspect-ratio",
+      "label": "Video aspect ratio",
+      "value": "16:9 or 1:1",
+      "evidence": "Aspect ratio: 16:9 or 1:1."
+    },
+    {
+      "id": "video-file-type",
+      "label": "Video file type",
+      "value": "MP4",
+      "evidence": "Preferred format: MP4."
+    },
+    {
+      "id": "video-captions",
+      "label": "Video captions",
+      "value": "Required, using a reviewed WebVTT (.vtt) file",
+      "evidence": "Captions: Required, using a reviewed WebVTT (.vtt) file."
+    },
+    {
+      "id": "first-post",
+      "label": "First post",
+      "min": 75,
+      "max": 150,
+      "unit": "word",
+      "evidence": "Aim for **75–150 words**."
+    }
   ],
+  "specsPage": {
+    "title": "Content limits",
+    "description": "The length and format limits in this playbook, in one place."
+  },
   "terms": [
-    { "name": "Campaign", "description": "A campaign brings several related questions together under one larger effort.", "page": "campaigns" },
-    { "name": "Question", "description": "A question is where people share ideas, comment, and vote.", "page": "questions" },
-    { "name": "Community partner", "description": "Partners help bring more people into the conversation through trusted community connections.", "page": "community-partners" },
-    { "name": "Theme", "description": "Themes can help you see what people are saying across many responses.", "page": "during-engagement" }
-  ]
+    {
+      "name": "Campaign",
+      "description": "A campaign brings several related questions together under one larger effort.",
+      "page": "campaigns"
+    },
+    {
+      "name": "Question",
+      "description": "A question is where people share ideas, comment, and vote.",
+      "page": "questions"
+    },
+    {
+      "name": "Community partner",
+      "description": "Partners help bring more people into the conversation through trusted community connections.",
+      "page": "community-partners"
+    },
+    {
+      "name": "Theme",
+      "description": "Themes can help you see what people are saying across many responses.",
+      "page": "set-themes"
+    }
+  ],
+  "links": {
+    "platform": {
+      "label": "Engage Marin",
+      "url": "https://engage.marincounty.gov",
+      "description": "Engage Marin is the County of Marin's online community engagement platform."
+    },
+    "guidelines": {
+      "label": "Engage Marin Community Guidelines",
+      "url": "https://engage.marincounty.gov/about/community-guidelines",
+      "description": "How people can participate, what behavior is allowed, and how moderation works."
+    },
+    "learn-course": {
+      "label": "Engage Marin 101",
+      "url": "https://marincountygov.github.io/marin-learn/?set=engage-marin-101",
+      "description": "The course on Marin Learn: notes, slides, and a quiz."
+    },
+    "learn-notes": {
+      "label": "Engage Marin 101 notes",
+      "url": "https://marincountygov.github.io/marin-learn/?set=engage-marin-101&view=read&resource=engage-marin-101-notes",
+      "description": "A short read of the main ideas, in twelve parts."
+    },
+    "learn-slides": {
+      "label": "Engage Marin 101 slides",
+      "url": "https://marincountygov.github.io/marin-learn/?set=engage-marin-101&view=slides&resource=engage-marin-101-slides",
+      "description": "Slides for walking a team through the course."
+    },
+    "learn-quiz": {
+      "label": "Engage Marin 101 quiz",
+      "url": "https://marincountygov.github.io/marin-learn/?set=engage-marin-101&view=quiz&resource=engage-marin-101-quiz",
+      "description": "Ten questions to check what you learned."
+    }
+  },
+  "linkPages": [
+    {
+      "slug": "links",
+      "title": "Links",
+      "description": "Where to find Engage Marin and its Community Guidelines.",
+      "links": [
+        "platform",
+        "guidelines"
+      ]
+    },
+    {
+      "slug": "learn",
+      "title": "Learn",
+      "description": "Engage Marin 101 on Marin Learn: notes, slides, and a quiz.",
+      "links": [
+        "learn-course",
+        "learn-notes",
+        "learn-slides",
+        "learn-quiz"
+      ]
+    }
+  ],
+  "labels": {
+    "phase": "In this phase",
+    "limits": "Limits",
+    "training": "Training example",
+    "links": "Links"
+  }
 }

@@ -115,16 +115,19 @@ function renderOutline(activeSlug) {
     .join("")}</aside>`;
 }
 
+const ARROW_LEFT = '<svg class="guide-pager__arrow" aria-hidden="true" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>';
+const ARROW_RIGHT = '<svg class="guide-pager__arrow" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
+
 function renderPager(activeSlug) {
   const i = OUTLINE_PAGES.findIndex((p) => p.slug === activeSlug);
   const prev = OUTLINE_PAGES[i - 1];
   const next = OUTLINE_PAGES[i + 1];
   if (!prev && !next) return "";
   const prevHtml = prev
-    ? `<a class="guide-pager__prev" href="${prev.slug}.html"><span class="guide-pager__direction">Previous</span>${esc(prev.label)}</a>`
+    ? `<a class="guide-pager__prev" href="${prev.slug}.html"><span class="guide-pager__direction">${ARROW_LEFT}Previous</span>${esc(prev.label)}</a>`
     : "";
   const nextHtml = next
-    ? `<a class="guide-pager__next" href="${next.slug}.html"><span class="guide-pager__direction">Next</span>${esc(next.label)}</a>`
+    ? `<a class="guide-pager__next" href="${next.slug}.html"><span class="guide-pager__direction">Next${ARROW_RIGHT}</span>${esc(next.label)}</a>`
     : "";
   return `<nav class="guide-pager" aria-label="Guide pages">${prevHtml}${nextHtml}</nav>`;
 }
@@ -133,7 +136,7 @@ function renderPager(activeSlug) {
 // VIEW_TOGGLE_HTML below) - only PMR content pages pass one in; index and
 // about-this-guide pages have a single view and omit it.
 function renderDocActions(viewToggle = "") {
-  return `${viewToggle}<div class="doc-actions"><div class="action-group" role="group" aria-label="Page actions"><button type="button" class="action-button" data-action="share" data-icon="share" aria-label="Share: copy the link to this page" title="Copy link"></button></div><span class="doc-action-status" role="status" aria-live="polite"></span></div>`;
+  return `${viewToggle}<div class="doc-actions"><div class="action-group" role="group" aria-label="Page actions"><button type="button" class="action-button" data-action="share" data-icon="link" aria-label="Copy link" title="Copy link"></button></div><span class="doc-action-status" role="status" aria-live="polite"></span></div>`;
 }
 
 // A plain in-content link, not a doc-action button - the official source

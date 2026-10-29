@@ -44,10 +44,13 @@
 }
 
 .guide-outline li {
-  margin: 0.3rem 0;
+  margin: 0;
+  padding: 0;
 }
 
 .guide-outline a {
+  display: block;
+  padding: 0.15rem 0;
   color: var(--app-muted);
   text-decoration: none;
 }
@@ -147,40 +150,57 @@
   color: var(--app-muted);
 }
 
-/* The engagement lifecycle: eight stages in a row, each a link to its page.
-   The stage the page belongs to is marked with aria-current="step". */
+/* The engagement lifecycle: a way around the guide, drawn above the page (outside the content box) as numbered
+   steps ("1. Plan"). The step(s) the page belongs to carry aria-current="step": bold, with a thick blue line under it. */
 .guide-lifecycle {
+  margin: 0 0 1.5rem;
+}
+
+.guide-lifecycle ol,
+nav.guide-lifecycle ol {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 1.25rem 0;
+  gap: 0 1.25rem;
+  margin: 0;
   padding: 0;
   list-style: none;
+  width: 100%;
+  counter-reset: step;
+  border-bottom: 1px solid var(--app-border);
 }
 
 .guide-lifecycle li {
-  margin: 0;
+  margin: 0 0 -1px;
   padding: 0;
+  counter-increment: step;
 }
 
-.guide-lifecycle a {
+.guide-lifecycle a,
+nav.guide-lifecycle a,
+.guide-lifecycle li > span {
   display: block;
-  padding: 0.3rem 0.75rem;
-  border: 1px solid var(--app-border);
-  border-radius: var(--pico-border-radius);
+  margin: 0;
+  padding: 0.4rem 0.1rem;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
   color: var(--app-text);
   font-size: 0.9rem;
   text-decoration: none;
 }
 
+.guide-lifecycle a::before,
+.guide-lifecycle li > span::before {
+  content: counter(step) ". ";
+}
+
 .guide-lifecycle a:hover {
-  background: var(--app-bg-soft);
+  border-bottom-color: var(--app-border);
   color: var(--app-accent-on-tint);
 }
 
-.guide-lifecycle a[aria-current="step"] {
-  border-color: var(--app-accent);
-  color: var(--app-accent-on-tint);
+.guide-lifecycle [aria-current="step"],
+.guide-lifecycle a[aria-current="step"]:hover {
+  border-bottom-color: var(--app-accent);
   font-weight: 700;
 }
 
@@ -209,6 +229,12 @@
   gap: 0.75rem;
 }
 
+.guide-quick-links li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 .guide-quick-links a {
   display: block;
   padding: 0.75rem 1rem;
@@ -226,6 +252,13 @@
 .guide-quick-links .guide-quick-links__question {
   display: block;
   font-weight: 700;
+}
+
+.guide-quick-links .guide-quick-links__text {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--app-muted);
+  font-size: 0.9rem;
 }
 
 .guide-quick-links .guide-quick-links__answer {
@@ -264,9 +297,25 @@
 }
 
 .guide-pager__direction {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
   color: var(--app-muted);
   font-size: 0.8rem;
+}
+
+.guide-pager__next .guide-pager__direction {
+  justify-content: flex-end;
+}
+
+.guide-pager__arrow {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .guide-glossary {
