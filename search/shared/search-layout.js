@@ -9,6 +9,7 @@
  *   (lowercased searchable blob) and, for every facet group, a
  *   `data-facet-<name>` attribute whose value is one or more facet values
  *   joined with "|".
+ * - Optional `onChange(visibleItems, allItems, facetState, query)` runs after every filter.
  * - Each facet group is a container element holding
  *   `input[type=checkbox][data-facet-filter="<name>"]` checkboxes, one per
  *   distinct facet value (value = the facet value).
@@ -31,7 +32,8 @@
     const facets = {};
     facetNames.forEach((name) => {
       const raw = params.get(name);
-      facets[name] = raw ? raw.split(",").filter(Boolean) : [];
+      // A comma inside a value is written as %2C, so "Assessor, Recorder, County Clerk" stays one value.
+      facets[name] = raw ? raw.split(",").filter(Boolean).map((v) => v.replace(/%2C/g, ",")) : [];
     });
     return { query: params.get("q") || "", facets };
   }
@@ -45,7 +47,7 @@
     }
     Object.entries(facetState).forEach(([name, values]) => {
       if (values.length) {
-        params.set(name, values.join(","));
+        params.set(name, values.map((v) => v.replace(/,/g, "%2C")).join(","));
       } else {
         params.delete(name);
       }
@@ -56,7 +58,7 @@
   }
 
   function init(options) {
-    const { input, items, facetGroups = [], countEl, emptyEl, formatCount, resetButton, toggleButton } = options;
+    const { input, items, facetGroups = [], countEl, emptyEl, formatCount, resetButton, toggleButton, onChange } = options;
     const facetNames = facetGroups.map((group) => group.name);
     const initialState = readStateFromURL(facetNames);
 
@@ -119,6 +121,8 @@
       }
 
       writeStateToURL(query, facetState);
+      // A tool that shows more than the list (stats, a second view) updates it here, from the items still showing.
+      if (onChange) onChange(allItems.filter((item) => !item.hidden), allItems, facetState, query);
     }
 
     const debouncedFilter = debounce(applyFilter, 150);
