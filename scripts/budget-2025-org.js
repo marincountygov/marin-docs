@@ -35,15 +35,17 @@ function book() {
   const personnel = new Map(data.personnel.departments.map((d) => [d.unit, d]));
   const funds = new Map(rows(by[2]).filter((x) => x.code).map((x) => [x.code, x]));
   const balances = new Map(rows(by[3]).filter((x) => x.code).map((x) => [x.code, x]));
-  cache = { data, by, units, personnel, funds, balances, offset: data.offset };
+  const info = path.join(__dirname, '..', 'budget', 'fy2025-26', 'data', 'book.json');
+  cache = { data, by, units, personnel, funds, balances, offset: data.offset, url: fs.existsSync(info) ? JSON.parse(fs.readFileSync(info, 'utf8')).url : null };
   return cache;
 }
 
 const printed = (b, pages) => [...pages].map((p) => p - b.offset).sort((x, y) => x - y);
-const pagesText = (list) => (list.length === 1 ? 'page ' : 'pages ') + list.join(', ');
+// Each printed page links to the book (PDF page = printed page + the offset) when the book's address is known.
+const pagesText = (list, b) => (list.length === 1 ? 'page ' : 'pages ') + list.map((p) => (b.url ? `<a href="${esc(b.url)}#page=${p + b.offset}">${p}</a>` : p)).join(', ');
 
 function sourceBlock(b, pages, up, schedulePages) {
-  const items = [`${esc(b.data.book)}, ${pagesText(printed(b, pages))}`, ...schedulePages.map(([label, href]) => `<a href="${up}budget/fy2025-26/${href}">${esc(label)}</a>`)];
+  const items = [`${esc(b.data.book)}, ${pagesText(printed(b, pages), b)}`, ...schedulePages.map(([label, href]) => `<a href="${up}budget/fy2025-26/${href}">${esc(label)}</a>`)];
   return `<h3 id="budget-fy2025-26-source">Source, FY 2025-26 Final Budget</h3><ul>${items.map((i) => `<li>${i}</li>`).join('')}</ul>`;
 }
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');

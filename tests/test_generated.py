@@ -413,6 +413,9 @@ class PageTests(unittest.TestCase):
         self.assertEqual(len(notes["totalsThatDifferFromTheirParts"]), lines.count('<th scope="row">FY 20'))
         # A card's title stays in the tool: it applies that line as a filter and opens Stats.
         self.assertRegex(lines, r'<h3 class="mm-card__title"><a href="\?unit=[^"]+&amp;tab=stats">')
+        # Cited pages link to the book at the right PDF page (printed page + 8): Schedule 1 is printed page 1, PDF page 9.
+        one = (base / "schedule-1.html").read_text(encoding="utf-8")
+        self.assertRegex(one, r'page <a href="https://assets\.marincounty\.gov/[^"]*Not%20Remediated\.pdf#page=9">1</a>')
         # Schedule 9 lists each budget unit once, though the book prints it for each function.
         nine = (base / "schedule-9.html").read_text(encoding="utf-8")
         self.assertEqual(len(re.findall(r'<h2 id="s\d+-100-', nine)), 1)

@@ -40,6 +40,7 @@ const OFFSET = data.offset;
 const { money, num, table, kpi, chart, charts, millions } = bd;
 
 const printed = (pdfPage) => pdfPage - OFFSET;
+// "pages 1–5, 7": each run of printed pages links to the book at the run's first page (PDF page = printed page + the offset).
 const rangeText = (pdfPages) => {
   const list = [...new Set(pdfPages)].filter((p) => p != null).sort((a, b) => a - b).map(printed);
   if (!list.length) return '';
@@ -49,8 +50,8 @@ const rangeText = (pdfPages) => {
     if (last && p === last[1] + 1) last[1] = p;
     else runs.push([p, p]);
   }
-  const text = runs.map(([a, b]) => (a === b ? `${a}` : `${a}–${b}`)).join(', ');
-  return (list.length === 1 ? 'page ' : 'pages ') + text;
+  const link = (text, first) => (book.url ? `<a href="${esc(book.url)}#page=${first + OFFSET}">${text}</a>` : text);
+  return (list.length === 1 ? 'page ' : 'pages ') + runs.map(([a, b]) => link(a === b ? `${a}` : `${a}–${b}`, a)).join(', ');
 };
 const sourceSection = (pdfPages, files = []) => {
   const items = [];
