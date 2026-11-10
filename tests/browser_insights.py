@@ -17,8 +17,8 @@ from playwright.sync_api import sync_playwright
 ROOT = Path(__file__).resolve().parents[1]
 
 MENTIONS = {"total": 2, "items": [
-    {"title": "Older story", "source": "News", "sourceType": "news", "url": "https://example.com/old", "publishedAt": "2026-10-01T10:00:00Z", "date": "2026-10-01"},
-    {"title": "Newer story", "source": "Bluesky", "sourceType": "social", "url": "https://example.com/new", "publishedAt": "2026-11-03T10:00:00Z", "date": "2026-11-03"}]}
+    {"id": "old", "title": "Older story", "source": "News", "sourceType": "news", "url": "https://example.com/old", "publishedAt": "2026-10-01T10:00:00Z", "date": "2026-10-01"},
+    {"id": "new", "title": "Newer story", "source": "Bluesky", "sourceType": "social", "url": "https://example.com/new", "publishedAt": "2026-11-03T10:00:00Z", "date": "2026-11-03"}]}
 REACH = {"records": [
     {"eventName": "Workshop one", "project": "Envision Marin", "agencies": ["Office of the County Executive"], "date": "2026-10-15", "startTime": "18:00", "type": "Meeting", "status": "Completed", "location": "Civic Center", "partners": []},
     {"eventName": "Workshop two", "project": "Envision Marin", "agencies": ["Office of the County Executive"], "date": "2026-11-19", "startTime": "18:00", "type": "Meeting", "status": "Planned", "location": "Mill Valley", "partners": []},
