@@ -7,9 +7,11 @@ project:
   owner: County of Marin
   audience: staff
   status: alpha
+  test: false
+  test_sections: budget/, capital/
 
 platform:
-  shell: 1.23.0
+  shell: 1.24.0
   template: manual
 
 deployment:

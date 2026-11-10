@@ -1,0 +1,199 @@
+{
+  "apps": [
+    {
+      "id": "mentions",
+      "base": "https://marincountygov.github.io/marin-mentions/",
+      "local": "http://localhost:8012/",
+      "param": "monitors",
+      "value": "identifier:local:marin-mentions-monitor-id",
+      "appName": "Mentions",
+      "icon": "<path d=\"M20.341 6.484A10 10 0 0 1 10.266 21.85\"/><path d=\"M3.659 17.516A10 10 0 0 1 13.74 2.152\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/><circle cx=\"19\" cy=\"5\" r=\"2\"/><circle cx=\"5\" cy=\"19\" r=\"2\"/>",
+      "home": {
+        "kind": "records",
+        "src": "monitors/{value}.json",
+        "records": "items",
+        "title": "title",
+        "link": "url",
+        "badge": "sourceType",
+        "meta": "publishedAt,source",
+        "sort": "publishedAt",
+        "noun": "mentions",
+        "timeframe": "publishedAt",
+        "query": {
+          "time": "60d"
+        },
+        "exclude": "sourceType=social",
+        "columns": 2,
+        "emptyText": "No mentions.",
+        "unique": "id"
+      },
+      "stats": {
+        "src": "monitors/{value}.json",
+        "records": "items",
+        "intro": "Based on the latest mentions this monitor found.",
+        "kpis": {
+          "compute": [
+            [
+              "count",
+              "Mentions"
+            ],
+            [
+              "unique",
+              "Unique sources",
+              "source"
+            ]
+          ]
+        },
+        "charts": [
+          {
+            "title": "Mentions over time",
+            "kind": "line",
+            "date": "publishedAt",
+            "bucket": "day"
+          },
+          {
+            "title": "Top sources",
+            "kind": "bar",
+            "group": "source"
+          }
+        ],
+        "query": {
+          "time": "60d"
+        },
+        "exclude": "sourceType=social",
+        "unique": "id"
+      },
+      "includeChildren": true
+    },
+    {
+      "id": "reach",
+      "base": "https://marincountygov.github.io/marin-reach/",
+      "local": "http://localhost:8765/",
+      "param": "agency",
+      "value": "name",
+      "appName": "Reach",
+      "icon": "<path d=\"M4 10a7.31 7.31 0 0 0 10 10Z\"/><path d=\"m9 15 3-3\"/><path d=\"M17 13a6 6 0 0 0-6-6\"/><path d=\"M21 13A10 10 0 0 0 11 3\"/>",
+      "home": {
+        "kind": "records",
+        "src": "data/engagements.json",
+        "records": "records",
+        "match": "agencies",
+        "title": "eventName",
+        "badge": "status",
+        "meta": "date,location",
+        "sort": "date",
+        "noun": "engagements",
+        "columns": 2,
+        "emptyText": "No campaigns.",
+        "linkTemplate": "?engagement={id}"
+      },
+      "stats": {
+        "src": "data/engagements.json",
+        "records": "records",
+        "match": "agencies",
+        "kpis": {
+          "compute": [
+            [
+              "count",
+              "Engagements"
+            ],
+            [
+              "count",
+              "Completed",
+              "status",
+              "Completed"
+            ],
+            [
+              "unique",
+              "Projects",
+              "project"
+            ]
+          ]
+        },
+        "charts": [
+          {
+            "title": "Events over time",
+            "kind": "line",
+            "date": "date",
+            "bucket": "month"
+          },
+          {
+            "title": "By project",
+            "kind": "bar",
+            "group": "project"
+          }
+        ]
+      },
+      "campaigns": {
+        "kind": "records",
+        "src": "data/engagements.json",
+        "records": "records",
+        "match": "agencies",
+        "title": "project",
+        "group": "project",
+        "groupLink": "?project={value}",
+        "groupDate": "date",
+        "groupNoun": "engagements",
+        "noun": "campaigns",
+        "columns": 2,
+        "emptyText": "No campaigns."
+      },
+      "campaignsLabel": "Campaigns",
+      "linkText": "{name} in Reach"
+    },
+    {
+      "id": "links",
+      "base": "https://marincountygov.github.io/marin-links/",
+      "local": "http://localhost:8014/",
+      "param": "agency",
+      "value": "identifier:local:marin-links-agency-code",
+      "onlyValuesMatching": "^ag-",
+      "appName": "Links",
+      "icon": "<path d=\"M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71\"/><path d=\"M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71\"/>",
+      "home": {
+        "kind": "records",
+        "dataBase": "https://l.marinhhs.org/s/api/v1/",
+        "src": "links?from={date:-29}&to={date:0}&limit=100&filter_param=agency&filter_value={value}",
+        "records": "data.items",
+        "title": "display",
+        "meta": "redirects:visits",
+        "sort": "redirects",
+        "noun": "links",
+        "hiddenPath": "meta.suppressed",
+        "hiddenText": "Too few visits to show."
+      },
+      "stats": {
+        "query": {
+          "view": "stats"
+        },
+        "intro": "Visits in the last 30 days.",
+        "hiddenPath": "meta.suppressed",
+        "hiddenText": "Too few visits to show.",
+        "emptyText": "No visits yet.",
+        "kpis": {
+          "dataBase": "https://l.marinhhs.org/s/api/v1/",
+          "src": "summary?from={date:-29}&to={date:0}&filter_param=agency&filter_value={value}",
+          "fields": "period_redirects:Visits,estimated_daily_unique_ips:Estimated visitors,tracked_links:Links"
+        },
+        "charts": [
+          {
+            "title": "Visits over time",
+            "kind": "line",
+            "dataBase": "https://l.marinhhs.org/s/api/v1/",
+            "src": "daily?from={date:-29}&to={date:0}&filter_param=agency&filter_value={value}",
+            "records": "data",
+            "date": "date",
+            "sum": "redirects"
+          }
+        ]
+      }
+    }
+  ],
+  "procedures": {
+    "appName": "Procedures",
+    "icon": "<path d=\"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z\"/><path d=\"M14 2v5a1 1 0 0 0 1 1h5\"/><path d=\"M10 9H8\"/><path d=\"M16 13H8\"/><path d=\"M16 17H8\"/>",
+    "pages": {
+      "public-works": "../sop/departments/department-of-public-works.html"
+    }
+  }
+}

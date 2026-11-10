@@ -36,6 +36,18 @@ if command -v node >/dev/null 2>&1; then
   node --check "$ROOT_DIR/scripts/build-pmr-guide.js"
   node --check "$ROOT_DIR/scripts/build-guide.js"
   node --check "$ROOT_DIR/scripts/guide-schema.js"
+  node --check "$ROOT_DIR/scripts/build-organization.js"
+  node --check "$ROOT_DIR/scripts/build-budget.js"
+  node --check "$ROOT_DIR/scripts/budget-shell.js"
+  node --check "$ROOT_DIR/scripts/build-budget-2025.js"
+  node --check "$ROOT_DIR/scripts/budget-tool.js"
+  node --check "$ROOT_DIR/scripts/budget-2025-org.js"
+  node --check "$ROOT_DIR/budget/tool.js"
+  node --check "$ROOT_DIR/scripts/build-capital.js"
+  node --check "$ROOT_DIR/scripts/clean-text.js"
+  node --check "$ROOT_DIR/scripts/budget-data.js"
+  node --check "$ROOT_DIR/scripts/insights.js"
+  node --check "$ROOT_DIR/organization/insights.js"
   node --check "$ROOT_DIR/scripts/stamp-updated-dates.js"
   node --check "$ROOT_DIR/search/job-classes-pay/job-pay-core.js"
   node --check "$ROOT_DIR/search/job-classes-pay/job-pay.js"
@@ -43,6 +55,7 @@ if command -v node >/dev/null 2>&1; then
   node "$ROOT_DIR/tests/test_job_pay.js"
   node --check "$ROOT_DIR/sop/flow-view.js"
   node --check "$ROOT_DIR/sop/sop-actions.js"
+  node --test "$ROOT_DIR/tests/clean-text.test.js" "$ROOT_DIR/tests/budget-data.test.js"
   python3 "$ROOT_DIR/tests/test_generated.py"
 else
   printf 'SKIP: Node is unavailable; the generator and generated pages were not checked.\n' >&2
@@ -52,6 +65,7 @@ if [[ "$RUN_BROWSER" == 1 ]]; then
   python3 "$ROOT_DIR/tests/browser_docs.py"
   python3 "$ROOT_DIR/tests/browser_job_pay.py"
   python3 "$ROOT_DIR/tests/browser_job_pay_embedded.py"
+  python3 "$ROOT_DIR/tests/browser_insights.py"
 else
   printf 'SKIP: Browser tests not requested; run with --browser to include them.\n'
 fi
