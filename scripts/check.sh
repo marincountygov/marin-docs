@@ -37,6 +37,10 @@ if command -v node >/dev/null 2>&1; then
   node --check "$ROOT_DIR/scripts/build-guide.js"
   node --check "$ROOT_DIR/scripts/guide-schema.js"
   node --check "$ROOT_DIR/scripts/stamp-updated-dates.js"
+  node --check "$ROOT_DIR/search/job-classes-pay/job-pay-core.js"
+  node --check "$ROOT_DIR/search/job-classes-pay/job-pay.js"
+  node --check "$ROOT_DIR/search/shared/search-layout.js"
+  node "$ROOT_DIR/tests/test_job_pay.js"
   node --check "$ROOT_DIR/sop/flow-view.js"
   node --check "$ROOT_DIR/sop/sop-actions.js"
   python3 "$ROOT_DIR/tests/test_generated.py"
@@ -46,6 +50,8 @@ fi
 
 if [[ "$RUN_BROWSER" == 1 ]]; then
   python3 "$ROOT_DIR/tests/browser_docs.py"
+  python3 "$ROOT_DIR/tests/browser_job_pay.py"
+  python3 "$ROOT_DIR/tests/browser_job_pay_embedded.py"
 else
   printf 'SKIP: Browser tests not requested; run with --browser to include them.\n'
 fi

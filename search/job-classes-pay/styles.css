@@ -1,0 +1,44 @@
+@import url("../../vendor/marinos/marinos.css");
+@import url("../shared/search-layout.css");
+
+/* The search panel and results layout are supplied by the shared MarinOS styles. */
+.job-tool-links, .job-exports, .job-inline-heading {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  align-items: center;
+}
+.job-tool-links { margin: 0 0 1.5rem; }
+.job-tool-links a { font-weight: 650; }
+.job-sort-controls { display: grid; gap: .3rem; margin-bottom: 1.5rem; }
+.job-sort-controls label { margin: 0; font-size: .9rem; font-weight: 700; }
+.job-sort-controls select { margin-bottom: .4rem; }
+.job-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1.4rem;
+  padding: 0 0 1rem;
+  font-size: .875rem;
+  color: var(--app-muted);
+}
+.job-summary strong { color: var(--app-text); }
+.job-card-header, .job-inline-heading { justify-content: space-between; align-items: start; }
+.job-card-title { font-size: 1.1rem; margin: 0; }
+.job-card-code { color: var(--app-muted); font-size: .85rem; margin: .15rem 0 .5rem; }
+.job-card-pay { margin: .5rem 0; font-weight: 650; }
+.job-card-meta { margin: .4rem 0; color: var(--app-muted); font-size: .875rem; }
+.job-card-actions { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; margin-top: .65rem; }
+.job-card-actions label { display: flex; align-items: center; gap: .35rem; margin: 0; font-size: .9rem; }
+.job-card-actions input { margin: 0; }
+.job-card-details { border-top: 1px solid var(--app-border); padding-top: .65rem; margin-top: .65rem; }
+.job-card-details summary { font-weight: 700; cursor: pointer; }
+.job-card-details table { font-size: .875rem; }
+.job-card-details pre { max-height: 17rem; overflow: auto; font-size: .78rem; }
+.job-compare { margin: 0 0 1rem; }
+.job-compare h2 { margin: 0; font-size: 1.1rem; }
+.job-compare table { min-width: 33rem; }
+.job-exports { padding: 1.25rem 0; }
+.job-about { margin-top: 2rem; }
+@media (max-width: 440px) {
+  .job-card-header { flex-wrap: wrap; }
+}

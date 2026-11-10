@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Job classes and pay | Marin Docs</title>
+  <meta name="description" content="Search and compare County of Marin job classifications and published pay rates.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='10' fill='%23000'/%3E%3Cg fill='none' stroke='%23e5b53b' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round' transform='translate(9,9) scale(1.25)'%3E%3Cpath d='M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z'/%3E%3Cpath d='M14 2v5a1 1 0 0 0 1 1h5'/%3E%3Cpath d='M10 9H8'/%3E%3Cpath d='M16 13H8'/%3E%3Cpath d='M16 17H8'/%3E%3C/g%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-app-id="marin-docs-job-pay">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <marin-os-banner></marin-os-banner>
+  <header class="site-header"><div class="header-inner">
+    <span class="docs-brand-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7h18M6 7v13h12V7M9 7V4h6v3M9 12h6M9 16h4"/></svg></span>
+    <nav class="breadcrumb-nav" aria-label="Breadcrumb"><a href="../../index.html">Marin Docs</a> <span aria-hidden="true">/</span> <a href="../index.html">Search tools</a> <span aria-hidden="true">/</span> Job classes and pay</nav>
+  </div></header>
+  <main id="main" class="page" tabindex="-1">
+    <section class="hero"><h1>Job classes and pay</h1><p class="lede">Search and compare County job classifications and published pay rates.</p></section>
+    <nav class="job-tool-links" aria-label="On this page"><a href="#explore">Job class search</a><a href="#about-data">About the data</a></nav>
+    <p id="app-status-message" class="visually-hidden" role="status" aria-live="polite"></p>
+    <section id="explore" aria-labelledby="explore-title">
+      <h2 class="visually-hidden" id="explore-title">Job class search</h2>
+      <div id="job-error" class="app-alert app-alert--danger" role="alert" hidden>
+        <p id="job-error-text">Could not load job classes and pay rates.</p><button type="button" id="job-retry" class="action-button">Retry</button>
+      </div>
+      <div class="search-layout">
+        <div class="search-side">
+          <button type="button" id="filter-toggle" class="filter-toggle" data-filter-toggle="job-classes" aria-controls="filter-panel"></button>
+          <aside id="filter-panel" class="search-sidebar" aria-labelledby="filter-panel-title" data-open="false">
+            <div class="search-panel-header"><h2 class="search-panel-title" id="filter-panel-title">Find job classes</h2><button type="button" id="reset-filters-button" class="action-button" aria-label="Reset search and filters" title="Reset search and filters"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button></div>
+            <div class="search-input-field"><label for="job-search-input">Search title, class code, or pay</label><input type="search" id="job-search-input" data-search-input placeholder="Try analyst, nurse, 037A…" autocomplete="off"></div>
+            <div class="job-sort-controls"><label for="job-sort">Sort by</label><select id="job-sort"><option value="title">Title</option><option value="job_class_code">Class code</option><option value="min_yearly">Minimum yearly pay</option><option value="max_yearly">Maximum yearly pay</option><option value="min_hourly">Minimum hourly pay</option><option value="max_hourly">Maximum hourly pay</option><option value="hours_per_period">Hours per biweekly period</option><option value="number_of_steps">Number of steps</option></select><label for="job-sort-direction">Direction</label><select id="job-sort-direction"><option value="asc">A to Z / Low to high</option><option value="desc">Z to A / High to low</option></select></div>
+            <fieldset class="search-facet-group" id="titlegroup-facet"><legend>Title group</legend><details class="mm-facet-group"><summary>All title groups</summary><ul id="titlegroup-options" class="search-facet-list"></ul></details></fieldset>
+            <fieldset class="search-facet-group" id="payband-facet"><legend>Maximum yearly pay</legend><details class="mm-facet-group"><summary>All pay bands</summary><ul id="payband-options" class="search-facet-list"></ul></details></fieldset>
+            <fieldset class="search-facet-group" id="hours-facet"><legend>Hours per biweekly period</legend><details class="mm-facet-group"><summary>All schedules</summary><ul id="hours-options" class="search-facet-list"></ul></details></fieldset>
+            <fieldset class="search-facet-group" id="steps-facet"><legend>Number of pay steps</legend><details class="mm-facet-group"><summary>All step counts</summary><ul id="steps-options" class="search-facet-list"></ul></details></fieldset>
+          </aside>
+        </div>
+        <div class="search-results">
+          <p id="job-results-count" class="search-results-count app-help-text" role="status" aria-live="polite" aria-atomic="true">Loading job classes and pay rates…</p>
+          <p id="job-feed-status" class="app-help-text" hidden></p>
+          <div id="job-summary" class="job-summary" hidden><span><strong id="job-total">0</strong> job classes</span><span><strong id="job-pay-schedules">0</strong> biweekly schedules</span><span><strong id="job-step-patterns">0</strong> step patterns</span><span><strong id="job-highest">—</strong> highest yearly maximum</span></div>
+          <section id="job-compare" class="app-card job-compare" aria-labelledby="job-compare-title" hidden><div class="job-inline-heading"><h2 id="job-compare-title">Compare selected job classes</h2><button type="button" id="job-clear-compare" class="action-button">Clear comparison</button></div><p id="job-compare-summary" class="app-help-text" role="status" aria-live="polite"></p><div id="job-compare-table" class="app-table-wrap"></div></section>
+          <p id="job-empty" class="app-empty" hidden>No job classes match your search.</p>
+          <ul id="job-results" class="search-results-list" aria-label="Job classifications"></ul>
+          <div id="job-exports" class="job-exports" hidden><button type="button" id="job-export-csv" class="action-button">Export filtered CSV</button><button type="button" id="job-export-json" class="action-button">Export filtered JSON</button></div>
+        </div>
+      </div>
+    </section>
+    <section id="about-data" class="app-card job-about" aria-labelledby="about-title"><h2 id="about-title">About the data</h2><p>This tool reads the County's public <a href="https://data.marincounty.gov/d/w7uw-fvda" target="_blank" rel="noopener noreferrer">Job Classifications and Pay Rates dataset (opens in a new tab)</a>. Pay ranges belong to job classes, not individual people. They do not include overtime, deductions, premiums, or individual benefit costs.</p><p>Search, filtering, comparison, and exports happen in your browser. The public dataset is temporarily cached in your browser; your search and comparison choices are not saved. Pay rates and other data may change when the County updates the source dataset.</p></section>
+  </main>
+  <footer class="site-footer" role="contentinfo"><div class="footer-inner"><a href="https://marincountygov.github.io/marin-os/">MarinOS</a></div></footer>
+  <a class="app-feedback" href="https://form.asana.com/?k=qVUT83d5DBmlDiIyi-WAyQ&amp;d=23133298259496" target="_blank" rel="noreferrer">Feedback</a>
+  <script src="../../vendor/marinos/marinos.js" defer></script>
+  <script src="../shared/search-layout.js" defer></script>
+  <script src="job-pay-core.js" defer></script>
+  <script src="job-pay.js" defer></script>
+</body>
+</html>
