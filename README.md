@@ -7,7 +7,7 @@ Marin Docs is the County of Marin documentation hub. It uses the MarinOS Docs sh
 - `index.html`: documentation landing page
 - `sop/`: SOP collection, HTML documents, JSON-LD, and source files
 - `guides/`: longer, multi-section reference documents — see "Guides" below
-- `search/`: search tools collection (software catalog, etc.)
+- `search/`: search tools collection (software catalog and job classes and pay lookup)
 - `vendor/`: the installed MarinOS App Shell (`vendor/marinos/`) and its fonts and icons
 - root-level document stubs: compatibility redirects for URLs that existed before the SOP collection moved
 - root-level `sops.json` and `source-documents/`: compatibility copies retained for existing consumers
@@ -65,3 +65,9 @@ Marin Docs follows the [MarinOS security standard](https://github.com/marincount
 Open `index.html` directly or serve this folder with any static web server. Document headings receive hover/focus anchor links, and the current section is highlighted in the “On this page” navigation as the reader scrolls.
 
 For WAVE extension testing, use `python3 -m http.server 8000` and open `http://localhost:8000/`. Direct `file://` testing requires the extension to have local-page access.
+
+## Job classes and pay search
+
+`search/job-classes-pay/` uses the same search/facet layout as the software catalog. It reads the public [Job Classifications and Pay Rates](https://data.marincounty.gov/d/w7uw-fvda) JSON feed in the browser, with a six-hour browser-local cache and a stale-copy fallback when offline. Users can search, sort, filter by title/pay/hour schedule/step count, open the published pay-step details, compare up to three classifications, and export the filtered results (CSV or JSON). It shows **job classification** pay ranges, not individual employee compensation. The scope is limited to job classifications and their published pay ranges.
+
+Run `node tests/test_job_pay.js` for dataset-normalization regression tests, `python3 tests/browser_job_pay_embedded.py` for network-free browser/DOM tests, and `python3 tests/browser_job_pay.py` for mock-feed HTTP/browser tests. None of these tests calls the live County dataset or creates records.

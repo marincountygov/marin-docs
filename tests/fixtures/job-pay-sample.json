@@ -1,0 +1,24 @@
+[
+  {
+    "title": "ACCOUNTANT I", "job_class_code": "037A", "hours_per_biweekly_period": "75", "number_of_steps": "5", "min_yearly": "80126", "max_yearly": "95355",
+    "hourly_step_1": "41.09", "hourly_step_2": "42.96", "hourly_step_3": "44.81", "hourly_step_4": "46.84", "hourly_step_5": "48.90",
+    "yearly_step_1": "80126", "yearly_step_2": "83772", "yearly_step_3": "87380", "yearly_step_4": "91338", "yearly_step_5": "95355"
+  },
+  {
+    "title": "ADMINISTRATIVE ANALYST II", "job_class_code": "0302", "hours_per_biweekly_period": "80", "number_of_steps": "5", "min_yearly": "116875", "max_yearly": "141357",
+    "hourly_step_1": "56.19", "hourly_step_2": "58.92", "hourly_step_3": "61.83", "hourly_step_4": "64.76", "hourly_step_5": "67.96",
+    "yearly_step_1": "116875", "yearly_step_2": "122554", "yearly_step_3": "128606", "yearly_step_4": "134701", "yearly_step_5": "141357"
+  },
+  {
+    "title": "ASSISTANT COUNTY COUNSEL", "job_class_code": "0210", "hours_per_biweekly_period": "80", "number_of_steps": "3", "min_yearly": "282256", "max_yearly": "312728",
+    "hourly_step_1": "0", "hourly_step_2": "0", "hourly_step_3": "135.70", "hourly_step_4": "142.82", "hourly_step_5": "150.35",
+    "yearly_step_1": "0", "yearly_step_2": "0", "yearly_step_3": "282256", "yearly_step_4": "297066", "yearly_step_5": "312728"
+  },
+  {
+    "title": "NURSE", "job_class_code": "0561", "hours_per_biweekly_period": "75", "number_of_steps": "5", "min_yearly": "107000", "max_yearly": "153000",
+    "hourly_step_1": "54.87", "hourly_step_5": "78.46", "yearly_step_1": "107000", "yearly_step_5": "153000"
+  },
+  {
+    "title": "=DANGEROUS() <script>alert(1)</script>", "job_class_code": "0000", "hours_per_biweekly_period": "80", "number_of_steps": "1", "max_yearly": "50000", "hourly_step_5": "24.04", "yearly_step_5": "50000"
+  }
+]
