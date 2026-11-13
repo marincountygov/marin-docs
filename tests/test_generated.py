@@ -22,8 +22,39 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlparse
+
+
+class _VisibleText(HTMLParser):
+    """The text a page shows: everything outside script and style elements."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.parts = []
+        self._hidden = 0
+
+    def handle_starttag(self, tag, attrs):
+        if tag in ("script", "style"):
+            self._hidden += 1
+        else:
+            self.parts.append(" ")
+
+    def handle_endtag(self, tag):
+        if tag in ("script", "style") and self._hidden:
+            self._hidden -= 1
+
+    def handle_data(self, data):
+        if not self._hidden:
+            self.parts.append(data)
+
+
+def visible_text(html: str) -> str:
+    parser = _VisibleText()
+    parser.feed(html)
+    parser.close()
+    return "".join(parser.parts)
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = sorted(p for p in [ROOT / "index.html", *(ROOT / "guides").rglob("*.html"), *(ROOT / "sop").rglob("*.html"), *(ROOT / "organization").glob("*.html"), *(ROOT / "service-areas").glob("*.html"), *(ROOT / "programs").glob("*.html")])
@@ -423,8 +454,7 @@ class PageTests(unittest.TestCase):
         pages = [p for d in ("organization", "service-areas", "programs") for p in (ROOT / d).glob("*.html")]
         for page in pages:
             # The JSON a page offers is the record as the data has it; the cleaning is for what the page shows.
-            html = re.sub(r"<script[^>]*>.*?</script>", " ", page.read_text(encoding="utf-8"), flags=re.S)
-            text = re.sub(r"<[^>]+>", " ", html)
+            text = visible_text(page.read_text(encoding="utf-8"))
             self.assertNotIn("DEPARTMENT BUDGET", text, f"{page.name}: budget book heading")
             self.assertNotIn("Tel:", text, f"{page.name}: contact block")
             self.assertIsNone(re.search(r"[a-z]- (?!and\b|or\b)[A-Za-z]", text), f"{page.name}: word split at a line break")
