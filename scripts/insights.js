@@ -14,7 +14,7 @@ const rowsToObjects = (rows) => rows.slice(1).map((r) => Object.fromEntries(rows
 // `sections`: [{ id, label, data }] that are written into the page. `live`: [{ id, label, kind, url, ... }] fetched when
 // the tab opens.
 function insightsTab({ subject, noun, sections, live = [], budgetNote = '', scriptPath }) {
-  const boxes = [...sections, ...live].map((s) => `<label class="insights__option"><input type="checkbox" checked data-insights-section="${esc(s.id)}"${s.kind ? ` data-insights-live='${esc(json(s))}'` : ''}> ${esc(s.label)}</label>`).join('');
+  const boxes = [...sections, ...live].map((s) => `<label class="insights__option"><input type="checkbox" checked data-insights-section="${esc(s.id)}"${s.kind ? ` data-insights-live="${esc(json(s))}"` : ''}> ${esc(s.label)}</label>`).join('');
   const data = sections.map((s) => `<script type="application/json" id="insights-data-${esc(s.id)}">${json(s.data)}</script>`).join('');
   return `<section class="section insights" id="insights" data-tab-section="insights" aria-labelledby="insights-heading" hidden data-insights data-subject="${esc(subject)}" data-noun="${esc(noun)}" data-budget-note="${esc(budgetNote)}">` +
     `<h2 id="insights-heading">Insights</h2>` +
