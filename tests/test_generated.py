@@ -26,7 +26,7 @@ from pathlib import Path
 from urllib.parse import unquote, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = sorted(p for p in [ROOT / "index.html", *(ROOT / "guides").rglob("*.html"), *(ROOT / "sop").rglob("*.html"), *(ROOT / "organization").glob("*.html"), *(ROOT / "budget").glob("*.html"), *(ROOT / "budget" / "funds").glob("*.html"), *(ROOT / "budget" / "fy2025-26").glob("*.html"), *(ROOT / "capital").glob("*.html"), *(ROOT / "capital" / "projects").glob("*.html"), *(ROOT / "service-areas").glob("*.html"), *(ROOT / "programs").glob("*.html")])
+PAGES = sorted(p for p in [ROOT / "index.html", *(ROOT / "guides").rglob("*.html"), *(ROOT / "sop").rglob("*.html"), *(ROOT / "organization").glob("*.html"), *(ROOT / "service-areas").glob("*.html"), *(ROOT / "programs").glob("*.html")])
 UPDATED = re.compile(r'<p class="doc-updated">Updated [^<]*</p>')
 
 
@@ -185,7 +185,7 @@ class PageTests(unittest.TestCase):
 
     def test_budget_pages_show_the_book_and_its_source(self):
         # A department's Budget tab, and the Budget section's tables, cite the book's pages and link to it.
-        for rel in ("organization/cda.html", "budget/index.html", "budget/service-areas.html", "budget/departments.html"):
+        for rel in ("organization/cda.html",):
             text = (ROOT / rel).read_text(encoding="utf-8")
             self.assertIn("budget-table", text, rel)
             self.assertRegex(text, r"Source</h[23]><ul><li>[^<]*pages? <a href=\"https://assets\.marincounty\.gov/[^\"]+#page=\d+\">", rel)
@@ -238,8 +238,7 @@ class PageTests(unittest.TestCase):
         self.assertIn("data-download-json", text)
         self.assertNotIn("data-copy-json", (ROOT / "organization/index.html").read_text(encoding="utf-8"))
         # Copy, Link and Download are on organization, service area and budget pages.
-        for rel in ("organization/cda.html", "organization/index.html", "service-areas/index.html", "service-areas/public-safety.html",
-                    "budget/index.html", "budget/funds.html", "budget/service-areas.html", "budget/departments.html"):
+        for rel in ("organization/cda.html", "organization/index.html", "service-areas/index.html", "service-areas/public-safety.html"):
             page = (ROOT / rel).read_text(encoding="utf-8")
             self.assertIn('data-formats-for="', page, rel)
             self.assertIn('data-action="share"', page, rel)
@@ -279,9 +278,8 @@ class PageTests(unittest.TestCase):
 
     def test_csv_downloads_where_the_page_holds_a_table(self):
         # Each CSV item has its rows in the page, a header row first and the same number of cells in every row.
-        for rel, count in (("organization/cda.html", 3), ("organization/hhs.html", 3), ("budget/index.html", 1), ("budget/fy2025-26/index.html", 1), ("budget/departments.html", 1), ("budget/service-areas.html", 1),
-                           ("budget/funds.html", 1), ("service-areas/public-safety.html", 2), ("organization/index.html", 1), ("service-areas/index.html", 1),
-                           ("programs/cda-building-and-safety.html", 1), ("budget/funds/1000-general-fund.html", 2)):
+        for rel, count in (("organization/cda.html", 3), ("organization/hhs.html", 3), ("service-areas/public-safety.html", 2), ("organization/index.html", 1), ("service-areas/index.html", 1),
+                           ("programs/cda-building-and-safety.html", 1)):
             text = (ROOT / rel).read_text(encoding="utf-8")
             # Every table has its own Copy and Download buttons and a CSV read from the table; the page's own CSV items are counted apart.
             blocks = re.findall(r'<div class="table-block" id="([^"]+)">', text)
@@ -320,10 +318,54 @@ class PageTests(unittest.TestCase):
         self.assertEqual(re.findall(r">([^<]+)</a>", nav), ["Dashboard", "About", "Budget", "Data", "Insights"])
         self.assertLess(program.index('data-tab-section="dashboard"'), program.index('data-tab-section="about"'))
         # Data files are listed under a Source heading, one item each.
-        for rel in ("service-areas/public-safety.html", "programs/cda-building-and-safety.html", "budget/funds.html", "budget/departments.html"):
+        for rel in ("service-areas/public-safety.html", "programs/cda-building-and-safety.html"):
             self.assertRegex((ROOT / rel).read_text(encoding="utf-8"), r'<h2 id="source">Source</h2><ul><li>', rel)
         # A program the book has no row for has no Budget tab.
         self.assertNotIn('data-tab-section="budget"', (ROOT / "programs/cda-planning-administration.html").read_text(encoding="utf-8"))
+
+    def test_budget_tabs_read_marin_data_and_link_to_marin_budget(self):
+        # The Budget pages are in Marin Budget: the figures on a Budget tab come from marin-data, and its links are absolute.
+        site = "https://marincountygov.github.io/marin-budget/"
+        sheriff = (ROOT / "organization/sheriff.html").read_text(encoding="utf-8")
+        self.assertIn('id="budget-fy2025-26"', sheriff)
+        self.assertIn("Budget unit 260, by function and activity", sheriff)
+        self.assertIn(f'href="{site}budget/fy2025-26/schedule-8.html"', sheriff)
+        self.assertIn(f'href="{site}budget/data/budget-lines.jsonld"', sheriff)
+        program = (ROOT / "programs/elections-elections.html").read_text(encoding="utf-8")
+        self.assertIn(f'<a href="{site}budget/funds/1000-general-fund.html">General Fund</a>', program)
+        for page in PAGES:
+            text = page.read_text(encoding="utf-8")
+            self.assertNotRegex(text, r'href="(\.\./)+(budget|capital)/', page.name)
+        self.assertNotIn("budget/", (ROOT / "index.html").read_text(encoding="utf-8"))
+        self.assertNotIn("capital/", (ROOT / "index.html").read_text(encoding="utf-8"))
+
+    def test_service_areas_and_organizations_run_a_to_z(self):
+        natural = lambda t: [int(p) if p.isdigit() else p for p in re.split(r"(\d+)", t.casefold())]
+        # Service areas, departments, divisions and other bodies are listed by name, A to Z.
+        cards = lambda rel: re.findall(r'<article class="app-card app-card--secondary">.*?<h3><a href="[^"]+">([^<]+)</a></h3>', (ROOT / rel).read_text(encoding="utf-8"))
+        areas = cards("service-areas/index.html")
+        self.assertEqual(len(areas), 5)
+        self.assertEqual(areas, sorted(areas, key=natural))
+        text = (ROOT / "organization/index.html").read_text(encoding="utf-8")
+        for group in re.findall(r"<section class=\"docs-grid\"[^>]*>(.*?)</section>", text, re.S):
+            names = re.findall(r"<h3><a href=\"[^\"]+\">([^<]+)</a></h3>", group)
+            self.assertEqual(names, sorted(names, key=natural))
+        for rel in ("organization/hhs.html",):
+            page = (ROOT / rel).read_text(encoding="utf-8")
+            grids = re.findall(r'<h2 id="(?:dash-)?[a-z-]*(?:departments|divisions|service-areas)[a-z-]*">[^<]*</h2><div class="docs-grid[^"]*">(.*?)</div>', page, re.S)
+            self.assertTrue(grids, rel)
+            for grid in grids:
+                names = re.findall(r"<h3><a href=\"[^\"]+\">([^<]+)</a></h3>", grid)
+                self.assertGreater(len(names), 1, rel)
+                self.assertEqual(names, sorted(names, key=natural), rel)
+
+    def test_departments_show_the_books_description_of_budget_changes(self):
+        for rel in ("organization/css.html", "organization/hhs.html", "organization/public-works.html"):
+            text = (ROOT / rel).read_text(encoding="utf-8")
+            section = re.search(r'<h3 id="budget-changes">Description of budget changes</h3>(.*?)<h3', text, re.S)
+            self.assertIsNotNone(section, rel)
+            self.assertGreaterEqual(section.group(1).count("<p>"), 3, rel)
+            self.assertNotIn("2027", section.group(1), rel)
 
     def test_programs_are_listed_a_to_z(self):
         # Programs on a service area page and an organization's Programs tab run A to Z by name.
@@ -335,115 +377,11 @@ class PageTests(unittest.TestCase):
             self.assertEqual(names, sorted(names, key=str.casefold), rel)
 
     def test_every_organization_service_area_program_and_budget_page_has_the_buttons(self):
-        for d in ("organization", "service-areas", "programs", "budget", "budget/funds"):
+        for d in ("organization", "service-areas", "programs"):
             for page in (ROOT / d).glob("*.html"):
                 text = page.read_text(encoding="utf-8")
                 self.assertIn('class="doc-actions"', text, page.name)
                 self.assertIn('data-action="share"', text, page.name)
-
-    def test_capital_pages_match_their_data(self):
-        data = json.loads((ROOT / "capital/data/cip-display.json").read_text(encoding="utf-8"))
-        projects = data["projects"]
-        self.assertEqual(len(list((ROOT / "capital/projects").glob("*.html"))), len(projects))
-        # Every project row adds up to its own printed total.
-        for p in projects:
-            years = sum(p["byYear"].values())
-            self.assertEqual(p["priorApprovals"] + years, p["totalFunding"], p["name"])
-            self.assertEqual(p["totalFunding"] + p["additionalFundsNeeded"], p["costEstimate"], p["name"])
-        # The projects page is a tool: a card and a table row for every project, the filters, and the stats the script keeps current.
-        tool = (ROOT / "capital/projects.html").read_text(encoding="utf-8")
-        self.assertEqual(len(re.findall(r'<li class="app-card mm-card" data-project=', tool)), len(projects))
-        self.assertEqual(len(re.findall(r'<tr data-project=', tool)), len(projects))
-        for facet in ("category", "subcategory", "status", "year", "size", "gap"):
-            self.assertIn(f'id="facet-{facet}"', tool)
-        for needle in ('id="active-filters"', 'id="selection-kpis"', 'data-view="table"', 'data-sort="cost"', 'src="projects.js?v='):
-            self.assertIn(needle, tool)
-        # The landing page shows the book's all-categories total.
-        all_total = next(c for c in data["categoryTotals"] if c["label"] == "All Project Categories Total")["total"]
-        index = (ROOT / "capital/index.html").read_text(encoding="utf-8")
-        self.assertIn(f"${all_total:,}", index)
-        # A fund for capital projects links to the plan; the General Fund does not.
-        self.assertIn("capital/index.html", (ROOT / "budget/funds/1420-countywide-capital-projects-fund.html").read_text(encoding="utf-8"))
-        self.assertNotIn("capital/index.html", (ROOT / "budget/funds/1000-general-fund.html").read_text(encoding="utf-8"))
-
-    def test_budget_2025_pages_match_the_book_and_its_checks(self):
-        base = ROOT / "budget/fy2025-26"
-        data = json.loads((base / "data/schedules.json").read_text(encoding="utf-8"))
-        schedules = {s["number"]: s for s in data["schedules"]}
-        self.assertEqual(sorted(schedules), list(range(1, 16)))
-        for n in schedules:
-            self.assertTrue((base / f"schedule-{n}.html").exists(), n)
-        for name in ("index", "road-fund", "personnel", "property-tax-trends"):
-            self.assertTrue((base / f"{name}.html").exists(), name)
-
-        def rows(n):
-            return [x for x in schedules[n]["items"] if "heading" not in x]
-        # The book's own totals: financing sources equal financing uses, and the schedule rows add up to them.
-        total = next(x for x in rows(1) if x["label"] == "Total All Funds")
-        self.assertEqual(total["values"][3], total["values"][6])
-        self.assertEqual(sum(total["values"][:3]), total["values"][3])
-        governmental = next(x for x in rows(1) if x["label"] == "Total Governmental Funds")
-        groups = [x for x in rows(2) if x["code"] is None and x["label"] in ("Total General Fund", "Total Special Revenue Funds", "Total Capital Project Funds", "Total Debt Service Funds")]
-        self.assertEqual(len(groups), 4)
-        for k in range(7):
-            self.assertEqual(sum(g["values"][k] for g in groups), governmental["values"][k], k)
-        # Every fund row: sources add up and equal uses.
-        for x in rows(2):
-            v = x["values"]
-            self.assertEqual(v[0] + v[1] + v[2], v[3], x["label"])
-            self.assertEqual(v[3], v[6], x["label"])
-        # The book's printed headline numbers are on the overview, and the buttons are on every page.
-        index = (base / "index.html").read_text(encoding="utf-8")
-        self.assertIn("$1068.0M", index)  # Schedule 7, subtotal financing uses, adopted
-        self.assertIn("$488.4M", index)  # Schedule 2, General Fund financing uses
-        for page in sorted(base.glob("*.html")):
-            text = page.read_text(encoding="utf-8")
-            self.assertIn('data-download-csv', text, page.name)
-            self.assertIn("page-data.js?v=", text, page.name)
-        # The tool on the home page: a year dropdown, a card and a row for every Schedule 8 unit line, the filters, the tabs, and the notes from the data.
-        lines = (base / "index.html").read_text(encoding="utf-8")
-        unit_lines = [x for x in rows(8) if x["code"]]
-        self.assertEqual(len(re.findall(r'<li class="app-card mm-card" data-line=', lines)), len(unit_lines))
-        self.assertEqual(len(re.findall(r'<tr data-line=', lines)), len(unit_lines))
-        for needle in ('id="facet-function"', 'id="facet-unit"', 'id="stats-toggle"', 'id="notes-toggle"', 'id="line-notes"', 'id="book-filter"', 'id="column-filter"', 'budget/tool.js?v='):
-            self.assertIn(needle, lines)
-        notes = json.loads((base / "data/notes.json").read_text(encoding="utf-8"))
-        for text in notes["notes"]:
-            self.assertIn(text, lines)
-        self.assertEqual(len(notes["totalsThatDifferFromTheirParts"]), lines.count('<th scope="row">FY 20'))
-        # A card's title stays in the tool: it applies that line as a filter and opens Stats.
-        self.assertRegex(lines, r'<h3 class="mm-card__title"><a href="\?unit=[^"]+&amp;tab=stats">')
-        # Cited pages link to the book at the right PDF page (printed page + 8): Schedule 1 is printed page 1, PDF page 9.
-        one = (base / "schedule-1.html").read_text(encoding="utf-8")
-        self.assertRegex(one, r'page <a href="https://assets\.marincounty\.gov/[^"]*Not%20Remediated\.pdf#page=9">1</a>')
-        # Schedule 9 lists each budget unit once, though the book prints it for each function.
-        nine = (base / "schedule-9.html").read_text(encoding="utf-8")
-        self.assertEqual(len(re.findall(r'<h2 id="s\d+-100-', nine)), 1)
-        # The Budget page links to the book's pages, and the JSON-LD loads as schemaGov entities.
-        self.assertIn("fy2025-26/index.html", (ROOT / "budget/index.html").read_text(encoding="utf-8"))
-        budgets = json.loads((base / "data/budgets-2025-26.jsonld").read_text(encoding="utf-8"))["@graph"]
-        self.assertEqual([b["budgetPhase"] for b in budgets], ["executed", "adjusted", "proposed", "approved"])
-
-    def test_budget_and_capital_sections_carry_the_test_banner_and_nothing_else_does(self):
-        text = "TEST: This is a design test. Data shown has not been fully reviewed and is for test use only."
-        for rel in ("budget/index.html", "budget/fy2025-26/index.html", "budget/funds/1000-general-fund.html", "budget/fy2025-26/schedule-4.html", "budget/departments.html", "capital/index.html", "capital/projects.html"):
-            page = (ROOT / rel).read_text(encoding="utf-8")
-            self.assertIn(f'<div class="app-test-banner" role="note">{text}</div>', page, rel)
-            # Directly under the header navigation, above the page content.
-            self.assertLess(page.index("</header>"), page.index("app-test-banner"), rel)
-            self.assertLess(page.index("app-test-banner"), page.index('<main id="main"'), rel)
-        self.assertNotIn("app-test-banner", (ROOT / "organization/sheriff.html").read_text(encoding="utf-8"))
-
-    def test_budget_page_opens_with_the_countywide_overview(self):
-        text = (ROOT / "budget/index.html").read_text(encoding="utf-8")
-        # The County as a whole is on the Stats tab, after the selection's own stats.
-        self.assertLess(text.index('id="selection-charts"'), text.index('id="overview"'))
-        self.assertIn("$902.6M", text)
-        self.assertIn("$855.6M", text)
-        self.assertIn("4.2%", text)
-        # The overview's pies and table come from the same figures, and cite pages 20 and 21 of the book.
-        self.assertIn("chart-county-expenditures-data", text)
-        self.assertRegex(text, r"pages <a [^>]*#page=22\">20</a>, <a [^>]*#page=23\">21</a>")
 
     def test_a_division_without_figures_shows_no_budget(self):
         # The book budgets departments (and Health and Human Services' divisions); other divisions show no Budget at all.
@@ -473,60 +411,23 @@ class PageTests(unittest.TestCase):
         self.assertIn("data-insights-live", (ROOT / "organization/county-executive.html").read_text(encoding="utf-8"))
         self.assertNotIn("data-insights-live", (ROOT / "service-areas/public-safety.html").read_text(encoding="utf-8"))
 
-    def test_every_fund_has_a_page(self):
-        funds = (ROOT / "budget/funds.html").read_text(encoding="utf-8")
-        cards = funds[funds.index('<ul class="search-results-list"'):funds.index("</ul>", funds.index('<ul class="search-results-list"'))]
-        links = re.findall(r'<h3 class="mm-card__title"><a href="\./funds/([^"]+\.html)">', cards)
-        self.assertEqual(len(links), 28)
-        for link in links:
-            page = (ROOT / "budget/funds" / link)
-            self.assertTrue(page.exists(), link)
-            text = page.read_text(encoding="utf-8")
-            labels = re.findall(r">([^<]+)</a>", re.search(r'<nav id="app-nav"[^>]*>(.*?)</nav>', text, re.S).group(1))
-            self.assertEqual([l for l in labels if l not in ("Budget",)], ["Dashboard", "About", "Data", "Insights"], link)
-        # Only the General Fund has figures, from the program rows that name it; the others say what the data says.
-        general = (ROOT / "budget/funds/1000-general-fund.html").read_text(encoding="utf-8")
-        self.assertIn('data-tab-section="budget"', general)
-        self.assertIn("fund-chart-departments-data", general)
-        self.assertRegex(general, r"Source</h3><ul><li>[^<]*pages? <a href=")
-        # The others have a Budget tab only for what the FY 2025-26 Final Budget prints for the fund number: no departments table.
-        building = (ROOT / "budget/funds/2080-building-inspection-fund.html").read_text(encoding="utf-8")
-        self.assertIn('id="budget-fy2025-26"', building)
-        self.assertNotIn("fund-chart-departments-data", building)
-        # A department with a budget unit in that book shows it on its Budget tab, from the book's own schedules.
-        sheriff = (ROOT / "organization/sheriff.html").read_text(encoding="utf-8")
-        self.assertIn('id="budget-fy2025-26"', sheriff)
-        self.assertIn("Budget unit 260, by function and activity", sheriff)
-        # Names are written as the County writes them, and a program's General Fund row links to the page.
-        shown = re.sub(r"<script[^>]*>.*?</script>", " ", funds, flags=re.S)  # the JSON is the data as it is
-        self.assertIn("HHS Social Services Realignment", shown)
-        self.assertNotIn("Hhs ", shown)
-        program = (ROOT / "programs/elections-elections.html").read_text(encoding="utf-8")
-        self.assertIn('<a href="../budget/funds/1000-general-fund.html">General Fund</a>', program)
-
     def test_headings_have_no_count_lines_under_them(self):
         # A count of the cards below a heading says nothing a person cannot see.
         cda = (ROOT / "organization/cda.html").read_text(encoding="utf-8")
         divisions = re.search(r'id="divisions".*?</section>', cda, re.S).group(0)
         self.assertNotRegex(divisions, r"\d+ divisions\.")
-        self.assertNotRegex((ROOT / "budget/funds.html").read_text(encoding="utf-8"), r">\d+ funds\.<")
-        departments = (ROOT / "budget/departments.html").read_text(encoding="utf-8")
-        self.assertNotRegex(re.sub(r"<script.*?</script>", " ", departments, flags=re.S), r"\d+ departments\.")
-        # The County as a whole is not one of its departments: 23 departments, none named County of Marin.
-        self.assertEqual(departments.count("<tr><th scope=\"row\">"), 23)
-        self.assertNotIn(">County of Marin</a></th>", departments)
         self.assertNotRegex(cda, r"\d+ programs\.<")
 
     def test_text_is_clean(self):
         # Text copied from the budget book is cleaned before it is shown (scripts/clean-text.js).
-        pages = [p for d in ("organization", "service-areas", "programs", "budget", "budget/funds") for p in (ROOT / d).glob("*.html")]
+        pages = [p for d in ("organization", "service-areas", "programs") for p in (ROOT / d).glob("*.html")]
         for page in pages:
             # The JSON a page offers is the record as the data has it; the cleaning is for what the page shows.
             html = re.sub(r"<script[^>]*>.*?</script>", " ", page.read_text(encoding="utf-8"), flags=re.S)
             text = re.sub(r"<[^>]+>", " ", html)
             self.assertNotIn("DEPARTMENT BUDGET", text, f"{page.name}: budget book heading")
             self.assertNotIn("Tel:", text, f"{page.name}: contact block")
-            self.assertIsNone(re.search(r"[a-z]- [A-Za-z]", text), f"{page.name}: word split at a line break")
+            self.assertIsNone(re.search(r"[a-z]- (?!and\b|or\b)[A-Za-z]", text), f"{page.name}: word split at a line break")
             self.assertIsNone(re.search(r"[.!?] \.(?:\s|$)", text), f"{page.name}: stray full stop")
 
     def test_page_basics(self):
