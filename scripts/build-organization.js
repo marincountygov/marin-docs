@@ -38,8 +38,8 @@ if (src) {
   for (const f of ['organizations.jsonld', 'jurisdictions.jsonld', 'programs.jsonld', 'people.jsonld', 'posts.jsonld', 'roles.jsonld', 'sources.json']) {
     fs.copyFileSync(path.join(src, f), path.join(DATA, f));
   }
-  budget.copyData(src);
 }
+if (src) budget.useData(src);
 const budgetData = budget.load();
 const read = (f) => JSON.parse(fs.readFileSync(path.join(DATA, f), 'utf8'))['@graph'];
 const links = JSON.parse(fs.readFileSync(path.join(OUT, 'links.json'), 'utf8'));
@@ -67,7 +67,9 @@ for (const o of orgs) {
 }
 const county = orgs.find((o) => o.organizationClassification === 'government' && !o.parentOrganization);
 const parentOf = (o) => (o.parentOrganization ? byId.get(o.parentOrganization['@id']) : null);
-const childrenOf = (o) => orgs.filter((c) => c.parentOrganization && c.parentOrganization['@id'] === o['@id']);
+// Service areas, departments, divisions and other bodies are listed A to Z by name.
+const byOrgName = (a, b) => a.name.localeCompare(b.name, 'en', { sensitivity: 'base', numeric: true });
+const childrenOf = (o) => orgs.filter((c) => c.parentOrganization && c.parentOrganization['@id'] === o['@id']).sort(byOrgName);
 const page = (o) => slugOf(o['@id']) + '.html';
 // Service areas have their own section, and every program its own page. Paths are from the docs root.
 const isArea = (o) => o.organizationClassification === 'serviceArea';
@@ -142,7 +144,7 @@ const groupHeading = (kind) => (kind === 'legislature' ? 'Legislature' : PLURAL_
 function indexPage() {
   // Grouped by each body's own classification, in the order of the OrganizationClassification code list.
   // Service areas have their own section. Divisions are listed on their department's page.
-  const listed = orgs.filter((o) => o !== county && o.organizationClassification !== 'division');
+  const listed = orgs.filter((o) => o !== county && o.organizationClassification !== 'division').sort(byOrgName);
   const order = Object.keys(TYPE_LABEL).filter((kind) => !['government', 'division', 'serviceArea'].includes(kind));
   const groups = order
     .map((kind) => [kind, listed.filter((o) => o.organizationClassification === kind)])
@@ -378,7 +380,7 @@ function orgPage(o) {
 // ---- Service areas: a page for each, listing its programs ----
 // A program card is its title (a link to its page) and its description.
 const programCard = (p, from) => resultCard({ title: p.name, href: rel(from, programUrl(p)), text: p.description && cleanText(p.description) });
-const areas = orgs.filter(isArea);
+const areas = orgs.filter(isArea).sort(byOrgName);
 
 function serviceAreasIndex() {
   const cards = areas.map((a) => {
@@ -401,7 +403,7 @@ function serviceAreaPage(a) {
     ? `<section class="section" id="budget" data-tab-section="budget" aria-labelledby="budget-heading" hidden><h2 id="budget-heading">Budget</h2>` +
       `<div class="mm-stats-kpis">${budget.kpi('Expenditures, FY 2026-27', budget.millions(budget.val(b.totals[2])))}${b.ad ? budget.kpi('Full-time equivalent staff', budget.fteText(b.ad.sa.fte_fy2026_27)) : ''}</div>` +
       `<h3 id="budget-departments">Departments</h3>${b.chart}${b.table}` +
-      budget.sourceList(budgetData, b.pages, [['Budget lines (JSON-LD)', '../budget/data/budget-lines.jsonld']], 'Figures are whole dollars as printed; the final edition still labels FY 2026-27 as Proposed. Each program\'s own figures are on its page.') + '</section>'
+      budget.sourceList(budgetData, b.pages, [['Budget lines (JSON-LD)', budget.BUDGET_SITE + 'budget/data/budget-lines.jsonld']], 'Figures are whole dollars as printed; the final edition still labels FY 2026-27 as Proposed. Each program\'s own figures are on its page.') + '</section>'
     : '';
   // About: what the record says, and the departments in it.
   const kids = childrenOf(a);
@@ -428,7 +430,7 @@ function serviceAreaPage(a) {
     `<section class="section" id="programs" data-tab-section="programs" aria-labelledby="programs-heading" hidden><h2 id="programs-heading">Programs</h2><ul class="search-results-list" aria-label="Programs">${own.map((p) => programCard(p, 'service-areas')).join('')}</ul></section>` +
     budgetTab +
     `<div id="data" data-tab-section="data" hidden><section class="section" aria-labelledby="record"><h2 id="record">Record</h2><dl class="org-facts">${row('Record id', `<code>${esc(a['@id'])}</code>`)}${row('Record type', `<code>${esc(a['@type'])}</code>`)}</dl></section>` +
-    `<section class="section" aria-labelledby="source"><h2 id="source">Source</h2><ul><li><a href="../organization/data/organizations.jsonld">Organization data (JSON-LD)</a></li><li><a href="../organization/data/programs.jsonld">Program data (JSON-LD)</a></li>${b ? '<li><a href="../budget/data/budget-lines.jsonld">Budget lines (JSON-LD)</a></li>' : ''}</ul>${sources.budgetBook ? `<p class="app-help-text">Descriptions and programs come from the ${esc(sources.budgetBook.title)}.</p>` : ''}</section></div>` +
+    `<section class="section" aria-labelledby="source"><h2 id="source">Source</h2><ul><li><a href="../organization/data/organizations.jsonld">Organization data (JSON-LD)</a></li><li><a href="../organization/data/programs.jsonld">Program data (JSON-LD)</a></li>${b ? `<li><a href="${budget.BUDGET_SITE}budget/data/budget-lines.jsonld">Budget lines (JSON-LD)</a></li>` : ''}</ul>${sources.budgetBook ? `<p class="app-help-text">Descriptions and programs come from the ${esc(sources.budgetBook.title)}.</p>` : ''}</section></div>` +
     jsonBlock({ about: [a, ...kids], programs: own, budget: b ? budget.linesFor(budgetData, a['@id']) : [], data: [a] }, '../organization/page-data.js', csvs) + insights + '</article>';
   return shell(a.name, `Service area of the ${county.name}.`, [['Marin Docs', '../index.html'], ['Service areas', './index.html'], [a.name, null]], body, ICON_LAYERS);
 }
@@ -451,7 +453,7 @@ function programPage(p) {
     if (by[0]) crumbs.push([by[0].name, rel('programs', urlOf(by[0]))]);
   }
   crumbs.push([p.name, null]);
-  const budgetTab = budget.programBudget(budgetData, p, p.name, (id) => { const f = budgetData && budgetData.fundById.get(id); return f ? `../budget/funds/${budget.fundSlug(f)}.html` : null; });
+  const budgetTab = budget.programBudget(budgetData, p, p.name, (id) => { const f = budgetData && budgetData.fundById.get(id); return f ? `${budget.BUDGET_SITE}budget/funds/${budget.fundSlug(f)}.html` : null; });
   const kpis = budget.programKpis(budgetData, p);
   const tabNav = `<nav id="app-nav" class="org-tabs" aria-label="Sections"><a href="#dashboard">Dashboard</a><a href="#about">About</a>${budgetTab ? '<a href="#budget">Budget</a>' : ''}<a href="#data">Data</a><a href="#insights">Insights</a></nav>`;
   // The Dashboard is a tight look at the other tabs, each with a link to the tab. A program with no figures in the book has only About.
@@ -468,7 +470,7 @@ function programPage(p) {
     `<div id="about" data-tab-section="about" hidden><section class="section" aria-labelledby="about-heading"><h2 id="about-heading">About</h2><dl class="org-facts">${facts.join('')}${p.description ? row('Description', esc(cleanText(p.description))) : ''}</dl></section></div>` +
     budgetTab +
     `<div id="data" data-tab-section="data" hidden><section class="section" aria-labelledby="record"><h2 id="record">Record</h2><dl class="org-facts">${record.join('')}</dl></section>` +
-    `<section class="section" aria-labelledby="source"><h2 id="source">Source</h2><ul><li><a href="../organization/data/programs.jsonld">Program data (JSON-LD)</a></li>${budgetTab ? '<li><a href="../budget/data/budget-lines.jsonld">Budget lines (JSON-LD)</a></li>' : ''}</ul>${sources.budgetBook ? `<p class="app-help-text">Descriptions and programs come from the ${esc(sources.budgetBook.title)}.</p>` : ''}</section></div>` +
+    `<section class="section" aria-labelledby="source"><h2 id="source">Source</h2><ul><li><a href="../organization/data/programs.jsonld">Program data (JSON-LD)</a></li>${budgetTab ? `<li><a href="${budget.BUDGET_SITE}budget/data/budget-lines.jsonld">Budget lines (JSON-LD)</a></li>` : ''}</ul>${sources.budgetBook ? `<p class="app-help-text">Descriptions and programs come from the ${esc(sources.budgetBook.title)}.</p>` : ''}</section></div>` +
     jsonBlock({ about: [p], data: [p], budget: budgetTab ? (budgetData.byProgram.get(p['@id']) || []) : [] }, '../organization/page-data.js', csvs) + insights + '</article>';
   return shell(p.name, p.description ? cleanText(p.description) : `Program of the ${county.name}.`, crumbs, body);
 }

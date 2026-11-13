@@ -1,10 +1,10 @@
-// Checks the budget lines in budget/data against themselves, the way the budget book adds up.
+// Checks the budget lines in marin-data/output against themselves, the way the budget book adds up.
 const test = require('node:test');
 const assert = require('node:assert');
 const fs = require('fs');
 const path = require('path');
 
-const DIR = path.join(__dirname, '..', 'budget', 'data');
+const DIR = process.env.MARIN_DATA_OUTPUT || path.join(__dirname, '..', '..', 'marin-data', 'output');
 const read = (f) => JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8'))['@graph'];
 const lines = read('budget-lines.jsonld');
 const budgets = new Map(read('budgets.jsonld').map((b) => [b['@id'], b]));
@@ -50,14 +50,4 @@ test('a program or fund a line names exists, and a program line names its fund g
     if (l.fund) assert.ok(funds.has(l.fund['@id']), `${l['@id']}: fund`);
     if (l.programClassification) assert.ok(l.fundSource, `${l['@id']}: a program row is in a fund group`);
   }
-});
-
-test('a choice of one is a dropdown once there is anything to choose', () => {
-  const { choiceFilter } = require('../scripts/budget-tool');
-  const options = (n) => Array.from({ length: n }, (_, i) => ({ value: String(i), label: `Option ${i}` }));
-  assert.match(choiceFilter('f', 'Year', 'year', options(1), '0'), /type="radio"/);
-  const two = choiceFilter('f', 'Year', 'year', options(2), '1');
-  assert.match(two, /<select id="f-select" name="year">/);
-  assert.doesNotMatch(two, /type="radio"/);
-  assert.match(two, /<option value="1" selected>/);
 });

@@ -8,7 +8,6 @@ project:
   audience: staff
   status: alpha
   test: false
-  test_sections: budget/, capital/
 
 platform:
   shell: 1.24.0

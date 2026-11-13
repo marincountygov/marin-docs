@@ -5,10 +5,11 @@
 const fs = require('fs');
 const path = require('path');
 
-const FILE = path.join(__dirname, '..', 'budget', 'fy2025-26', 'data', 'schedules.json');
+const { BUDGET_SITE, dataDir } = require('./budget-data');
 let cache;
 function book() {
   if (cache !== undefined) return cache;
+  const FILE = path.join(dataDir(), 'budget-2025-26', 'schedules.json');
   if (!fs.existsSync(FILE)) { cache = null; return cache; }
   const data = JSON.parse(fs.readFileSync(FILE, 'utf8'));
   const by = Object.fromEntries(data.schedules.map((s) => [s.number, s]));
@@ -35,8 +36,9 @@ function book() {
   const personnel = new Map(data.personnel.departments.map((d) => [d.unit, d]));
   const funds = new Map(rows(by[2]).filter((x) => x.code).map((x) => [x.code, x]));
   const balances = new Map(rows(by[3]).filter((x) => x.code).map((x) => [x.code, x]));
-  const info = path.join(__dirname, '..', 'budget', 'fy2025-26', 'data', 'book.json');
-  cache = { data, by, units, personnel, funds, balances, offset: data.offset, url: fs.existsSync(info) ? JSON.parse(fs.readFileSync(info, 'utf8')).url : null };
+  const info = path.join(dataDir(), 'sources.json');
+  const sourceBook = fs.existsSync(info) ? JSON.parse(fs.readFileSync(info, 'utf8')).budgetBook2025 : null;
+  cache = { data, by, units, personnel, funds, balances, offset: data.offset, url: sourceBook ? sourceBook.url : null };
   return cache;
 }
 
@@ -45,7 +47,7 @@ const printed = (b, pages) => [...pages].map((p) => p - b.offset).sort((x, y) =>
 const pagesText = (list, b) => (list.length === 1 ? 'page ' : 'pages ') + list.map((p) => (b.url ? `<a href="${esc(b.url)}#page=${p + b.offset}">${p}</a>` : p)).join(', ');
 
 function sourceBlock(b, pages, up, schedulePages) {
-  const items = [`${esc(b.data.book)}, ${pagesText(printed(b, pages), b)}`, ...schedulePages.map(([label, href]) => `<a href="${up}budget/fy2025-26/${href}">${esc(label)}</a>`)];
+  const items = [`${esc(b.data.book)}, ${pagesText(printed(b, pages), b)}`, ...schedulePages.map(([label, href]) => `<a href="${BUDGET_SITE}budget/fy2025-26/${href}">${esc(label)}</a>`)];
   return `<h3 id="budget-fy2025-26-source">Source, FY 2025-26 Final Budget</h3><ul>${items.map((i) => `<li>${i}</li>`).join('')}</ul>`;
 }
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
