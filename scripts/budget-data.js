@@ -83,7 +83,9 @@ const pageLink = (data, page, bare) => (data.book ? `<a href="${esc(data.book)}#
 // The text of one table cell, as a figure where it is one: "$1,234" is 1234, "−$5" is -5, "No figure" is empty.
 const cellText = (html) => {
   if (/aria-label="No figure"/.test(html)) return '';
-  const t = html.replace(/<[^>]+>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+  // The cell's text: what is between the tags, with the entities the page writes turned back into characters in one pass.
+  const entities = { lt: '<', gt: '>', quot: '"', '#39': "'", amp: '&' };
+  const t = html.split(/<[^>]*>/).join('').replace(/&(lt|gt|quot|#39|amp);/g, (_, name) => entities[name]).replace(/\s+/g, ' ').trim();
   const m = t.match(/^(−)?\$([\d,]+(?:\.\d+)?)$/);
   return m ? (m[1] ? -1 : 1) * Number(m[2].replace(/,/g, '')) : t;
 };
