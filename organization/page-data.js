@@ -100,7 +100,7 @@
   window.marinChartImage = image;
   window.marinChartPng = download;
   window.marinChartTitle = titleOf;
-  const escape = (t) => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const escape = (t) => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
   document.addEventListener("click", async (event) => {
     const target = event.target instanceof Element ? event.target : null;
     const png = target?.closest("[data-chart-png]");
