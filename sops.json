@@ -661,9 +661,7 @@
       "isBasedOn": {
         "@type": "DigitalDocument",
         "name": "2026 Comprehensive Road Maintenance Operation Procedures",
-        "encodingFormat": "application/pdf",
-        "contentUrl": "source-documents/2026-comprehensive-road-maintenance-operation-procedures.pdf",
-        "url": "source-documents/2026-comprehensive-road-maintenance-operation-procedures.pdf"
+        "encodingFormat": "application/pdf"
       }
     },
     {

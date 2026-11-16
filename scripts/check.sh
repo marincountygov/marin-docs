@@ -32,6 +32,12 @@ if [[ -f "$ROOT_DIR/vendor/marinos/audit-shared-helpers.py" ]]; then
   python3 "$ROOT_DIR/vendor/marinos/audit-shared-helpers.py" "$ROOT_DIR" --fail
 fi
 
+# The data files copied from marin-data must match it (see marin-data/consumers.json). Skipped when marin-data is not next to this repo.
+if [[ -f "$ROOT_DIR/../marin-data/check_copies.py" ]]; then
+  python3 "$ROOT_DIR/../marin-data/check_copies.py" "$ROOT_DIR"
+else
+  printf 'SKIP: marin-data is not next to this repo; its data copies were not compared.\n' >&2
+fi
 if command -v node >/dev/null 2>&1; then
   node --check "$ROOT_DIR/scripts/build-pmr-guide.js"
   node --check "$ROOT_DIR/scripts/build-guide.js"
