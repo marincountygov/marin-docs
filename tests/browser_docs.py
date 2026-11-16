@@ -152,11 +152,7 @@ def check_guide(browser, base):
     url = base + GUIDE
     page.goto(url)
     page.wait_for_selector("[data-action=share]")
-    pdf = page.locator("a.action-button[href$='.pdf']")
-    require(pdf.count() == 1, "Guide: one PDF link")
-    href = pdf.get_attribute("href")
-    require((ROOT / "guides/public-engagement-plan" / href).is_file(), f"Guide: the PDF exists ({href})")
-    require(pdf.get_attribute("target") == "_blank" and "opens in a new tab" in pdf.get_attribute("aria-label"), "Guide: the PDF link says it opens in a new tab")
+    require(page.locator("a.action-button[href$='.pdf']").count() == 0, "Guide: no PDF link (the source PDF is internal)")
     common(page, "Guide", url)
     require(not problems, f"Guide: console or page errors: {problems}")
     context.close()

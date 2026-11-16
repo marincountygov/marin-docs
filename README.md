@@ -12,7 +12,7 @@ Marin Docs is the County of Marin documentation hub. It uses the MarinOS Docs sh
 - `service-areas/`: the County's service areas, a page each listing its programs, and `programs/`: a page for each program. Both are written by `scripts/build-organization.js` from the same data
 - `vendor/`: the installed MarinOS App Shell (`vendor/marinos/`) and its fonts and icons
 - root-level document stubs: compatibility redirects for URLs that existed before the SOP collection moved
-- root-level `sops.json` and `source-documents/`: compatibility copies retained for existing consumers
+- root-level `sops.json`: compatibility copy retained for existing consumers
 
 ## Guides
 
@@ -22,7 +22,7 @@ Like `sop/`, there is no generator: each guide page (`guides/<guide-slug>/*.html
 
 `guides/styles.css` also defines `.guide-callout--required`/`.guide-callout--best-practice` (a REQUIRED/BEST PRACTICE distinction, common in county policy documents) and `.guide-pager` (previous/next page links) — reuse these for any new guide rather than inventing another variant.
 
-Keep the original source PDF in `guides/<guide-slug>/source-documents/` and link it from every page's `.doc-actions` ("Download PDF") — the PDF remains the official adopted record; the HTML is the day-to-day reading experience.
+Source PDFs are not stored in this repo. Each one is recorded in `marin-data/sources.json`. If a PDF has a public County URL, link that URL from every page's `.doc-actions` ("Download PDF"). If it is marked internal, do not store it here or link to it.
 
 Add a new guide by: adding its pages under a new `guides/<guide-slug>/` folder, adding a card to `guides/index.html`, and adding an entry to `guides/guides.json` (a lightweight `schema.org ItemList`, structured exactly like `sop/sops.json` — not read by any page's JS, just a structured-data companion).
 
@@ -42,7 +42,7 @@ Each page's Link, Copy and Download buttons carry only what to do (`data-action=
 
 ## Organization
 
-`organization/` is built from schemaGov JSON-LD, not written by hand. The data is `organization/data/organizations.jsonld` and `jurisdictions.jsonld`, converted from the County's agency list. Run `node scripts/build-organization.js <folder with the two files>` to copy new data in and rewrite `organization/index.html` and one page per organization. Edit the data, never the generated pages. Hierarchy comes only from each organization's `parentOrganization`.
+`organization/` is built from schemaGov JSON-LD, not written by hand. The data is `organization/data/organizations.jsonld` and `jurisdictions.jsonld`, copied from `marin-data/output/`, where the organization list is maintained (see `marin-data/FINDINGS.md`). Run `node scripts/build-organization.js ../marin-data/output --reach ../marin-reach/data/engagements.json` to copy new data in and rewrite `organization/index.html` and one page per organization. Edit the data, never the generated pages. Hierarchy comes only from each organization's `parentOrganization`.
 
 An organization page opens on a Dashboard: a tight look at each of its other tabs (About, Divisions, Programs, Budget, People, and the Mentions, Reach and Links apps), each with a link to the tab for more. The tabs follow: About, then the tabs the organization has, then Data. On a page with tabs the Copy, Link and Download buttons sit below the tabs and follow the open tab: they copy and download that tab, files are named for it (`cda-programs.md`), and JSON and CSV are offered only on the tabs that have them; the Dashboard offers only the link. Organization, service area and budget pages have Copy, Link and Download buttons (`scripts/page-actions.js`, wired by the shell); the Dashboard is left out of what they copy. Where a page carries its data (an organization, a service area, the funds and the budget tables) Copy and Download also offer JSON: the page's JSON-LD record, exactly as the data has it (`organization/page-data.js`). Download also offers a CSV for each table a page holds (a department's programs and budget, the budget tables, the funds, the lists of organizations and service areas); the rows are written into the page and turned into a CSV with a byte-order mark by `organization/page-data.js`. Organization, service area and program pages end with an Insights tab: choose what to include, add a question, and copy a prompt for a chatbot that holds the page's structured data (about, people, programs, budget, and, from the published sources when the tab opens, Mentions, Reach campaigns and Links). Like Marin Spec's prompts it names no AI product and calls no AI service; `scripts/insights.js` writes the tab and `organization/insights.js` builds the prompt. Telephone numbers are `tel:` links; a number that is not a whole US number stays plain text.
 

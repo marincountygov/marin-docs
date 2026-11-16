@@ -5,6 +5,12 @@ const fs = require('fs');
 const path = require('path');
 
 const DIR = process.env.MARIN_DATA_OUTPUT || path.join(__dirname, '..', '..', 'marin-data', 'output');
+
+// These checks read marin-data. When it is not next to this repo (a repo with no marin-data.lock in CI), skip them.
+if (!fs.existsSync(path.join(DIR, 'budget-lines.jsonld'))) {
+  test('budget line checks need marin-data next to this repo', { skip: 'marin-data is not next to this repo' }, () => {});
+  return;
+}
 const read = (f) => JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8'))['@graph'];
 const lines = read('budget-lines.jsonld');
 const budgets = new Map(read('budgets.jsonld').map((b) => [b['@id'], b]));
