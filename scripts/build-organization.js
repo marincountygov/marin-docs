@@ -1,14 +1,12 @@
 #!/usr/bin/env node
 // Builds the Organization collection from schemaGov JSON-LD.
 //
-//   node scripts/build-organization.js [source-dir] [--reach engagements.json] [--local]
+//   node scripts/build-organization.js [source-dir] [--local]
 //
-// With a source-dir, organizations.jsonld and jurisdictions.jsonld are copied
-// into organization/data/ first. With --reach (Marin Reach's
-// data/engagements.json), the agency names Reach knows are saved to
-// organization/data/reach-agencies.json, so a Reach link is written only when
-// it will find something. --local points the "Related" links at localhost
-// (see organization/links.json); never commit a build made with it.
+// With a source-dir, the data files (organizations, jurisdictions, programs, people,
+// posts, roles and sources) are copied into organization/data/ first. --local points
+// the "Related" links at localhost (see organization/links.json); never commit a
+// build made with it.
 // Then organization/index.html and one page per organization are written.
 // Edit the data, never the generated pages.
 // Hierarchy is read from parentOrganization only.
@@ -25,15 +23,8 @@ const DATA = path.join(OUT, 'data');
 
 const argv = process.argv.slice(2);
 const flag = (name) => argv.includes(name);
-const reachAt = argv.indexOf('--reach');
-const reachFile = reachAt >= 0 ? argv[reachAt + 1] : null;
-const src = argv.find((a, i) => !a.startsWith('--') && (reachAt < 0 || i !== reachAt + 1));
+const src = argv.find((a) => !a.startsWith('--'));
 const LOCAL = flag('--local');
-if (reachFile) {
-  const records = JSON.parse(fs.readFileSync(reachFile, 'utf8')).records;
-  const names = [...new Set(records.flatMap((r) => r.agencies || []))].sort();
-  fs.writeFileSync(path.join(DATA, 'reach-agencies.json'), JSON.stringify(names, null, 2) + '\n');
-}
 if (src) {
   for (const f of ['organizations.jsonld', 'jurisdictions.jsonld', 'programs.jsonld', 'people.jsonld', 'posts.jsonld', 'roles.jsonld', 'sources.json']) {
     fs.copyFileSync(path.join(src, f), path.join(DATA, f));
