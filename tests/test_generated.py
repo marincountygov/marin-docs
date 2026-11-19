@@ -507,6 +507,8 @@ class PageTests(unittest.TestCase):
         records = [r for f in ("jurisdictions.jsonld", "facilities.jsonld") for r in json.loads((data / f).read_text(encoding="utf-8"))["@graph"]]
         pages = [p for p in (ROOT / "places").glob("*.html") if p.name != "index.html"]
         self.assertEqual(len(pages), len(records), "one page for each jurisdiction and facility")
+        codes = {i["value"] for r in records for i in r.get("identifier", []) if i["propertyID"] == "gs:local"}
+        self.assertEqual({p.stem for p in pages}, codes, "each page is named for its record's gs:local code")
         index = (ROOT / "places/index.html").read_text(encoding="utf-8")
         self.assertEqual(len(re.findall(r'<article class="app-card app-card--secondary">', index)), len(records) - 1, "the county is the lede, not a card")
         for group in re.findall(r'<section class="docs-grid"[^>]*>(.*?)</section>', index, re.S):
