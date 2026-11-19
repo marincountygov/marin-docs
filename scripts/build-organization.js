@@ -30,6 +30,8 @@ if (src) {
     fs.copyFileSync(path.join(src, f), path.join(DATA, f));
   }
 }
+// The names of the kinds of place are kept beside the organization files in marin-data (organizations/).
+if (src) fs.copyFileSync(path.join(src, '..', 'organizations', 'place-kinds.json'), path.join(DATA, 'place-kinds.json'));
 if (src) budget.useData(src);
 const budgetData = budget.load();
 const read = (f) => JSON.parse(fs.readFileSync(path.join(DATA, f), 'utf8'))['@graph'];
@@ -490,8 +492,10 @@ function programPage(p) {
 // A place is a territory (a district, a city or town, an unincorporated community, the county) or a facility
 // (a building or site). Both come from marin-data. Paths are from the docs root.
 const identOf = (r, scheme) => ((r.identifier || []).find((i) => i.propertyID === scheme) || {}).value;
-const PLACE_GROUPS = [['district', 'Supervisorial districts'], ['city', 'Cities and towns'], ['community', 'Unincorporated communities'], ['facility', 'Facilities']];
-const PLACE_TYPE = { county: 'County', district: 'Supervisorial district', community: 'Unincorporated community', facility: 'Facility' };
+// What a kind is called, in the singular and the plural, comes from marin-data (organization/data/place-kinds.json).
+const placeKinds = new Map(JSON.parse(fs.readFileSync(path.join(DATA, 'place-kinds.json'), 'utf8')).kinds.map((k) => [k.key, k]));
+const PLACE_GROUPS = ['district', 'city', 'community', 'facility'].map((kind) => [kind, placeKinds.get(kind).plural]);
+const PLACE_TYPE = Object.fromEntries([...placeKinds].map(([key, k]) => [key, k.singular]));
 const OPERATOR_LABEL = { government: 'Government', nongovernment: 'Not government', unknown: 'Not confirmed' };
 const places = [
   ...jurisdictions.map((j) => {
@@ -512,14 +516,20 @@ const byLabel = (a, b) => a.label.localeCompare(b.label, 'en', { sensitivity: 'b
 const placeType = (e) => (e.kind === 'city' ? ((e.rec.alternateName || []).some((n) => /^Town of /.test(n)) ? 'Town' : 'City') : PLACE_TYPE[e.kind]);
 const placeParent = (e) => e.rec.containedInPlace && placeById.get(e.rec.containedInPlace['@id']);
 const placeChildren = (e, kind) => places.filter((c) => c.rec.containedInPlace && c.rec.containedInPlace['@id'] === e.rec['@id'] && (kind === 'facility') === (c.kind === 'facility')).sort(byLabel);
-const placeCard = (e, from) => `<article class="app-card app-card--secondary"><span class="app-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24">${ICON_MAP_PIN}</svg></span><h3><a href="${rel(from, placeUrl(e))}">${esc(e.label)}</a></h3></article>`;
+const placeCard = (e, from, note) => `<article class="app-card app-card--secondary"><span class="app-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24">${ICON_MAP_PIN}</svg></span><h3><a href="${rel(from, placeUrl(e))}">${esc(e.label)}</a></h3>${note ? `<p>${esc(note)}</p>` : ''}</article>`;
+// The supervisorial districts a place is in: all of it (geoWithin) or part of it (geoOverlaps). From marin-data.
+const asList = (v) => (v ? [].concat(v) : []);
+const districtLinks = (e) => [...asList(e.rec.geoWithin).map((x) => [x, false]), ...asList(e.rec.geoOverlaps).map((x) => [x, true])]
+  .map(([x, part]) => ({ e: placeById.get(x['@id']), part })).filter((d) => d.e).sort((a, b) => byLabel(a.e, b.e));
+// The places in a district, and whether each is only partly in it.
+const districtPlaces = (d) => places.filter((c) => districtLinks(c).some((l) => l.e === d)).sort(byLabel);
 const placeDash = (id, label, list, from) => dashSection(id, label, list.map((e) => ({ name: e.label, e })), () => ICON_MAP_PIN, (x) => rel(from, placeUrl(x.e)));
 const countyEntry = places.find((e) => e.kind === 'county');
 
 function placesIndex() {
   const groups = PLACE_GROUPS.map(([kind, heading]) => [heading, places.filter((e) => e.kind === kind).sort(byLabel)]).filter(([, members]) => members.length);
   const csvs = [{ id: 'table', label: 'places', rows: [['Name', 'Type', 'Part of'], ...groups.flatMap(([, members]) => members.map((e) => [e.label, placeType(e), (placeParent(e) || {}).label || '']))] }];
-  const body = `<section class="hero"><h1>Places</h1><p class="lede">The supervisorial districts, cities and towns, unincorporated communities and facilities of <a href="./${countyEntry.slug}.html">${esc(countyEntry.label)}</a>.</p>${actions('places', '#main', false, csvs)}</section>` +
+  const body = `<section class="hero"><h1>Places</h1><p class="lede">The ${PLACE_GROUPS.map(([, plural]) => plural.toLowerCase()).join(', ').replace(/, ([^,]*)$/, ' and $1')} of <a href="./${countyEntry.slug}.html">${esc(countyEntry.label)}</a>.</p>${actions('places', '#main', false, csvs)}</section>` +
     groups.map(([heading, members]) => `<h2>${esc(heading)}</h2><section class="docs-grid" aria-label="${esc(heading)}">${members.map((e) => placeCard(e, 'places')).join('')}</section>`).join('') + jsonBlock(null, '../organization/page-data.js', csvs);
   return shell('Places', 'The districts, cities and towns, communities and facilities of Marin County.', [['Marin Docs', '../index.html'], ['Places', null]], body, ICON_MAP_PIN);
 }
@@ -533,6 +543,8 @@ function placePage(e) {
   if (r.alternateName && r.alternateName.some((n) => n !== e.label && n !== r.name)) facts.push(row('Also known as', r.alternateName.filter((n) => n !== e.label && n !== r.name).map(esc).join(', ')));
   if (r.governmentLevel && e.kind !== 'facility') facts.push(row('Government level', esc(LEVEL_LABEL[r.governmentLevel] || r.governmentLevel)));
   if (parent) facts.push(row('Part of', where([parent])));
+  const inDistricts = districtLinks(e);
+  if (inDistricts.length) facts.push(row(inDistricts.length > 1 ? 'Districts' : 'District', inDistricts.map((d) => `<a href="${rel('places', placeUrl(d.e))}">${esc(d.e.label)}</a>${d.part ? ' (partly)' : ''}`).join(', ')));
   if (e.kind === 'facility') {
     const operator = (r.additionalProperty || []).find((p) => p.propertyID === 'local:operator-type');
     if (operator && OPERATOR_LABEL[operator.value]) facts.push(row('Run by', esc(OPERATOR_LABEL[operator.value])));
@@ -544,15 +556,20 @@ function placePage(e) {
   const seatCard = (x) => { const person = personById.get(x.member['@id']); const body = x.memberOf && byId.get(x.memberOf['@id']);
     return resultCard({ title: person ? person.name : x.roleName, byline: [esc(x.roleName), body && `<a href="${rel('places', urlOf(body))}">${esc(body.name)}</a>`].filter(Boolean).join(' — ') }); };
   if (seats.length) facts.push(row('Supervisor', seats.map((x) => { const person = personById.get(x.member['@id']); return esc(person ? person.name : x.roleName); }).join(', ')));
-  const subPlaces = placeChildren(e, 'place');
+  const subPlaces = e.kind === 'district' ? districtPlaces(e) : placeChildren(e, 'place');
   const subFacilities = placeChildren(e, 'facility');
-  const list = (id, label, items) => `<section class="section" id="${id}" data-tab-section="${id}" aria-labelledby="${id}-heading" hidden><h2 id="${id}-heading">${esc(label)}</h2><div class="docs-grid">${items.map((x) => placeCard(x, 'places')).join('')}</div></section>`;
+  const partly = (x) => (e.kind === 'district' && districtLinks(x).find((l) => l.e === e).part ? 'Partly in this district' : '');
+  const grid = (items) => `<div class="docs-grid">${items.map((x) => placeCard(x, 'places', partly(x))).join('')}</div>`;
+  // A district lists its cities and towns apart from its unincorporated communities.
+  const grouped = (items) => (e.kind === 'district' ? ['city', 'community'].map((k) => [placeKinds.get(k).plural, items.filter((x) => x.kind === k)]).filter(([, g]) => g.length).map(([h, g]) => `<h3>${esc(h)}</h3>${grid(g)}`).join('') : grid(items));
+  const list = (id, label, items) => `<section class="section" id="${id}" data-tab-section="${id}" aria-labelledby="${id}-heading" hidden><h2 id="${id}-heading">${esc(label)}</h2>${id === 'places' ? grouped(items) : grid(items)}</section>`;
   const related = relatedLinks({ name: e.label, identifier: [] }, { name: r.name, label: e.label, kind: e.kind, monitor: e.monitor });
   const dataTabs = [subPlaces.length && ['places', 'Places'], subFacilities.length && ['facilities', 'Facilities'], seats.length && ['people', 'People']].filter(Boolean);
   const tabNav = `<nav id="app-nav" class="org-tabs" aria-label="Sections"><a href="#dashboard">Dashboard</a><a href="#about">About</a>${dataTabs.map(([id, label]) => `<a href="#${id}">${label}</a>`).join('')}${related.map((x) => `<a href="#${esc(x.home.id)}">${esc(x.home.label)}</a>`).join('')}<a href="#data">Data</a><a href="#insights">Insights</a></nav>`;
   const dashParts = [];
   if (seats.length) dashParts.push(`<section class="org-dash" aria-labelledby="dash-people"><h2 id="dash-people">People</h2><ul class="org-dash__list">${seats.map((x) => { const person = personById.get(x.member['@id']); return `<li>${esc(person ? person.name : x.roleName)} — ${esc(x.roleName)}</li>`; }).join('')}</ul>${more('people', 'People')}</section>`);
   dashParts.push(...appDashParts(related));
+  if (inDistricts.length) dashParts.push(`<section class="org-dash" aria-labelledby="dash-districts"><h2 id="dash-districts">${inDistricts.length > 1 ? 'Districts' : 'District'}</h2>${dashCards(inDistricts.map((d) => ({ name: d.e.label, e: d.e })), () => ICON_MAP_PIN, (x) => rel('places', placeUrl(x.e)))}</section>`);
   dashParts.push(placeDash('places', 'Places', subPlaces, 'places'), placeDash('facilities', 'Facilities', subFacilities, 'places'));
   const dashboard = `<div id="dashboard" data-tab-section="dashboard" data-no-copy><div class="org-dashboard">${dashParts.join('')}</div></div>`;
   const ids = (r.identifier || []).map((i) => `<tr><td>${esc(SCHEME_LABEL[i.propertyID] || i.propertyID)}</td><td><code>${esc(i.value)}</code></td><td><code>${esc(i.propertyID)}</code></td></tr>`).join('');
@@ -561,7 +578,7 @@ function placePage(e) {
   const dataFile = e.kind === 'facility' ? 'facilities' : 'jurisdictions';
   const tabIds = ['about', ...dataTabs.map(([id]) => id), ...related.map((x) => x.home.id), 'data'];
   const jsonTabs = ['about', 'data', ...dataTabs.map(([id]) => id).filter((id) => id !== 'people')];
-  const insightSections = [{ id: 'about', label: 'About', data: { name: e.label, officialName: r.name !== e.label ? r.name : undefined, type: placeType(e), partOf: parent ? parent.label : undefined,
+  const insightSections = [{ id: 'about', label: 'About', data: { name: e.label, officialName: r.name !== e.label ? r.name : undefined, type: placeType(e), partOf: parent ? parent.label : undefined, districts: inDistricts.length ? inDistricts.map((d) => d.e.label + (d.part ? ' (partly)' : '')) : undefined,
     address: r.address ? addressLine(r.address) : undefined, supervisor: seats.length ? seats.map((x) => (personById.get(x.member['@id']) || {}).name).filter(Boolean) : undefined } }];
   if (subPlaces.length) insightSections.push({ id: 'places', label: 'Places', data: subPlaces.map((x) => x.label) });
   if (subFacilities.length) insightSections.push({ id: 'facilities', label: 'Facilities', data: subFacilities.map((x) => x.label) });
