@@ -494,6 +494,12 @@ function programPage(p) {
 const identOf = (r, scheme) => ((r.identifier || []).find((i) => i.propertyID === scheme) || {}).value;
 // What a kind is called, in the singular and the plural, comes from marin-data (organization/data/place-kinds.json).
 const placeKinds = new Map(JSON.parse(fs.readFileSync(path.join(DATA, 'place-kinds.json'), 'utf8')).kinds.map((k) => [k.key, k]));
+// A record's code is its gs:local identifier in marin-data. It names the page, and belongs to no one app.
+const placeCode = (r) => {
+  const code = identOf(r, 'gs:local');
+  if (!code) throw new Error(`${r.name} has no code (a gs:local identifier) in marin-data`);
+  return code;
+};
 const PLACE_GROUPS = ['district', 'city', 'community', 'facility'].map((kind) => [kind, placeKinds.get(kind).plural]);
 const PLACE_TYPE = Object.fromEntries([...placeKinds].map(([key, k]) => [key, k.singular]));
 const OPERATOR_LABEL = { government: 'Government', nongovernment: 'Not government', unknown: 'Not confirmed' };
@@ -502,9 +508,9 @@ const places = [
     const district = identOf(j, 'local:marin-supervisorial-district');
     const kind = !j.containedInPlace ? 'county' : district ? 'district' : j.governmentLevel === 'municipal' ? 'city' : 'community';
     return { rec: j, kind, label: district ? `District ${district}` : j.name, monitor: identOf(j, 'local:marin-mentions-monitor-id'),
-      slug: identOf(j, 'local:marin-mentions-monitor-id') || (kind === 'county' ? 'marin-county' : slugOf(j['@id'])) };
+      slug: placeCode(j) };
   }),
-  ...facilities.map((f) => ({ rec: f, kind: 'facility', label: f.name, monitor: identOf(f, 'local:marin-mentions-monitor-id'), slug: slugOf(f['@id']) })),
+  ...facilities.map((f) => ({ rec: f, kind: 'facility', label: f.name, monitor: identOf(f, 'local:marin-mentions-monitor-id'), slug: placeCode(f) })),
 ];
 const placeById = new Map(places.map((e) => [e.rec['@id'], e]));
 {
