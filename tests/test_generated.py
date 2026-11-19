@@ -57,7 +57,7 @@ def visible_text(html: str) -> str:
     return "".join(parser.parts)
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = sorted(p for p in [ROOT / "index.html", *(ROOT / "guides").rglob("*.html"), *(ROOT / "sop").rglob("*.html"), *(ROOT / "organization").glob("*.html"), *(ROOT / "service-areas").glob("*.html"), *(ROOT / "programs").glob("*.html")])
+PAGES = sorted(p for p in [ROOT / "index.html", *(ROOT / "guides").rglob("*.html"), *(ROOT / "sop").rglob("*.html"), *(ROOT / "organization").glob("*.html"), *(ROOT / "service-areas").glob("*.html"), *(ROOT / "programs").glob("*.html"), *(ROOT / "places").glob("*.html")])
 UPDATED = re.compile(r'<p class="doc-updated">Updated [^<]*</p>')
 
 
@@ -181,7 +181,7 @@ class PageTests(unittest.TestCase):
 
     def test_organization_pages_have_no_local_links(self):
         # A page built with --local points at localhost; rebuild without it before committing.
-        local = [p.name for d in ("organization", "service-areas", "programs") for p in (ROOT / d).glob("*.html") if "localhost" in p.read_text(encoding="utf-8")]
+        local = [p.name for d in ("organization", "service-areas", "programs", "places") for p in (ROOT / d).glob("*.html") if "localhost" in p.read_text(encoding="utf-8")]
         self.assertEqual(local, [], f"Rebuild with: node scripts/build-organization.js (no --local): {local}")
 
     def test_organization_tabs_are_complete(self):
@@ -500,6 +500,24 @@ class PageTests(unittest.TestCase):
                 data = json.loads(block)
                 node = data if "@type" in data else (data.get("@graph") or [{}])[0]
                 self.assertTrue(node.get("@type") and node.get("name"), f"{page.name}: JSON-LD has a type and a name")
+
+    def test_places_have_a_page_each_and_the_index_lists_them_a_to_z(self):
+        natural = lambda t: [int(p) if p.isdigit() else p for p in re.split(r"(\d+)", t.casefold())]
+        data = ROOT / "organization" / "data"
+        records = [r for f in ("jurisdictions.jsonld", "facilities.jsonld") for r in json.loads((data / f).read_text(encoding="utf-8"))["@graph"]]
+        pages = [p for p in (ROOT / "places").glob("*.html") if p.name != "index.html"]
+        self.assertEqual(len(pages), len(records), "one page for each jurisdiction and facility")
+        index = (ROOT / "places/index.html").read_text(encoding="utf-8")
+        self.assertEqual(len(re.findall(r'<article class="app-card app-card--secondary">', index)), len(records) - 1, "the county is the lede, not a card")
+        for group in re.findall(r'<section class="docs-grid"[^>]*>(.*?)</section>', index, re.S):
+            names = re.findall(r'<h3><a href="[^"]+">([^<]+)</a></h3>', group)
+            self.assertEqual(names, sorted(names, key=natural))
+        district = (ROOT / "places/marin-district-3.html").read_text(encoding="utf-8")
+        self.assertIn("Supervisor", district)
+        self.assertIn("monitors=marin-district-3", district)
+        self.assertIn('data-match="geographicAreas" data-value="District 3"', district)
+        venue = (ROOT / "places/civic-center.html").read_text(encoding="utf-8")
+        self.assertIn('data-match="location" data-value="Marin County Civic Center"', venue)
 
 
 if __name__ == "__main__":

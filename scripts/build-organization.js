@@ -26,7 +26,7 @@ const flag = (name) => argv.includes(name);
 const src = argv.find((a) => !a.startsWith('--'));
 const LOCAL = flag('--local');
 if (src) {
-  for (const f of ['organizations.jsonld', 'jurisdictions.jsonld', 'programs.jsonld', 'people.jsonld', 'posts.jsonld', 'roles.jsonld', 'sources.json']) {
+  for (const f of ['organizations.jsonld', 'jurisdictions.jsonld', 'programs.jsonld', 'people.jsonld', 'posts.jsonld', 'roles.jsonld', 'facilities.jsonld', 'sources.json']) {
     fs.copyFileSync(path.join(src, f), path.join(DATA, f));
   }
 }
@@ -41,6 +41,7 @@ const programs = read('programs.jsonld');
 const people = read('people.jsonld');
 const posts = read('posts.jsonld');
 const roles = read('roles.jsonld');
+const facilities = fs.existsSync(path.join(DATA, 'facilities.jsonld')) ? read('facilities.jsonld') : [];
 const sources = JSON.parse(fs.readFileSync(path.join(DATA, 'sources.json'), 'utf8'));
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -115,7 +116,7 @@ const childHeading = (kids) => {
   return kinds.length === 1 ? PLURAL_LABEL[typeLabel(kids[0])] || 'Sub-agencies' : 'Sub-agencies';
 };
 
-const { ICON_BUILDING, ICON_LAYERS } = require('./icons');
+const { ICON_BUILDING, ICON_LAYERS, ICON_MAP_PIN } = require('./icons');
 const iconFor = (o) => (o.organizationClassification === 'serviceArea' ? ICON_LAYERS : ICON_BUILDING);
 const FAVICON = "<link rel=\"icon\" type=\"image/svg+xml\" href=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='10' fill='%23000'/%3E%3Cg fill='none' stroke='%23e5b53b' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round' transform='translate(9,9) scale(1.25)'%3E" + ICON_BUILDING.replace(/</g, '%3C').replace(/>/g, '%3E').replace(/"/g, "'") + "%3C/g%3E%3C/svg%3E\">";
 
@@ -152,14 +153,23 @@ const telHref = (n) => { const d = String(n).replace(/\D/g, ''); return d.length
 const telLink = (n) => (telHref(n) ? `<a href="${telHref(n)}">${esc(n)}</a>` : esc(n));
 const row = (label, html) => `<dt>${esc(label)}</dt><dd>${html}</dd>`;
 
-// The links to other apps. A link is written only when the organization has the
+// The links to other apps. For a place, `place` is { name, label, kind, monitor }. A link is written only when the organization has the
 // value that app filters on, so no page carries a link that finds nothing.
-function relatedLinks(o) {
+function relatedLinks(o, place) {
   const out = [];
   const slug = (o.identifier || []).find((i) => i.propertyID === 'local:marin-links-agency-id');
-  for (const app of links.apps) {
+  for (let app of links.apps) {
     let value;
-    if (app.value === 'name') value = o.name;
+    if (place) {
+      // A place is watched by its monitor in Mentions, and found in Reach by its geographic area (a facility, by its venue).
+      if (app.id === 'mentions') { value = place.monitor; app = { ...app, includeChildren: false }; }
+      else if (app.id === 'reach') {
+        const venue = place.kind === 'facility';
+        const match = venue ? 'location' : 'geographicAreas';
+        value = venue ? place.name : place.label;
+        app = { ...app, param: venue ? 'q' : 'area', home: { ...app.home, match }, stats: { ...app.stats, match }, campaigns: { ...app.campaigns, match } };
+      }
+    } else if (app.value === 'name') value = o.name;
     else {
       const scheme = app.value.replace(/^identifier:/, '');
       const found = (o.identifier || []).find((i) => i.propertyID === scheme);
@@ -194,6 +204,82 @@ const programsDash = (list, from) => dashSection('programs', 'Programs', list, (
 
 // The file an app's data is read from: one for each value (an agency and its divisions), separated by spaces.
 const srcOf = (r, base, src) => (r.values || [r.value]).map((v) => base + src.replace('{value}', encodeURIComponent(v))).join(' ');
+
+// The tabs and Dashboard sections for the apps (Mentions, Reach, Links) that an organization or a place has.
+const toAttrs = (pairs) => pairs.filter(([, v]) => v != null).map(([k, v]) => `${k}="${esc(typeof v === 'string' ? v : JSON.stringify(v))}"`).join(' ');
+// Where a part of a tab reads its data from: its own address, or the tab's.
+const sourceOf = (r, stats, part) => {
+  const src = part.src || stats.src;
+  const base = part.dataBase || stats.dataBase || r.root;
+  return srcOf(r, base, src);
+};
+const dataAttrs = (r, stats, part) => [['data-app-name', r.app.appName], ['data-src', sourceOf(r, stats, part)], ['data-records', part.records || stats.records],
+  ['data-match', part.match || stats.match], ['data-value', (part.match || stats.match) ? r.value : null],
+  ['data-exclude', part.exclude || stats.exclude], ['data-unique', part.unique || stats.unique], ['data-hidden-path', part.hiddenPath || stats.hiddenPath], ['data-hidden-text', part.hiddenText || stats.hiddenText]];
+// What a tab shows, without its section around it.
+const tabBody = (tab) => {
+  const { r } = tab;
+  const appLink = `<p><a href="${esc(tab.href)}">${esc(r.text)}</a></p>`;
+  const c = tab.cfg;
+  // An app with no data view yet gets its link as a card, until it has one.
+  if (!c || c.kind === 'link') return `<div class="docs-grid"><article class="app-card"><span class="app-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24">${r.icon}</svg></span><h3><a href="${esc(tab.href)}">${esc(r.text)}</a></h3></article></div>`;
+  if (c.kind === 'records') {
+    const attrs = toAttrs([['data-app-name', r.app.appName], ['data-noun', c.noun], ['data-src', srcOf(r, c.dataBase || r.root, c.src)], ['data-records', c.records],
+      ['data-exclude', c.exclude], ['data-unique', c.unique], ['data-empty-text', c.emptyText], ['data-columns', c.columns], ['data-hidden-path', c.hiddenPath], ['data-hidden-text', c.hiddenText],
+      ['data-match', c.match], ['data-value', c.match ? r.value : null], ['data-title', c.title], ['data-link', c.link], ['data-link-template', c.linkTemplate && r.root + c.linkTemplate], ['data-meta', c.meta], ['data-badge', c.badge], ['data-text', c.text], ['data-sort', c.sort], ['data-timeframe', c.timeframe],
+      ['data-group', c.group], ['data-group-link', c.groupLink && r.root + c.groupLink], ['data-group-date', c.groupDate], ['data-group-noun', c.groupNoun]]);
+    return `<div data-record-list ${attrs}></div>${appLink}`;
+  }
+  // Stats: the numbers, then the charts, as the app lays them out.
+  const parts = [];
+  if (c.intro) parts.push(`<p>${esc(c.intro)}</p>`);
+  if (c.kpis) {
+    const k = c.kpis;
+    const attrs = toAttrs([...dataAttrs(r, c, k), ['data-compute', k.compute], ['data-fields', k.fields]]);
+    parts.push(`<div data-key-numbers ${attrs}></div>`);
+  }
+  if (c.charts && c.charts.length) {
+    const cards = c.charts.map((chart) => `<div data-chart ${toAttrs([...dataAttrs(r, c, chart), ['data-chart-lib', '../vendor/chart.min.js'], ['data-chart-title', chart.title], ['data-kind', chart.kind],
+      ['data-date', chart.date], ['data-bucket', chart.bucket], ['data-group', chart.group], ['data-sum', chart.sum], ['data-top', chart.top], ['data-empty-text', c.emptyText]])}></div>`).join('');
+    parts.push(`<div class="mm-stats-grid">${cards}</div>`);
+  }
+  return parts.join('') + appLink;
+};
+// One tab per app. An app with more than one view has sub-tabs: Home, then its campaigns (Reach), then Stats.
+const appTabSections = (related) => related.map((r) => {
+  const id = r.home.id;
+  const open = `<section class="section" id="${esc(id)}" data-tab-section="${esc(id)}" aria-labelledby="${esc(id)}-heading" hidden><h2 id="${esc(id)}-heading">${esc(r.home.label)}</h2>`;
+  const views = [r.extra && [r.extra.label, r.extra], r.stats && ['Stats', r.stats]].filter(Boolean);
+  if (!views.length) return `${open}${tabBody({ ...r.home, r })}</section>`;
+  return `${open}<div data-subtabs><nav class="org-subtabs" data-subtabs-nav aria-label="${esc(r.home.label)} sections"><a href="#${esc(id)}">Home</a>${views.map(([label, v]) => `<a href="#${esc(v.id)}">${esc(label)}</a>`).join('')}</nav>` +
+    `<div id="${esc(id)}-home" data-subtab>${tabBody({ ...r.home, r })}</div>` +
+    views.map(([, v]) => `<div id="${esc(v.id)}" data-subtab hidden>${tabBody({ ...v, r })}</div>`).join('') + '</div></section>';
+}).join('');
+
+const more = (id, label) => `<p class="org-dash__more"><a href="#${esc(id)}">${esc(label)}</a></p>`;
+// The Dashboard sections for the same apps: a look at each, with a link to its tab.
+function appDashParts(related) {
+  const dashParts = [];
+  for (const r of related) {
+    if (r.app && r.app.id === 'links') continue; // Links has its tab, not a Dashboard section
+    const c = r.home.cfg;
+    const id = r.home.id;
+    let inner;
+    if (c && c.kind === 'records') {
+      const attrs = toAttrs([['data-app-name', r.app.appName], ['data-noun', c.noun], ['data-src', srcOf(r, c.dataBase || r.root, c.src)], ['data-records', c.records],
+        ['data-exclude', c.exclude], ['data-unique', c.unique], ['data-empty-text', c.emptyText], ['data-hidden-path', c.hiddenPath], ['data-hidden-text', c.hiddenText], ['data-limit', c.columns ? String(c.columns) : '3'], ['data-columns', c.columns],
+        ['data-match', c.match], ['data-value', c.match ? r.value : null], ['data-title', c.title], ['data-link', c.link], ['data-link-template', c.linkTemplate && r.root + c.linkTemplate], ['data-meta', c.meta], ['data-badge', c.badge], ['data-text', c.text], ['data-sort', c.sort], ['data-timeframe', c.timeframe],
+        ['data-group', c.group], ['data-group-link', c.groupLink && r.root + c.groupLink], ['data-group-date', c.groupDate], ['data-group-noun', c.groupNoun]]);
+      inner = `<div data-record-list ${attrs}></div>`;
+    } else inner = `<p><a href="${esc(r.home.href)}">${esc(r.text)}</a></p>`;
+    // The first chart of the app's Stats sits above its records; hidden when there is nothing to draw.
+    const sc = r.stats && r.stats.cfg;
+    const lead = sc && sc.charts && sc.charts.length ? `<div class="mm-stats-grid"><div data-chart ${toAttrs([...dataAttrs(r, sc, sc.charts[0]), ['data-chart-lib', '../vendor/chart.min.js'], ['data-chart-title', sc.charts[0].title], ['data-kind', sc.charts[0].kind],
+      ['data-date', sc.charts[0].date], ['data-bucket', sc.charts[0].bucket], ['data-group', sc.charts[0].group], ['data-sum', sc.charts[0].sum], ['data-top', sc.charts[0].top], ['data-hide-empty', '']])}></div></div>` : '';
+    dashParts.push(`<section class="org-dash" aria-labelledby="dash-${esc(id)}"><h2 id="dash-${esc(id)}">${esc(r.home.label)}</h2>${lead}${inner}${r.app && r.app.id === 'mentions' ? `<p class="org-dash__more"><a href="${esc(r.home.href)}">${esc(r.text)}</a></p>` : more(id, r.home.label)}</section>`);
+  }
+  return dashParts;
+}
 
 function orgPage(o) {
   const parent = parentOf(o);
@@ -250,81 +336,15 @@ function orgPage(o) {
   const dataTabs = [subTab && [subId, subHeading], ownPrograms.length && ['programs', 'Programs'], budgetTab && ['budget', 'Budget'], seats.length && ['people', 'People']].filter(Boolean);
 
   const tabNav = `<nav id="app-nav" class="org-tabs" aria-label="Sections"><a href="#dashboard">Dashboard</a><a href="#about">About</a>${dataTabs.map(([id, label]) => `<a href="#${id}">${label}</a>`).join('')}${related.map((r) => `<a href="#${esc(r.home.id)}">${esc(r.home.label)}</a>`).join('')}<a href="#data">Data</a><a href="#insights">Insights</a></nav>`;
-  const toAttrs = (pairs) => pairs.filter(([, v]) => v != null).map(([k, v]) => `${k}="${esc(typeof v === 'string' ? v : JSON.stringify(v))}"`).join(' ');
-  // Where a part of a tab reads its data from: its own address, or the tab's.
-  const sourceOf = (r, stats, part) => {
-    const src = part.src || stats.src;
-    const base = part.dataBase || stats.dataBase || r.root;
-    return srcOf(r, base, src);
-  };
-  const dataAttrs = (r, stats, part) => [['data-app-name', r.app.appName], ['data-src', sourceOf(r, stats, part)], ['data-records', part.records || stats.records],
-    ['data-match', part.match || stats.match], ['data-value', (part.match || stats.match) ? r.value : null],
-    ['data-exclude', part.exclude || stats.exclude], ['data-unique', part.unique || stats.unique], ['data-hidden-path', part.hiddenPath || stats.hiddenPath], ['data-hidden-text', part.hiddenText || stats.hiddenText]];
-  // What a tab shows, without its section around it.
-  const tabBody = (tab) => {
-    const { r } = tab;
-    const appLink = `<p><a href="${esc(tab.href)}">${esc(r.text)}</a></p>`;
-    const c = tab.cfg;
-    // An app with no data view yet gets its link as a card, until it has one.
-    if (!c || c.kind === 'link') return `<div class="docs-grid"><article class="app-card"><span class="app-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24">${r.icon}</svg></span><h3><a href="${esc(tab.href)}">${esc(r.text)}</a></h3></article></div>`;
-    if (c.kind === 'records') {
-      const attrs = toAttrs([['data-app-name', r.app.appName], ['data-noun', c.noun], ['data-src', srcOf(r, c.dataBase || r.root, c.src)], ['data-records', c.records],
-        ['data-exclude', c.exclude], ['data-unique', c.unique], ['data-empty-text', c.emptyText], ['data-columns', c.columns], ['data-hidden-path', c.hiddenPath], ['data-hidden-text', c.hiddenText],
-        ['data-match', c.match], ['data-value', c.match ? r.value : null], ['data-title', c.title], ['data-link', c.link], ['data-link-template', c.linkTemplate && r.root + c.linkTemplate], ['data-meta', c.meta], ['data-badge', c.badge], ['data-text', c.text], ['data-sort', c.sort], ['data-timeframe', c.timeframe],
-        ['data-group', c.group], ['data-group-link', c.groupLink && r.root + c.groupLink], ['data-group-date', c.groupDate], ['data-group-noun', c.groupNoun]]);
-      return `<div data-record-list ${attrs}></div>${appLink}`;
-    }
-    // Stats: the numbers, then the charts, as the app lays them out.
-    const parts = [];
-    if (c.intro) parts.push(`<p>${esc(c.intro)}</p>`);
-    if (c.kpis) {
-      const k = c.kpis;
-      const attrs = toAttrs([...dataAttrs(r, c, k), ['data-compute', k.compute], ['data-fields', k.fields]]);
-      parts.push(`<div data-key-numbers ${attrs}></div>`);
-    }
-    if (c.charts && c.charts.length) {
-      const cards = c.charts.map((chart) => `<div data-chart ${toAttrs([...dataAttrs(r, c, chart), ['data-chart-lib', '../vendor/chart.min.js'], ['data-chart-title', chart.title], ['data-kind', chart.kind],
-        ['data-date', chart.date], ['data-bucket', chart.bucket], ['data-group', chart.group], ['data-sum', chart.sum], ['data-top', chart.top], ['data-empty-text', c.emptyText]])}></div>`).join('');
-      parts.push(`<div class="mm-stats-grid">${cards}</div>`);
-    }
-    return parts.join('') + appLink;
-  };
-  // One tab per app. An app with more than one view has sub-tabs: Home, then its campaigns (Reach), then Stats.
-  const tabSections = related.map((r) => {
-    const id = r.home.id;
-    const open = `<section class="section" id="${esc(id)}" data-tab-section="${esc(id)}" aria-labelledby="${esc(id)}-heading" hidden><h2 id="${esc(id)}-heading">${esc(r.home.label)}</h2>`;
-    const views = [r.extra && [r.extra.label, r.extra], r.stats && ['Stats', r.stats]].filter(Boolean);
-    if (!views.length) return `${open}${tabBody({ ...r.home, r })}</section>`;
-    return `${open}<div data-subtabs><nav class="org-subtabs" data-subtabs-nav aria-label="${esc(r.home.label)} sections"><a href="#${esc(id)}">Home</a>${views.map(([label, v]) => `<a href="#${esc(v.id)}">${esc(label)}</a>`).join('')}</nav>` +
-      `<div id="${esc(id)}-home" data-subtab>${tabBody({ ...r.home, r })}</div>` +
-      views.map(([, v]) => `<div id="${esc(v.id)}" data-subtab hidden>${tabBody({ ...v, r })}</div>`).join('') + '</div></section>';
-  }).join('');
+  const tabSections = appTabSections(related);
   // Dashboard: a tight look at each of the other tabs, each with a link to the tab for more.
   // A card links to its tab for more; the Mentions card links out to Marin Mentions, on the past 60 days.
-  const more = (id, label) => `<p class="org-dash__more"><a href="#${esc(id)}">${esc(label)}</a></p>`;
   const dashList = (items) => `<ul class="org-dash__list">${items.map((i) => `<li>${i}</li>`).join('')}</ul>`;
   const SHOWN = 5;
   const dashParts = [];
   if (budgetTab) dashParts.push(`<section class="org-dash" aria-labelledby="dash-budget"><h2 id="dash-budget">Budget</h2>${budget.organizationKpis(budgetData, o, parent)}${budget.organizationTypeChart(budgetData, o)}${more('budget', 'Budget')}</section>`);
   if (seats.length) dashParts.push(`<section class="org-dash" aria-labelledby="dash-people"><h2 id="dash-people">People</h2>${dashList(seats.slice(0, SHOWN).map((r) => { const person = personById.get(r.member['@id']); return esc((person ? person.name : r.roleName) + (person ? ', ' + r.roleName : '')); }))}${more('people', 'People')}</section>`);
-  for (const r of related) {
-    if (r.app && r.app.id === 'links') continue; // Links has its tab, not a Dashboard section
-    const c = r.home.cfg;
-    const id = r.home.id;
-    let inner;
-    if (c && c.kind === 'records') {
-      const attrs = toAttrs([['data-app-name', r.app.appName], ['data-noun', c.noun], ['data-src', srcOf(r, c.dataBase || r.root, c.src)], ['data-records', c.records],
-        ['data-exclude', c.exclude], ['data-unique', c.unique], ['data-empty-text', c.emptyText], ['data-hidden-path', c.hiddenPath], ['data-hidden-text', c.hiddenText], ['data-limit', c.columns ? String(c.columns) : '3'], ['data-columns', c.columns],
-        ['data-match', c.match], ['data-value', c.match ? r.value : null], ['data-title', c.title], ['data-link', c.link], ['data-link-template', c.linkTemplate && r.root + c.linkTemplate], ['data-meta', c.meta], ['data-badge', c.badge], ['data-text', c.text], ['data-sort', c.sort], ['data-timeframe', c.timeframe],
-        ['data-group', c.group], ['data-group-link', c.groupLink && r.root + c.groupLink], ['data-group-date', c.groupDate], ['data-group-noun', c.groupNoun]]);
-      inner = `<div data-record-list ${attrs}></div>`;
-    } else inner = `<p><a href="${esc(r.home.href)}">${esc(r.text)}</a></p>`;
-    // The first chart of the app's Stats sits above its records; hidden when there is nothing to draw.
-    const sc = r.stats && r.stats.cfg;
-    const lead = sc && sc.charts && sc.charts.length ? `<div class="mm-stats-grid"><div data-chart ${toAttrs([...dataAttrs(r, sc, sc.charts[0]), ['data-chart-lib', '../vendor/chart.min.js'], ['data-chart-title', sc.charts[0].title], ['data-kind', sc.charts[0].kind],
-      ['data-date', sc.charts[0].date], ['data-bucket', sc.charts[0].bucket], ['data-group', sc.charts[0].group], ['data-sum', sc.charts[0].sum], ['data-top', sc.charts[0].top], ['data-hide-empty', '']])}></div></div>` : '';
-    dashParts.push(`<section class="org-dash" aria-labelledby="dash-${esc(id)}"><h2 id="dash-${esc(id)}">${esc(r.home.label)}</h2>${lead}${inner}${r.app && r.app.id === 'mentions' ? `<p class="org-dash__more"><a href="${esc(r.home.href)}">${esc(r.text)}</a></p>` : more(id, r.home.label)}</section>`);
-  }
+  dashParts.push(...appDashParts(related));
   // Divisions and Programs come last, below the apps' records.
   dashParts.push(dashSection(subId, subHeading, kids, iconFor, (c) => rel('organization', urlOf(c))));
   dashParts.push(programsDash(ownPrograms, 'organization'));
@@ -466,18 +486,124 @@ function programPage(p) {
   return shell(p.name, p.description ? cleanText(p.description) : `Program of the ${county.name}.`, crumbs, body);
 }
 
+// ---- Places: a page for each jurisdiction and facility ----
+// A place is a territory (a district, a city or town, an unincorporated community, the county) or a facility
+// (a building or site). Both come from marin-data. Paths are from the docs root.
+const identOf = (r, scheme) => ((r.identifier || []).find((i) => i.propertyID === scheme) || {}).value;
+const PLACE_GROUPS = [['district', 'Supervisorial districts'], ['city', 'Cities and towns'], ['community', 'Unincorporated communities'], ['facility', 'Facilities']];
+const PLACE_TYPE = { county: 'County', district: 'Supervisorial district', community: 'Unincorporated community', facility: 'Facility' };
+const OPERATOR_LABEL = { government: 'Government', nongovernment: 'Not government', unknown: 'Not confirmed' };
+const places = [
+  ...jurisdictions.map((j) => {
+    const district = identOf(j, 'local:marin-supervisorial-district');
+    const kind = !j.containedInPlace ? 'county' : district ? 'district' : j.governmentLevel === 'municipal' ? 'city' : 'community';
+    return { rec: j, kind, label: district ? `District ${district}` : j.name, monitor: identOf(j, 'local:marin-mentions-monitor-id'),
+      slug: identOf(j, 'local:marin-mentions-monitor-id') || (kind === 'county' ? 'marin-county' : slugOf(j['@id'])) };
+  }),
+  ...facilities.map((f) => ({ rec: f, kind: 'facility', label: f.name, monitor: identOf(f, 'local:marin-mentions-monitor-id'), slug: slugOf(f['@id']) })),
+];
+const placeById = new Map(places.map((e) => [e.rec['@id'], e]));
+{
+  const seen = new Set();
+  for (const e of places) { if (seen.has(e.slug)) throw new Error('Two places share the page name ' + e.slug); seen.add(e.slug); }
+}
+const placeUrl = (e) => `places/${e.slug}.html`;
+const byLabel = (a, b) => a.label.localeCompare(b.label, 'en', { sensitivity: 'base', numeric: true });
+const placeType = (e) => (e.kind === 'city' ? ((e.rec.alternateName || []).some((n) => /^Town of /.test(n)) ? 'Town' : 'City') : PLACE_TYPE[e.kind]);
+const placeParent = (e) => e.rec.containedInPlace && placeById.get(e.rec.containedInPlace['@id']);
+const placeChildren = (e, kind) => places.filter((c) => c.rec.containedInPlace && c.rec.containedInPlace['@id'] === e.rec['@id'] && (kind === 'facility') === (c.kind === 'facility')).sort(byLabel);
+const placeCard = (e, from) => `<article class="app-card app-card--secondary"><span class="app-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24">${ICON_MAP_PIN}</svg></span><h3><a href="${rel(from, placeUrl(e))}">${esc(e.label)}</a></h3></article>`;
+const placeDash = (id, label, list, from) => dashSection(id, label, list.map((e) => ({ name: e.label, e })), () => ICON_MAP_PIN, (x) => rel(from, placeUrl(x.e)));
+const countyEntry = places.find((e) => e.kind === 'county');
+
+function placesIndex() {
+  const groups = PLACE_GROUPS.map(([kind, heading]) => [heading, places.filter((e) => e.kind === kind).sort(byLabel)]).filter(([, members]) => members.length);
+  const csvs = [{ id: 'table', label: 'places', rows: [['Name', 'Type', 'Part of'], ...groups.flatMap(([, members]) => members.map((e) => [e.label, placeType(e), (placeParent(e) || {}).label || '']))] }];
+  const body = `<section class="hero"><h1>Places</h1><p class="lede">The supervisorial districts, cities and towns, unincorporated communities and facilities of <a href="./${countyEntry.slug}.html">${esc(countyEntry.label)}</a>.</p>${actions('places', '#main', false, csvs)}</section>` +
+    groups.map(([heading, members]) => `<h2>${esc(heading)}</h2><section class="docs-grid" aria-label="${esc(heading)}">${members.map((e) => placeCard(e, 'places')).join('')}</section>`).join('') + jsonBlock(null, '../organization/page-data.js', csvs);
+  return shell('Places', 'The districts, cities and towns, communities and facilities of Marin County.', [['Marin Docs', '../index.html'], ['Places', null]], body, ICON_MAP_PIN);
+}
+
+function placePage(e) {
+  const r = e.rec;
+  const parent = placeParent(e);
+  const where = (list) => list.map((x) => `<a href="${rel('places', placeUrl(x))}">${esc(x.label)}</a>`).join(', ');
+  const facts = [row('Type', esc(placeType(e)))];
+  if (r.name !== e.label) facts.push(row('Official name', esc(r.name)));
+  if (r.alternateName && r.alternateName.some((n) => n !== e.label && n !== r.name)) facts.push(row('Also known as', r.alternateName.filter((n) => n !== e.label && n !== r.name).map(esc).join(', ')));
+  if (r.governmentLevel && e.kind !== 'facility') facts.push(row('Government level', esc(LEVEL_LABEL[r.governmentLevel] || r.governmentLevel)));
+  if (parent) facts.push(row('Part of', where([parent])));
+  if (e.kind === 'facility') {
+    const operator = (r.additionalProperty || []).find((p) => p.propertyID === 'local:operator-type');
+    if (operator && OPERATOR_LABEL[operator.value]) facts.push(row('Run by', esc(OPERATOR_LABEL[operator.value])));
+    if (r.address) facts.push(row('Address', esc(addressLine(r.address))));
+    if (r.geo) facts.push(row('Coordinates', esc(`${r.geo.latitude}, ${r.geo.longitude}`)));
+  }
+  // The supervisor of a district: the people whose post represents it.
+  const seats = roles.filter((x) => { const post = x.post && postById.get(x.post['@id']); return post && post.representsJurisdiction && post.representsJurisdiction['@id'] === r['@id']; });
+  const seatCard = (x) => { const person = personById.get(x.member['@id']); const body = x.memberOf && byId.get(x.memberOf['@id']);
+    return resultCard({ title: person ? person.name : x.roleName, byline: [esc(x.roleName), body && `<a href="${rel('places', urlOf(body))}">${esc(body.name)}</a>`].filter(Boolean).join(' — ') }); };
+  if (seats.length) facts.push(row('Supervisor', seats.map((x) => { const person = personById.get(x.member['@id']); return esc(person ? person.name : x.roleName); }).join(', ')));
+  const subPlaces = placeChildren(e, 'place');
+  const subFacilities = placeChildren(e, 'facility');
+  const list = (id, label, items) => `<section class="section" id="${id}" data-tab-section="${id}" aria-labelledby="${id}-heading" hidden><h2 id="${id}-heading">${esc(label)}</h2><div class="docs-grid">${items.map((x) => placeCard(x, 'places')).join('')}</div></section>`;
+  const related = relatedLinks({ name: e.label, identifier: [] }, { name: r.name, label: e.label, kind: e.kind, monitor: e.monitor });
+  const dataTabs = [subPlaces.length && ['places', 'Places'], subFacilities.length && ['facilities', 'Facilities'], seats.length && ['people', 'People']].filter(Boolean);
+  const tabNav = `<nav id="app-nav" class="org-tabs" aria-label="Sections"><a href="#dashboard">Dashboard</a><a href="#about">About</a>${dataTabs.map(([id, label]) => `<a href="#${id}">${label}</a>`).join('')}${related.map((x) => `<a href="#${esc(x.home.id)}">${esc(x.home.label)}</a>`).join('')}<a href="#data">Data</a><a href="#insights">Insights</a></nav>`;
+  const dashParts = [];
+  if (seats.length) dashParts.push(`<section class="org-dash" aria-labelledby="dash-people"><h2 id="dash-people">People</h2><ul class="org-dash__list">${seats.map((x) => { const person = personById.get(x.member['@id']); return `<li>${esc(person ? person.name : x.roleName)} — ${esc(x.roleName)}</li>`; }).join('')}</ul>${more('people', 'People')}</section>`);
+  dashParts.push(...appDashParts(related));
+  dashParts.push(placeDash('places', 'Places', subPlaces, 'places'), placeDash('facilities', 'Facilities', subFacilities, 'places'));
+  const dashboard = `<div id="dashboard" data-tab-section="dashboard" data-no-copy><div class="org-dashboard">${dashParts.join('')}</div></div>`;
+  const ids = (r.identifier || []).map((i) => `<tr><td>${esc(SCHEME_LABEL[i.propertyID] || i.propertyID)}</td><td><code>${esc(i.value)}</code></td><td><code>${esc(i.propertyID)}</code></td></tr>`).join('');
+  const record = [row('Record id', `<code>${esc(r['@id'])}</code>`), row('Record type', `<code>${esc(r['@type'])}</code>`)];
+  if (parent) record.push(row('Part of record id', `<code>${esc(parent.rec['@id'])}</code>`));
+  const dataFile = e.kind === 'facility' ? 'facilities' : 'jurisdictions';
+  const tabIds = ['about', ...dataTabs.map(([id]) => id), ...related.map((x) => x.home.id), 'data'];
+  const jsonTabs = ['about', 'data', ...dataTabs.map(([id]) => id).filter((id) => id !== 'people')];
+  const insightSections = [{ id: 'about', label: 'About', data: { name: e.label, officialName: r.name !== e.label ? r.name : undefined, type: placeType(e), partOf: parent ? parent.label : undefined,
+    address: r.address ? addressLine(r.address) : undefined, supervisor: seats.length ? seats.map((x) => (personById.get(x.member['@id']) || {}).name).filter(Boolean) : undefined } }];
+  if (subPlaces.length) insightSections.push({ id: 'places', label: 'Places', data: subPlaces.map((x) => x.label) });
+  if (subFacilities.length) insightSections.push({ id: 'facilities', label: 'Facilities', data: subFacilities.map((x) => x.label) });
+  const insightLive = related.filter((x) => x.app && ['mentions', 'reach'].includes(x.app.id)).map((x) => {
+    const c = x.home.cfg;
+    return { id: x.app.id, kind: x.app.id, label: { mentions: 'Mentions', reach: 'Reach engagements and campaigns' }[x.app.id], url: srcOf(x, c.dataBase || x.root, c.src), path: c.records };
+  });
+  const insights = insightsTab({ subject: e.label, noun: 'place', sections: insightSections, live: insightLive, scriptPath: '../organization/insights.js', budgetNote: '' });
+  const head = `<article class="content"><h1 class="doc-title">${esc(e.label)}</h1>${tabNav}${actions('place-' + e.slug, 'article.content', true, [], { content: tabIds, json: jsonTabs })}`;
+  const content = head + dashboard +
+    `<div id="about" data-tab-section="about" hidden><section class="section" aria-labelledby="about-heading"><h2 id="about-heading">About</h2><dl class="org-facts">${facts.join('')}</dl></section></div>` +
+    (subPlaces.length ? list('places', 'Places', subPlaces) : '') + (subFacilities.length ? list('facilities', 'Facilities', subFacilities) : '') +
+    (seats.length ? `<section class="section" id="people" data-tab-section="people" aria-labelledby="people-heading" hidden><h2 id="people-heading">People</h2><ul class="search-results-list" aria-label="People">${seats.map(seatCard).join('')}</ul></section>` : '') +
+    appTabSections(related) +
+    '<div id="data" data-tab-section="data" hidden>' +
+    `<section class="section" aria-labelledby="identifiers"><h2 id="identifiers">Identifiers</h2><table><thead><tr><th scope="col">Name</th><th scope="col">Value</th><th scope="col">Scheme</th></tr></thead><tbody>${ids}</tbody></table></section>` +
+    `<section class="section" aria-labelledby="record"><h2 id="record">Record</h2><dl class="org-facts">${record.join('')}</dl></section>` +
+    `<section class="section" aria-labelledby="source"><h2 id="source">Source</h2><ul><li><a href="../organization/data/${dataFile}.jsonld">${e.kind === 'facility' ? 'Facility' : 'Jurisdiction'} data (JSON-LD)</a></li></ul></section>` +
+    jsonBlock({ about: [r], data: [r], ...(subPlaces.length ? { places: subPlaces.map((x) => x.rec) } : {}), ...(subFacilities.length ? { facilities: subFacilities.map((x) => x.rec) } : {}) }, '../organization/page-data.js', []) + '</div>' + insights + '</article>';
+  const crumbs = [['Marin Docs', '../index.html'], ['Places', './index.html']];
+  if (parent && parent !== countyEntry) crumbs.push([parent.label, `./${parent.slug}.html`]);
+  crumbs.push([e.label, null]);
+  return shell(e.label, `${placeType(e)} in Marin County.`, crumbs, content, ICON_MAP_PIN);
+}
+
 fs.writeFileSync(path.join(OUT, 'index.html'), indexPage());
 for (const o of orgs) if (!isArea(o)) fs.writeFileSync(path.join(OUT, page(o)), orgPage(o));
 
 const AREAS = path.join(ROOT, 'service-areas');
 const PROGRAMS = path.join(ROOT, 'programs');
-for (const dir of [AREAS, PROGRAMS]) {
+const PLACES = path.join(ROOT, 'places');
+for (const dir of [AREAS, PROGRAMS, ...(places.length ? [PLACES] : [])]) {
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'styles.css'), '@import url("../organization/styles.css");\n');
   for (const f of fs.readdirSync(dir)) if (f.endsWith('.html')) fs.unlinkSync(path.join(dir, f));
 }
 fs.writeFileSync(path.join(AREAS, 'index.html'), serviceAreasIndex());
 for (const a of areas) fs.writeFileSync(path.join(AREAS, `${areaSlug(a)}.html`), serviceAreaPage(a));
+if (places.length) {
+  fs.writeFileSync(path.join(PLACES, 'index.html'), placesIndex());
+  for (const e of places) fs.writeFileSync(path.join(PLACES, `${e.slug}.html`), placePage(e));
+}
 const programSlugs = new Set();
 for (const p of programs) {
   const s = slugOf(p['@id']);
@@ -485,4 +611,4 @@ for (const p of programs) {
   programSlugs.add(s);
   fs.writeFileSync(path.join(PROGRAMS, s + '.html'), programPage(p));
 }
-console.log(`Wrote organization/index.html, ${orgs.length - areas.length} organization pages, ${areas.length} service areas and ${programs.length} programs.`);
+console.log(`Wrote organization/index.html, ${orgs.length - areas.length} organization pages, ${areas.length} service areas, ${programs.length} programs and ${places.length} places.`);
