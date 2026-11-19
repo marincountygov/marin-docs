@@ -518,6 +518,14 @@ class PageTests(unittest.TestCase):
         self.assertIn("Supervisor", district)
         self.assertIn("monitors=marin-district-3", district)
         self.assertIn('data-match="geographicAreas" data-value="District 3"', district)
+        place = lambda name: (ROOT / "places" / name).read_text(encoding="utf-8")
+        d4 = place("marin-district-4.html")
+        for heading in ("Areas", "Regions"):
+            self.assertIn(f"<h3>{heading}</h3>", d4)
+        self.assertIn(">West Marin</a>", d4)
+        oak = place("oak-manor.html")
+        self.assertIn("<dt>Type</dt><dd>Area</dd>", oak)
+        self.assertRegex(oak, r"<dt>District</dt><dd><a href=\"marin-district-2.html\">District 2</a></dd>")
         venue = (ROOT / "places/civic-center.html").read_text(encoding="utf-8")
         self.assertIn('data-match="location" data-value="Marin County Civic Center"', venue)
 

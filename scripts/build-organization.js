@@ -500,13 +500,15 @@ const placeCode = (r) => {
   if (!code) throw new Error(`${r.name} has no code (a gs:local identifier) in marin-data`);
   return code;
 };
-const PLACE_GROUPS = ['district', 'city', 'community', 'facility'].map((kind) => [kind, placeKinds.get(kind).plural]);
+const PLACE_GROUPS = ['district', 'city', 'community', 'area', 'region', 'facility'].map((kind) => [kind, placeKinds.get(kind).plural]);
 const PLACE_TYPE = Object.fromEntries([...placeKinds].map(([key, k]) => [key, k.singular]));
 const OPERATOR_LABEL = { government: 'Government', nongovernment: 'Not government', unknown: 'Not confirmed' };
 const places = [
   ...jurisdictions.map((j) => {
     const district = identOf(j, 'local:marin-supervisorial-district');
-    const kind = !j.containedInPlace ? 'county' : district ? 'district' : j.governmentLevel === 'municipal' ? 'city' : 'community';
+    // A district, an area or a region says so on its record (local:place-kind); otherwise the level tells a city from a community.
+    const explicit = ((j.additionalProperty || []).find((x) => x.propertyID === 'local:place-kind') || {}).value;
+    const kind = explicit || (!j.containedInPlace ? 'county' : district ? 'district' : j.governmentLevel === 'municipal' ? 'city' : 'community');
     return { rec: j, kind, label: district ? `District ${district}` : j.name, monitor: identOf(j, 'local:marin-mentions-monitor-id'),
       slug: placeCode(j) };
   }),
@@ -567,7 +569,7 @@ function placePage(e) {
   const partly = (x) => (e.kind === 'district' && districtLinks(x).find((l) => l.e === e).part ? 'Partly in this district' : '');
   const grid = (items) => `<div class="docs-grid">${items.map((x) => placeCard(x, 'places', partly(x))).join('')}</div>`;
   // A district lists its cities and towns apart from its unincorporated communities.
-  const grouped = (items) => (e.kind === 'district' ? ['city', 'community'].map((k) => [placeKinds.get(k).plural, items.filter((x) => x.kind === k)]).filter(([, g]) => g.length).map(([h, g]) => `<h3>${esc(h)}</h3>${grid(g)}`).join('') : grid(items));
+  const grouped = (items) => (e.kind === 'district' ? ['city', 'community', 'area', 'region'].map((k) => [placeKinds.get(k).plural, items.filter((x) => x.kind === k)]).filter(([, g]) => g.length).map(([h, g]) => `<h3>${esc(h)}</h3>${grid(g)}`).join('') : grid(items));
   const list = (id, label, items) => `<section class="section" id="${id}" data-tab-section="${id}" aria-labelledby="${id}-heading" hidden><h2 id="${id}-heading">${esc(label)}</h2>${id === 'places' ? grouped(items) : grid(items)}</section>`;
   const related = relatedLinks({ name: e.label, identifier: [] }, { name: r.name, label: e.label, kind: e.kind, monitor: e.monitor });
   const dataTabs = [subPlaces.length && ['places', 'Places'], subFacilities.length && ['facilities', 'Facilities'], seats.length && ['people', 'People']].filter(Boolean);
