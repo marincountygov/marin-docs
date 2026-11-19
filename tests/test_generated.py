@@ -519,6 +519,22 @@ class PageTests(unittest.TestCase):
         venue = (ROOT / "places/civic-center.html").read_text(encoding="utf-8")
         self.assertIn('data-match="location" data-value="Marin County Civic Center"', venue)
 
+    def test_places_and_districts_point_at_each_other(self):
+        place = lambda name: (ROOT / "places" / name).read_text(encoding="utf-8")
+        greenbrae = place("greenbrae.html")
+        self.assertRegex(greenbrae, r"<dt>District</dt><dd><a href=\"marin-district-2.html\">District 2</a></dd>")
+        self.assertIn('id="dash-districts"', greenbrae)
+        novato = place("novato.html")
+        self.assertIn("<dt>Districts</dt>", novato)
+        about = re.search(r'<dl class="org-facts">.*?</dl>', novato, re.S).group(0)
+        self.assertEqual(about.count("(partly)"), 2, "a city in two districts is partly in each")
+        district = place("marin-district-2.html")
+        self.assertIn("<h3>Cities and towns</h3>", district)
+        self.assertIn("<h3>Communities</h3>", district)
+        for name in ("Greenbrae", "Fairfax", "San Rafael"):
+            self.assertIn(f">{name}</a>", district)
+        self.assertNotIn(">Bolinas</a></h3>", district.split('id="places"')[1].split('id="people"')[0])
+
 
 if __name__ == "__main__":
     unittest.main()
