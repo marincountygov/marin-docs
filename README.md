@@ -1,16 +1,13 @@
 # Marin Docs
 
-Marin Docs is the County of Marin documentation hub. It uses the MarinOS Docs shell from `marin-ui` and currently contains two collections: standard operating procedures and Guides.
+Marin Docs is the County of Marin documentation hub. It uses the MarinOS Docs shell from `marin-ui` and holds two collections: standard operating procedures and Guides.
 
 ## Structure
 
 - `index.html`: documentation landing page
 - `sop/`: SOP collection, HTML documents, JSON-LD, and source files
 - `guides/`: longer, multi-section reference documents — see "Guides" below
-- `search/`: search tools collection (software catalog and job classes and pay lookup)
-- `organization/`: County service areas, departments, divisions and other bodies, one page each, generated from schemaGov JSON-LD — see "Organization" below
-- `service-areas/`: the County's service areas, a page each listing its programs, and `programs/`: a page for each program. Both are written by `scripts/build-organization.js` from the same data
-- `places/`: the County's places, a page each: supervisorial districts, cities and towns, unincorporated communities and facilities, plus the county. Written by `scripts/build-organization.js` from `organization/data/jurisdictions.jsonld` and `facilities.jsonld`, copied from `marin-data/output/`
+- `search/`, `organization/`, `service-areas/`, `programs/` and `places/`: forwarding pages only. These moved to [Marin Software](https://github.com/marincountygov/marin-software), [Marin Jobs](https://github.com/marincountygov/marin-jobs) and [Marin Pulse](https://github.com/marincountygov/marin-pulse); the old addresses forward to them
 - `vendor/`: the installed MarinOS App Shell (`vendor/marinos/`) and its fonts and icons
 - root-level document stubs: compatibility redirects for URLs that existed before the SOP collection moved
 - root-level `sops.json`: compatibility copy retained for existing consumers
@@ -41,22 +38,6 @@ Each page's Link, Copy and Download buttons carry only what to do (`data-action=
 
 **Not covered yet.** The Public Engagement Plan and the Personnel Management Regulations are not built this way: the Plan is hand-written HTML with REQUIRED and BEST PRACTICE callouts and a PDF link, and the Regulations come from the Policy Knowledge Model's JSON with an Interactive/Original text toggle. Moving them over needs callouts in the Markdown (for example a labeled blockquote), a per-guide source-document link, and a rule for views, so it is a separate piece of work. Images, footnotes and H4 headings inside a section are not converted.
 
-## Organization
-
-`organization/` is built from schemaGov JSON-LD, not written by hand. The data is `organization/data/organizations.jsonld` and `jurisdictions.jsonld`, copied from `marin-data/output/`, where the organization list is maintained (see `marin-data/FINDINGS.md`). Run `node scripts/build-organization.js ../marin-data/output` to copy new data in and rewrite `organization/index.html` and one page per organization. Edit the data, never the generated pages. Hierarchy comes only from each organization's `parentOrganization`.
-
-An organization page opens on a Dashboard: a tight look at each of its other tabs (About, Divisions, Programs, Budget, People, and the Mentions, Reach and Links apps), each with a link to the tab for more. The tabs follow: About, then the tabs the organization has, then Data. On a page with tabs the Copy, Link and Download buttons sit below the tabs and follow the open tab: they copy and download that tab, files are named for it (`cda-programs.md`), and JSON and CSV are offered only on the tabs that have them; the Dashboard offers only the link. Organization, service area and budget pages have Copy, Link and Download buttons (`scripts/page-actions.js`, wired by the shell); the Dashboard is left out of what they copy. Where a page carries its data (an organization, a service area, the funds and the budget tables) Copy and Download also offer JSON: the page's JSON-LD record, exactly as the data has it (`organization/page-data.js`). Download also offers a CSV for each table a page holds (a department's programs and budget, the budget tables, the funds, the lists of organizations and service areas); the rows are written into the page and turned into a CSV with a byte-order mark by `organization/page-data.js`. Organization, service area and program pages end with an Insights tab: choose what to include, add a question, and copy a prompt for a chatbot that holds the page's structured data (about, people, programs, budget, and, from the published sources when the tab opens, Mentions, Reach campaigns and Links). Like Marin Spec's prompts it names no AI product and calls no AI service; `scripts/insights.js` writes the tab and `organization/insights.js` builds the prompt. Telephone numbers are `tel:` links; a number that is not a whole US number stays plain text.
-
-The data also holds programs, people, posts and roles (`programs.jsonld`, `people.jsonld`, `posts.jsonld`, `roles.jsonld`), copied the same way. A body's page has a Programs tab for the programs it administers (with those of the bodies under it) and a People tab for the seats it holds. Service areas have their own section (`service-areas/`) and no pages under `organization/`; each lists its programs, and every program has a page under `programs/` that links to its agency. The Organization homepage lists the departments, offices and other bodies; divisions are listed on their department's page. Some missions in the data end with the department's address, phone, web address or the department head's name. The build leaves those off the page (`cleanMission` in `scripts/build-organization.js`); the data is not changed, and the fix belongs in the data's source.
-
-## Places
-
-`places/` is built by the same script from the jurisdictions and facilities in marin-data. A place page opens on a Dashboard, then About, then the tabs it has: Places and Facilities (what the place contains, so the county lists every district, city, town and community), People (the supervisor of a district, from the post that represents it), Mentions, Reach, Data and Insights. A city, town or community shows the supervisorial district or districts it is in (marked partly when it is in more than one), and a district's Places tab lists its cities and towns, communities, areas and regions, from `geoWithin` and `geoOverlaps` in the data. Mentions reads the monitor that the place carries as `local:marin-mentions-monitor-id`. Reach finds a place by its geographic area, and a facility by its venue name. A page's name is the record's code, its `gs:local` identifier in marin-data (`san-rafael`, `marin-district-3`, `civic-center`, `marin-county`). The code belongs to no one app. Edit the data in marin-data, never the generated pages.
-
-## Budget on organization pages
-
-The Budget and Capital improvement plan pages are in [marin-budget](https://github.com/marincountygov/marin-budget) (https://marincountygov.github.io/marin-budget/). The Budget tab on organization, service area and program pages stays here. It reads the budget files in `../marin-data/output` (`budgets.jsonld`, `budget-lines.jsonld`, `source/budget-display.json`, `funds.jsonld`, `sources.json` and `budget-2025-26/schedules.json`) when `node scripts/build-organization.js` runs; it keeps no copy of them. To read another folder, run `node scripts/build-organization.js <folder with the files>` or set `MARIN_DATA_OUTPUT`. `scripts/budget-data.js` builds the tables and `scripts/budget-2025-org.js` adds the FY 2025-26 Final Budget rows. Links from a Budget tab to a fund page, a schedule or the budget data are absolute links to marin-budget (`BUDGET_SITE` in `scripts/budget-data.js`).
-
 ## Brand Center
 
 The Brand Center (County of Marin logo, color, and typography reference, extensible to other Marin brands) moved to its own repo: [marincountygov/marin-brand](https://github.com/marincountygov/marin-brand). It is no longer part of this repo.
@@ -85,8 +66,3 @@ Open `index.html` directly or serve this folder with any static web server. Docu
 
 For WAVE extension testing, use `python3 -m http.server 8000` and open `http://localhost:8000/`. Direct `file://` testing requires the extension to have local-page access.
 
-## Job classes and pay search
-
-`search/job-classes-pay/` uses the same search/facet layout as the software catalog. It reads the public [Job Classifications and Pay Rates](https://data.marincounty.gov/d/w7uw-fvda) JSON feed in the browser, with a six-hour browser-local cache and a stale-copy fallback when offline. Users can search, sort, filter by title/pay/hour schedule/step count, open the published pay-step details, compare up to three classifications, and export the filtered results (CSV or JSON). It shows **job classification** pay ranges, not individual employee compensation. The scope is limited to job classifications and their published pay ranges.
-
-Run `node tests/test_job_pay.js` for dataset-normalization regression tests, `python3 tests/browser_job_pay_embedded.py` for network-free browser/DOM tests, and `python3 tests/browser_job_pay.py` for mock-feed HTTP/browser tests. None of these tests calls the live County dataset or creates records.
