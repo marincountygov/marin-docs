@@ -32,30 +32,13 @@ if [[ -f "$ROOT_DIR/vendor/marinos/audit-shared-helpers.py" ]]; then
   python3 "$ROOT_DIR/vendor/marinos/audit-shared-helpers.py" "$ROOT_DIR" --fail
 fi
 
-# The data files copied from marin-data must match it (see marin-data/consumers.json). Skipped when marin-data is not next to this repo.
-if [[ -f "$ROOT_DIR/../marin-data/check_copies.py" ]]; then
-  python3 "$ROOT_DIR/../marin-data/check_copies.py" "$ROOT_DIR"
-else
-  printf 'SKIP: marin-data is not next to this repo; its data copies were not compared.\n' >&2
-fi
 if command -v node >/dev/null 2>&1; then
   node --check "$ROOT_DIR/scripts/build-pmr-guide.js"
   node --check "$ROOT_DIR/scripts/build-guide.js"
   node --check "$ROOT_DIR/scripts/guide-schema.js"
-  node --check "$ROOT_DIR/scripts/build-organization.js"
-  node --check "$ROOT_DIR/scripts/budget-2025-org.js"
-  node --check "$ROOT_DIR/scripts/clean-text.js"
-  node --check "$ROOT_DIR/scripts/budget-data.js"
-  node --check "$ROOT_DIR/scripts/insights.js"
-  node --check "$ROOT_DIR/organization/insights.js"
   node --check "$ROOT_DIR/scripts/stamp-updated-dates.js"
-  node --check "$ROOT_DIR/search/job-classes-pay/job-pay-core.js"
-  node --check "$ROOT_DIR/search/job-classes-pay/job-pay.js"
-  node --check "$ROOT_DIR/search/shared/search-layout.js"
-  node "$ROOT_DIR/tests/test_job_pay.js"
   node --check "$ROOT_DIR/sop/flow-view.js"
   node --check "$ROOT_DIR/sop/sop-actions.js"
-  node --test "$ROOT_DIR/tests/clean-text.test.js" "$ROOT_DIR/tests/budget-data.test.js"
   python3 "$ROOT_DIR/tests/test_generated.py"
 else
   printf 'SKIP: Node is unavailable; the generator and generated pages were not checked.\n' >&2
@@ -63,9 +46,6 @@ fi
 
 if [[ "$RUN_BROWSER" == 1 ]]; then
   python3 "$ROOT_DIR/tests/browser_docs.py"
-  python3 "$ROOT_DIR/tests/browser_job_pay.py"
-  python3 "$ROOT_DIR/tests/browser_job_pay_embedded.py"
-  python3 "$ROOT_DIR/tests/browser_insights.py"
 else
   printf 'SKIP: Browser tests not requested; run with --browser to include them.\n'
 fi

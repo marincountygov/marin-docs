@@ -3,7 +3,7 @@ schema: 1
 project:
   name: Marin Docs
   repo: marin-docs
-  type: docs
+  type: app
   owner: County of Marin
   audience: staff
   status: alpha
