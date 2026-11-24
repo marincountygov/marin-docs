@@ -285,7 +285,7 @@ def check_citation(browser, base):
             page.click(".doc-actions [aria-controls=copy-panel]")
             page.click("button[data-copy-format=citation]")
             page.wait_for_function("() => window.__copied !== null")
-            return page.evaluate("window.__copied"), page.locator(".doc-action-status").inner_text()
+            return page.evaluate("window.__copied"), page.locator(".doc-actions:not([data-section-id]) .doc-action-status").inner_text()
 
         text, status = cite("pmrs/pmr-24.html#24-3")
         require(text == f"County of Marin, Personnel Management Regulations, PMR 24.3 Formal Grievance (effective 2005-01). {base}pmrs/pmr-24.html#24-3 (accessed {today}).", f"A section: {text!r}")
@@ -328,35 +328,44 @@ def check_glossary(browser, base):
 
 
 def check_section_copy(browser, base):
-    """At the end of each numbered section: Copy citation and Copy text for that section alone, with their own status line; the page's own copy
-    leaves the buttons out; printing leaves them off."""
+    """At the end of each numbered section: the standard actions scoped to that section, Copy link and a Copy menu (Text, HTML, Markdown, Citation), with
+    their own status line. No separate copy buttons; the page's own copy leaves the section's actions out; printing leaves them off."""
     import datetime
     today = datetime.date.today().isoformat()
     context = browser.new_context(viewport={"width": 1100, "height": 800})
+    context.grant_permissions(["clipboard-read", "clipboard-write"], origin=base.rstrip("/"))
     try:
         page = context.new_page()
         page.goto(base + "pmrs/pmr-24.html")
         page.wait_for_selector("marin-app-header .app-header")
         numbered = page.locator("article section > h2[id]").evaluate_all("els => els.filter((e) => /^[0-9]+-[0-9]+$/.test(e.id)).length")
-        require(numbered >= 4 and page.locator(".section-actions").count() == numbered, f"One set of buttons for each numbered section: {numbered}")
-        require(page.locator("section:has(h2#source) .section-actions").count() == 0, "The Source section has none")
-        page.evaluate("() => { window.__c = null; window.__r = null; window.marinCopyText = (t) => { window.__c = t; return Promise.resolve(true); }; window.marinCopyRich = (t, h) => { window.__r = [t, h]; return Promise.resolve(true); }; }")
-        # the address names no section: the buttons still cite their own
-        section = page.locator("section:has(h2[id='24-3'])")
-        section.get_by_role("button", name="Copy citation for 24.3").click()
+        require(numbered >= 4 and page.locator(".doc-actions[data-section-id]").count() == numbered, f"One set of actions for each numbered section: {numbered}")
+        require(page.locator("section:has(h2#source) .doc-actions").count() == 0, "The Source section has none")
+        require(page.locator("button", has_text="Copy citation").count() == 0 and page.locator("button", has_text="Copy text").count() == 0, "No separate copy buttons: every copy function is in a Copy menu")
+        section = page.locator("section#section-24-3")
+        section.get_by_role("button", name="Copy 24.3, choose a format").click()
+        require(section.locator(".menu-panel button").all_text_contents() == ["Text", "HTML", "Markdown", "Citation"], "The section's Copy menu has the standard formats and Citation")
+        # Citation: the address names no section, the menu cites its own
+        page.evaluate("() => { window.__c = null; window.marinCopyText = (t) => { window.__c = t; return Promise.resolve(true); }; }")
+        section.locator("button[data-copy-format=citation]").click()
         page.wait_for_function("() => window.__c !== null")
         cited = page.evaluate("window.__c")
         require(cited == f"County of Marin, Personnel Management Regulations, PMR 24.3 Formal Grievance (effective 2005-01). {base}pmrs/pmr-24.html#24-3 (accessed {today}).", f"The citation of a section: {cited!r}")
-        require(section.locator(".section-actions__status").inner_text() == "Citation copied.", "Each section says it copied, beside its own buttons")
-        section.get_by_role("button", name="Copy text of 24.3").click()
-        page.wait_for_function("() => window.__r !== null")
-        text, html = page.evaluate("window.__r")
-        require(text.startswith("24.3 Formal Grievance") and "Grievance Form" in text, f"The text of the section: {text[:80]!r}")
-        require("24.4 " not in text.split("\n")[0] and "Copy citation" not in text and "Copy text" not in text and "Citation copied" not in text, "Only that section, and not the buttons")
-        require("<h2" in html and "data-section-copy" not in html, "The rich text has the heading and no buttons")
-        require("Copy citation" not in page.evaluate("marinContentFormats(document.querySelector('article')).text"), "The page's own copy leaves the buttons out")
+        require(section.locator(".doc-action-status").inner_text() == "Citation copied.", "The section says it copied, beside its own menu")
+        # Markdown and Text are the shell's: that section alone
+        section.get_by_role("button", name="Copy 24.3, choose a format").click()
+        section.locator("button[data-copy-format=markdown]").click()
+        page.wait_for_function("document.querySelector('#section-24-3 .doc-action-status').textContent === 'Copied Markdown.'")
+        markdown = page.evaluate("navigator.clipboard.readText()")
+        require(markdown.startswith("## 24.3 Formal Grievance") and "Grievance Form" in markdown, f"The Markdown of the section: {markdown[:80]!r}")
+        require("24.4 " not in markdown and "Citation" not in markdown and "Copy" not in markdown, "Only that section, and not its actions")
+        # the link to the section
+        section.get_by_role("button", name="Copy link to 24.3").click()
+        page.wait_for_function("() => window.__c !== null && window.__c.endsWith('#24-3') && !window.__c.includes('accessed')")
+        require(section.locator(".doc-action-status").inner_text() == "Link copied.", "The section link says it copied")
+        require("Citation" not in page.evaluate("marinContentFormats(document.querySelector('article')).text"), "The page's own copy leaves the sections' actions out")
         page.emulate_media(media="print")
-        require(not page.locator(".section-actions").first.is_visible(), "The buttons are left off the print")
+        require(not page.locator(".doc-actions[data-section-id]").first.is_visible(), "The actions are left off the print")
     finally:
         context.close()
 
