@@ -3,6 +3,10 @@
     return button.closest(".doc-actions")?.querySelector(".doc-action-status") ?? null;
   }
 
+  document.querySelectorAll('[data-action="print"]').forEach((button) => {
+    button.addEventListener("click", () => window.print());
+  });
+
   document.querySelectorAll('[data-action="download-json"]').forEach((button) => {
     button.addEventListener("click", () => {
       const status = statusFor(button);

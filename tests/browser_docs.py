@@ -89,7 +89,7 @@ def check_sop(browser, base):
     toggle = page.locator(".menu-toggle.action-button")
     require(toggle.get_attribute("aria-expanded") == "false", "SOP: the menu starts closed")
     toggle.click()
-    require(toggle.get_attribute("aria-expanded") == "true" and page.locator(".menu-panel:visible a, .menu-panel:visible button").count() == 2, "SOP: the menu opens with two files")
+    require(toggle.get_attribute("aria-expanded") == "true" and page.locator(".menu-panel:visible a, .menu-panel:visible button").count() == 3, "SOP: the menu opens with two files and Print or save as PDF")
     page.keyboard.press("Escape")
     require(toggle.get_attribute("aria-expanded") == "false", "SOP: Escape closes the menu")
     toggle.click()
@@ -154,7 +154,7 @@ def check_engage_marin(browser, base):
     page.wait_for_function("document.querySelector('.doc-action-status').textContent.includes('Copied Markdown')")
     require(page.evaluate("navigator.clipboard.readText()").startswith("# Before launch\n\nReview the public experience") and "- [ ] We know what we want to learn." in page.evaluate("navigator.clipboard.readText()"), "Engage Marin: Markdown copy")
     page.click("button[aria-controls=download-panel]")
-    require(page.locator("#download-panel button").all_text_contents() == ["Text", "HTML", "Markdown", "JSON (this page)", "JSON (whole guide)"], "Engage Marin: Download options")
+    require(page.locator("#download-panel button").all_text_contents() == ["Text", "HTML", "Markdown", "JSON (this page)", "JSON (whole guide)", "Print or save as PDF"], "Engage Marin: Download options")
     for fmt, name in (("text", "before-launch.txt"), ("html", "before-launch.html"), ("markdown", "before-launch.md"), ("json", "before-launch.json"), ("guide-json", "engage-marin-structured-data.json")):
         page.click("button[aria-controls=download-panel]") if page.is_hidden("#download-panel") else None
         with page.expect_download() as info:
@@ -236,6 +236,34 @@ def check_guide_home(browser, base):
     page.close()
 
 
+def check_print(browser, base):
+    """Printing a guide page, a regulation or an SOP prints the document: no navigation, search, actions or pager; the text fills the page;
+    a link to another site shows its address; and Print or save as PDF is in the Download menu."""
+    pages = {"a regulation": "pmrs/pmr-24.html", "a guide page": "guides/engage-marin/before-launch.html", "an SOP": "sop/airfield-inspection-and-hazard-identification.html"}
+    for kind, path in pages.items():
+        context = browser.new_context(viewport={"width": 1000, "height": 800})
+        try:
+            page = context.new_page()
+            page.goto(base + path)
+            page.wait_for_selector("marin-app-header .app-header")
+            page.evaluate("() => { window.__prints = 0; window.print = () => { window.__prints += 1; }; }")
+            page.click(".doc-actions [aria-controls=download-panel], .doc-actions [aria-controls=download-menu-panel]")
+            page.click("button:has-text('Print or save as PDF')")
+            require(page.evaluate("window.__prints") == 1, f"{kind}: Print or save as PDF opens the print dialog")
+            page.emulate_media(media="print")
+            for selector in (".doc-nav", ".doc-actions", ".toc", ".app-header", ".app-footer"):
+                require(page.locator(selector).count() == 0 or not page.locator(selector).first.is_visible(), f"{kind}: {selector} is left off the print")
+            if page.locator(".doc-pager").count():
+                require(not page.locator(".doc-pager").first.is_visible(), f"{kind}: the pager is left off the print")
+            widths = page.evaluate("() => { const r = document.querySelector('article').getBoundingClientRect(); return [r.left, r.width]; }")
+            require(widths[1] > 900 and widths[0] < 40, f"{kind}: the text fills the page: {widths}")
+            if page.locator("article a[href^=http]").count():
+                after = page.evaluate("getComputedStyle(document.querySelector('article a[href^=http]'), '::after').content")
+                require("http" in after, f"{kind}: a link to another site shows its address: {after}")
+        finally:
+            context.close()
+
+
 def main():
     server = ThreadingHTTPServer(("127.0.0.1", 0), partial(Handler, directory=str(ROOT)))
     Thread(target=server.serve_forever, daemon=True).start()
@@ -249,6 +277,7 @@ def main():
             check_pager(browser, base)
             check_guide_home(browser, base)
             check_lifecycle(browser, base)
+            check_print(browser, base)
         finally:
             browser.close()
             server.shutdown()
