@@ -264,6 +264,42 @@ def check_print(browser, base):
             context.close()
 
 
+def check_citation(browser, base):
+    """Copy, then Citation: the citation of the section the address points at, or of the regulation when it points at none; only what the page
+    already says (the manual, the heading, the effective date when the data has one), the address and the day it was copied."""
+    import datetime
+    import json
+    graph = json.loads((ROOT / "pmrs/data/regulations.jsonld").read_text(encoding="utf-8"))["@graph"]
+    chapters = [n for n in graph if n.get("codificationLevel") == "chapter"]
+    has = lambda n: any(i.get("propertyID") == "local:pmr-effective-date-as-written" for i in n.get("identifier", []))
+    without = next(n for n in chapters if not has(n))["legislationIdentifier"].replace("PMR", "").strip()
+    today = datetime.date.today().isoformat()
+    context = browser.new_context(viewport={"width": 1000, "height": 800})
+    try:
+        page = context.new_page()
+
+        def cite(path):
+            page.goto(base + path)
+            page.wait_for_selector("marin-app-header .app-header")
+            page.evaluate("() => { window.__copied = null; window.marinCopyText = (t) => { window.__copied = t; return Promise.resolve(true); }; }")
+            page.click(".doc-actions [aria-controls=copy-panel]")
+            page.click("button[data-copy-format=citation]")
+            page.wait_for_function("() => window.__copied !== null")
+            return page.evaluate("window.__copied"), page.locator(".doc-action-status").inner_text()
+
+        text, status = cite("pmrs/pmr-24.html#24-3")
+        require(text == f"County of Marin, Personnel Management Regulations, PMR 24.3 Formal Grievance (effective 2005-01). {base}pmrs/pmr-24.html#24-3 (accessed {today}).", f"A section: {text!r}")
+        require(status == "Citation copied.", f"The status says it was copied: {status!r}")
+        text, _ = cite("pmrs/pmr-24.html")
+        require(text == f"County of Marin, Personnel Management Regulations, PMR 24: Grievance Procedure (effective 2005-01). {base}pmrs/pmr-24.html (accessed {today}).", f"The regulation: {text!r}")
+        text, _ = cite("pmrs/pmr-24.html#source")
+        require("PMR 24: Grievance Procedure" in text and "#source" not in text and "PMR 24.3" not in text, f"A heading that is not a numbered section cites the regulation: {text!r}")
+        text, _ = cite(f"pmrs/pmr-{without}.html")
+        require("effective" not in text and text.startswith("County of Marin, Personnel Management Regulations, PMR "), f"No effective date in the data, none in the citation: {text!r}")
+    finally:
+        context.close()
+
+
 def main():
     server = ThreadingHTTPServer(("127.0.0.1", 0), partial(Handler, directory=str(ROOT)))
     Thread(target=server.serve_forever, daemon=True).start()
@@ -278,6 +314,7 @@ def main():
             check_guide_home(browser, base)
             check_lifecycle(browser, base)
             check_print(browser, base)
+            check_citation(browser, base)
         finally:
             browser.close()
             server.shutdown()
