@@ -381,6 +381,34 @@ class PageTests(unittest.TestCase):
             self.assertNotIn("doc-actions", source, f"{page.name}: none in Source")
             self.assertNotIn("section-actions", html, f"{page.name}: no separate copy buttons")
 
+    def test_html_text_helpers_do_not_leave_a_tag_behind_or_decode_twice(self):
+        """The helpers that make plain text out of our pages: one pass of decoding, tags and script text gone, and no tag rebuilt from what was left."""
+        script = r"""
+        const { decodeEntities, stripTags, removeElements } = require('./scripts/html-text.js');
+        const results = {
+          once: decodeEntities('&amp;lt;b&amp;gt; &lt;i&gt; Fish &amp; Chips &#39;x&#39; &quot;y&quot;'),
+          nested: stripTags('<<script>script>alert(1)</script>'),
+          lessThan: stripTags('a < b and c > d'),
+          blocks: stripTags('<p>One</p><p>Two</p><style>p{color:red}</style><script>alert(1)</script><!-- note -->end', ' ').replace(/\s+/g, ' ').trim(),
+          quoted: stripTags('<a title="x>y">link</a>', ''),
+          anchor: stripTags('Heading<a class="heading-anchor" href="#x" aria-label="Link">#</a> and <a href="/y">a real link</a>', ' ', (name, tag) => name === 'a' && tag.includes('class="heading-anchor"')).replace(/\s+/g, ' ').trim(),
+          joined: removeElements('<div><scr<script></script>ipt>bad</script>keep</div>', ['script', 'style']),
+          kept: removeElements('<p>a</p><script>x</script><p>b</p>', ['script']),
+        };
+        console.log(JSON.stringify(results));
+        """
+        out = subprocess.run(["node", "-e", script], cwd=ROOT, capture_output=True, text=True)
+        self.assertEqual(out.returncode, 0, out.stderr)
+        got = json.loads(out.stdout)
+        self.assertEqual(got["once"], "&lt;b&gt; <i> Fish & Chips 'x' \"y\"", "each reference is decoded once: &amp;lt; stays &lt;")
+        self.assertNotIn("<script", got["nested"].lower(), "no script tag is rebuilt from what was left")
+        self.assertEqual(got["lessThan"], "a < b and c > d", "a < in the text stays")
+        self.assertEqual(got["blocks"], "One Two end", "tags, comments, and the text of script and style are dropped")
+        self.assertEqual(got["quoted"], "link", "a > inside a quoted attribute does not end the tag")
+        self.assertEqual(got["anchor"], "Heading and a real link", "a heading's # anchor is dropped, a real link keeps its text")
+        self.assertNotIn("<script", got["joined"].lower(), "removing an element does not join the rest into a new one")
+        self.assertEqual(got["kept"], "<p>a</p><p>b</p>", "the rest of the markup is kept")
+
     def test_sop_navigation_is_current(self):
         result = subprocess.run(["node", str(ROOT / "scripts" / "build-sop-nav.js"), "--check"], capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
