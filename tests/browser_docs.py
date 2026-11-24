@@ -327,6 +327,40 @@ def check_glossary(browser, base):
         context.close()
 
 
+def check_section_copy(browser, base):
+    """At the end of each numbered section: Copy citation and Copy text for that section alone, with their own status line; the page's own copy
+    leaves the buttons out; printing leaves them off."""
+    import datetime
+    today = datetime.date.today().isoformat()
+    context = browser.new_context(viewport={"width": 1100, "height": 800})
+    try:
+        page = context.new_page()
+        page.goto(base + "pmrs/pmr-24.html")
+        page.wait_for_selector("marin-app-header .app-header")
+        numbered = page.locator("article section > h2[id]").evaluate_all("els => els.filter((e) => /^[0-9]+-[0-9]+$/.test(e.id)).length")
+        require(numbered >= 4 and page.locator(".section-actions").count() == numbered, f"One set of buttons for each numbered section: {numbered}")
+        require(page.locator("section:has(h2#source) .section-actions").count() == 0, "The Source section has none")
+        page.evaluate("() => { window.__c = null; window.__r = null; window.marinCopyText = (t) => { window.__c = t; return Promise.resolve(true); }; window.marinCopyRich = (t, h) => { window.__r = [t, h]; return Promise.resolve(true); }; }")
+        # the address names no section: the buttons still cite their own
+        section = page.locator("section:has(h2[id='24-3'])")
+        section.get_by_role("button", name="Copy citation for 24.3").click()
+        page.wait_for_function("() => window.__c !== null")
+        cited = page.evaluate("window.__c")
+        require(cited == f"County of Marin, Personnel Management Regulations, PMR 24.3 Formal Grievance (effective 2005-01). {base}pmrs/pmr-24.html#24-3 (accessed {today}).", f"The citation of a section: {cited!r}")
+        require(section.locator(".section-actions__status").inner_text() == "Citation copied.", "Each section says it copied, beside its own buttons")
+        section.get_by_role("button", name="Copy text of 24.3").click()
+        page.wait_for_function("() => window.__r !== null")
+        text, html = page.evaluate("window.__r")
+        require(text.startswith("24.3 Formal Grievance") and "Grievance Form" in text, f"The text of the section: {text[:80]!r}")
+        require("24.4 " not in text.split("\n")[0] and "Copy citation" not in text and "Copy text" not in text and "Citation copied" not in text, "Only that section, and not the buttons")
+        require("<h2" in html and "data-section-copy" not in html, "The rich text has the heading and no buttons")
+        require("Copy citation" not in page.evaluate("marinContentFormats(document.querySelector('article')).text"), "The page's own copy leaves the buttons out")
+        page.emulate_media(media="print")
+        require(not page.locator(".section-actions").first.is_visible(), "The buttons are left off the print")
+    finally:
+        context.close()
+
+
 def main():
     server = ThreadingHTTPServer(("127.0.0.1", 0), partial(Handler, directory=str(ROOT)))
     Thread(target=server.serve_forever, daemon=True).start()
@@ -343,6 +377,7 @@ def main():
             check_print(browser, base)
             check_citation(browser, base)
             check_glossary(browser, base)
+            check_section_copy(browser, base)
         finally:
             browser.close()
             server.shutdown()

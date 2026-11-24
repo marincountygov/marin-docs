@@ -88,6 +88,17 @@ const context = JSON.parse(fs.readFileSync(path.join(ROOT, "pmrs/data/regulation
 const inOrder = groups.flatMap((g) => refs(g).sort((a, b) => a.position - b.position));
 const stepLink = (p) => (p ? { label: `PMR ${number(p)}: ${p.name || ""}`, href: `${slug(p)}.html` } : null);
 
+// At the end of each numbered section: Copy citation and Copy text for that section alone (guides/guide-actions.js does the copying). The status line
+// beside them is where "Citation copied." is said, because the one at the top of the page is out of sight from here. data-no-copy keeps the buttons
+// out of what the page's own Copy menu copies.
+const sectionActions = (x) => {
+  const number = x.label.split(" ")[0];
+  return `<div class="section-actions" data-no-copy>` +
+    `<button type="button" class="action-button" data-section-copy="citation" data-section-id="${x.id}" aria-label="Copy citation for ${esc(number)}">Copy citation</button>` +
+    `<button type="button" class="action-button" data-section-copy="text" data-section-id="${x.id}" aria-label="Copy text of ${esc(number)}">Copy text</button>` +
+    `<span class="section-actions__status" role="status" aria-live="polite"></span></div>`;
+};
+
 let count = 0;
 for (const group of groups) {
   for (const pmr of refs(group)) {
@@ -114,7 +125,7 @@ for (const group of groups) {
     });
     const body = `<div class="pmr-layout">${nav}<article>${docActions(slug(pmr), local(pmr, "effective-date"))}<section class="hero pmr-hero"><h1>PMR ${esc(number(pmr))}: ${esc(pmr.name || "")}</h1>` + (pmr.description ? `<p class="lede">${esc(pmr.description)}</p>` : "") + `</section>` +
       details +
-      sections.map((x) => `<section>${heading(x.id, esc(x.label))}${x.text ? paragraphs(x.text) : ""}</section>`).join("") +
+      sections.map((x) => `<section>${heading(x.id, esc(x.label))}${x.text ? paragraphs(x.text) : ""}${sectionActions(x)}</section>`).join("") +
       `<section>${heading("source", "Source")}<p><a href="${esc(source.url)}">${esc(source.name)}</a></p></section>${renderDocPager({ label: "Regulations", prev: stepLink(inOrder[inOrder.indexOf(pmr) - 1]), next: stepLink(inOrder[inOrder.indexOf(pmr) + 1]) })}</article>${toc}</div>` +
       `<script type="application/ld+json">${JSON.stringify({ "@context": context, "@graph": [pmr, ...provisions] }).replace(/</g, "\\u003c")}</script><script src="../guides/guide-actions.js" defer></script>`;
     fs.writeFileSync(path.join(ROOT, "pmrs", `${slug(pmr)}.html`), page(`PMR ${number(pmr)}: ${pmr.name || ""}`, pmr.description || `Personnel Management Regulation ${number(pmr)}.`, body));
