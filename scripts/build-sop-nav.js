@@ -11,10 +11,10 @@ const path = require("path");
 const { renderDocNav } = require("./doc-nav.js");
 const { renderDocPager } = require("./doc-pager.js");
 const { listedSopFiles } = require("./sop-list.js");
+const { decodeEntities, stripTags } = require("./html-text.js");
 
 const ROOT = path.resolve(__dirname, "..");
 const DIR = path.join(ROOT, "sop");
-const decode = (s) => s.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#0?39;/g, "'");
 const MARK = /<!--doc-nav-->[\s\S]*?<!--\/doc-nav-->/;
 const PAGER = /<!--doc-pager-->[\s\S]*?<!--\/doc-pager-->/;
 
@@ -22,7 +22,7 @@ const listed = new Set(listedSopFiles());
 const all = fs.readdirSync(DIR).filter((f) => f.endsWith(".html")).sort().map((f) => {
   const html = fs.readFileSync(path.join(DIR, f), "utf8");
   const h1 = html.match(/<h1 class="doc-title">(.*?)<\/h1>/);
-  return h1 ? { file: f, html, title: decode(h1[1].replace(/<[^>]+>/g, "").trim()) } : null;
+  return h1 ? { file: f, html, title: decodeEntities(stripTags(h1[1], "")).trim() } : null;
 }).filter(Boolean);
 const pages = all.filter((p) => listed.has(p.file));
 pages.sort((a, b) => a.title.localeCompare(b.title, "en", { sensitivity: "base", numeric: true }));

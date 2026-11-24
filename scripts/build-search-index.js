@@ -19,13 +19,15 @@
 const fs = require("fs");
 const path = require("path");
 const { listedSopFiles } = require("./sop-list.js");
+const { decodeEntities, stripTags, removeElements } = require("./html-text.js");
 
 const ROOT = path.resolve(__dirname, "..");
 const OUT = path.join(ROOT, "search-index.json");
 const BASE = "https://marincountygov.github.io/marin-docs/";
 
-const decode = (s) => s.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#0?39;|&apos;/g, "'").replace(/&nbsp;/g, " ");
-const text = (html) => decode(html.replace(/<a class="heading-anchor"[^>]*>.*?<\/a>/g, "").replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ").trim();
+// A heading's own anchor link ("#") is not part of its text.
+const isAnchor = (name, startTag) => name === "a" && startTag.includes('class="heading-anchor"');
+const text = (html) => decodeEntities(stripTags(html, " ", isAnchor)).replace(/\s+/g, " ").trim();
 const clip = (s, n = 160) => (s.length <= n ? s : `${s.slice(0, n - 1).trimEnd()}…`);
 const one = (html, re) => { const m = html.match(re); return m ? text(m[1]) : ""; };
 const pages = (dir) => fs.readdirSync(path.join(ROOT, dir)).filter((f) => f.endsWith(".html")).sort().map((f) => `${dir}/${f}`);
@@ -94,7 +96,7 @@ const setFiles = new Map(); // path (from the repo root) -> list of { n, p, h, t
 const norm = (t) => String(t || "").replace(/\s+/g, " ").trim();
 // A page's sections: <section class="section" id="x"><h2>Heading</h2>…, each with its text up to the next one.
 function sectionsOf(html) {
-  const article = (html.match(/<article class="content">([\s\S]*)<\/article>/) || [, ""])[1].replace(/<div class="doc-actions"[\s\S]*?<span class="doc-action-status"[^>]*><\/span><\/div>/, "").replace(/<(script|style)[\s\S]*?<\/\1>/g, "");
+  const article = removeElements((html.match(/<article class="content">([\s\S]*)<\/article>/) || [, ""])[1].replace(/<div class="doc-actions"[\s\S]*?<span class="doc-action-status"[^>]*><\/span><\/div>/, ""), ["script", "style"]);
   const out = [];
   const re = /<section class="section" id="([^"]+)">\s*<h2>([\s\S]*?)<\/h2>([\s\S]*?)(?=<section class="section" id=|$)/g;
   let m;

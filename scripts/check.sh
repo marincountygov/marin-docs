@@ -44,6 +44,7 @@ if command -v node >/dev/null 2>&1; then
   node --check "$ROOT_DIR/scripts/doc-nav.js"
   node --check "$ROOT_DIR/scripts/doc-pager.js"
   node --check "$ROOT_DIR/scripts/doc-details.js"
+  node --check "$ROOT_DIR/scripts/html-text.js"
   node --check "$ROOT_DIR/scripts/build-sop-nav.js"
   node --check "$ROOT_DIR/home-search.js"
   node --check "$ROOT_DIR/doc-search.js"
