@@ -33,8 +33,8 @@ if [[ -f "$ROOT_DIR/vendor/marinos/audit-shared-helpers.py" ]]; then
 fi
 
 if command -v node >/dev/null 2>&1; then
-  node --check "$ROOT_DIR/scripts/build-pmr-guide.js"
   node --check "$ROOT_DIR/scripts/build-guide.js"
+  node --check "$ROOT_DIR/scripts/build-pmrs.js"
   node --check "$ROOT_DIR/scripts/guide-schema.js"
   node --check "$ROOT_DIR/scripts/stamp-updated-dates.js"
   node --check "$ROOT_DIR/sop/flow-view.js"
