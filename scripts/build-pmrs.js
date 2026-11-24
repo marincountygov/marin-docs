@@ -88,15 +88,16 @@ const context = JSON.parse(fs.readFileSync(path.join(ROOT, "pmrs/data/regulation
 const inOrder = groups.flatMap((g) => refs(g).sort((a, b) => a.position - b.position));
 const stepLink = (p) => (p ? { label: `PMR ${number(p)}: ${p.name || ""}`, href: `${slug(p)}.html` } : null);
 
-// At the end of each numbered section: Copy citation and Copy text for that section alone (guides/guide-actions.js does the copying). The status line
-// beside them is where "Citation copied." is said, because the one at the top of the page is out of sight from here. data-no-copy keeps the buttons
-// out of what the page's own Copy menu copies.
+// At the end of each numbered section: the standard actions, scoped to that section: Copy link (to the section) and the Copy menu (Text, HTML, Markdown
+// and Citation of the section). It is the same component as the page's own, so every copy function is in a Copy menu and none is a separate button.
+// The shell does Text, HTML and Markdown for the element named in data-formats-for and says what happened in the .doc-action-status beside the menu;
+// guides/guide-actions.js does the section link and the citation. The menu's id is unique to the section.
 const sectionActions = (x) => {
   const number = x.label.split(" ")[0];
-  return `<div class="section-actions" data-no-copy>` +
-    `<button type="button" class="action-button" data-section-copy="citation" data-section-id="${x.id}" aria-label="Copy citation for ${esc(number)}">Copy citation</button>` +
-    `<button type="button" class="action-button" data-section-copy="text" data-section-id="${x.id}" aria-label="Copy text of ${esc(number)}">Copy text</button>` +
-    `<span class="section-actions__status" role="status" aria-live="polite"></span></div>`;
+  return `<div class="doc-actions" data-formats-for="#section-${x.id}" data-file-name="pmr-${x.id}" data-section-id="${x.id}">` +
+    `<div class="action-group" role="group" aria-label="Section actions"><button type="button" class="action-button" data-section-link data-icon="link" aria-label="Copy link to ${esc(number)}" title="Copy link to ${esc(number)}"></button></div>` +
+    `<div class="menu"><button type="button" class="action-button menu-toggle" data-icon="copy" aria-expanded="false" aria-controls="copy-panel-${x.id}" aria-label="Copy ${esc(number)}, choose a format" title="Copy ${esc(number)}">${CARET}</button><div id="copy-panel-${x.id}" class="menu-panel" hidden>${menuItems("data-copy-format", [["text", "Text"], ["html", "HTML"], ["markdown", "Markdown"], ["citation", "Citation"]])}</div></div>` +
+    `<span class="doc-action-status" role="status" aria-live="polite"></span></div>`;
 };
 
 let count = 0;
@@ -125,7 +126,7 @@ for (const group of groups) {
     });
     const body = `<div class="pmr-layout">${nav}<article>${docActions(slug(pmr), local(pmr, "effective-date"))}<section class="hero pmr-hero"><h1>PMR ${esc(number(pmr))}: ${esc(pmr.name || "")}</h1>` + (pmr.description ? `<p class="lede">${esc(pmr.description)}</p>` : "") + `</section>` +
       details +
-      sections.map((x) => `<section>${heading(x.id, esc(x.label))}${x.text ? paragraphs(x.text) : ""}${sectionActions(x)}</section>`).join("") +
+      sections.map((x) => `<section id="section-${x.id}">${heading(x.id, esc(x.label))}${x.text ? paragraphs(x.text) : ""}${sectionActions(x)}</section>`).join("") +
       `<section>${heading("source", "Source")}<p><a href="${esc(source.url)}">${esc(source.name)}</a></p></section>${renderDocPager({ label: "Regulations", prev: stepLink(inOrder[inOrder.indexOf(pmr) - 1]), next: stepLink(inOrder[inOrder.indexOf(pmr) + 1]) })}</article>${toc}</div>` +
       `<script type="application/ld+json">${JSON.stringify({ "@context": context, "@graph": [pmr, ...provisions] }).replace(/</g, "\\u003c")}</script><script src="../guides/guide-actions.js" defer></script>`;
     fs.writeFileSync(path.join(ROOT, "pmrs", `${slug(pmr)}.html`), page(`PMR ${number(pmr)}: ${pmr.name || ""}`, pmr.description || `Personnel Management Regulation ${number(pmr)}.`, body));

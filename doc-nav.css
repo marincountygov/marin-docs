@@ -226,7 +226,6 @@
   .set-search,
   .doc-pager,
   .doc-actions,
-  .section-actions,
   .heading-anchor,
   .guide-lifecycle,
   .docs-toc,
@@ -310,25 +309,7 @@
   white-space: nowrap;
 }
 
-/* Copy citation and Copy text at the end of a section (scripts/build-pmrs.js, guides/guide-actions.js). */
-.section-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
+/* The actions at the end of a section (scripts/build-pmrs.js): the same component as the page's own, scoped to the section. */
+.doc-actions[data-section-id] {
   margin: 0.75rem 0 0;
-}
-
-.section-actions .action-button {
-  flex: 0 0 auto;
-  width: auto;
-  margin: 0;
-  min-height: 2rem;
-  padding: 0.2rem 0.65rem;
-  font-size: 0.85rem;
-}
-
-.section-actions__status {
-  color: var(--app-muted);
-  font-size: 0.85rem;
 }

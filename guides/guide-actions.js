@@ -5,7 +5,7 @@
 (() => {
   "use strict";
 
-  const actions = document.querySelector(".doc-actions[data-file-name]");
+  const actions = document.querySelector(".doc-actions[data-file-name]:not([data-section-id])");
   if (!actions) return;
 
   const status = actions.querySelector(".doc-action-status");
@@ -40,7 +40,7 @@
   // document when it points at none. It holds only what the page already says: the manual, the document or section as it is headed, the effective
   // date when the data has one, the address, and the day it was copied.
   //   County of Marin, Personnel Management Regulations, PMR 24.3 Formal Grievance (effective 2005-01). https://…/pmr-24.html#24-3 (accessed 2026-11-24).
-  // `sectionId` names the section (the buttons at the end of a section); without it, the section the address points at, if any.
+  // `sectionId` names the section (the Copy menu at the end of a section); without it, the section the address points at, if any.
   async function copyCitation(sectionId, statusLine) {
     const { citationBase: base, citationPrefix: prefix = "", citationEffective: effective } = actions.dataset;
     const id = sectionId || (location.hash.length > 1 ? decodeURIComponent(location.hash.slice(1)) : "");
@@ -54,31 +54,30 @@
     (statusLine || say)((await marinCopyText(text)) ? "Citation copied." : "Could not copy the citation.");
   }
 
-  // Copy text of one section, as the page's own Copy > Text does (rich text, so it pastes formatted into Word or an email, and plain elsewhere).
-  async function copySectionText(sectionId, statusLine) {
-    const section = document.getElementById(sectionId)?.closest("section");
-    if (!section) return statusLine("Could not find the section.");
-    const formats = marinContentFormats(section);
-    statusLine((await marinCopyRich(formats.text, formats.html)) ? "Text copied." : "Could not copy the text.");
-  }
-
-  // The buttons at the end of each section (data-section-copy). Their own status line says what happened and clears itself.
-  document.addEventListener("click", (event) => {
-    const button = event.target.closest("[data-section-copy]");
-    if (!button) return;
-    const line = button.closest(".section-actions")?.querySelector(".section-actions__status");
-    const statusLine = (message) => {
-      if (!line) return;
-      line.textContent = message;
-      clearTimeout(line.clearAfter);
-      line.clearAfter = setTimeout(() => { line.textContent = ""; }, 4000);
-    };
-    if (button.dataset.sectionCopy === "citation") copyCitation(button.dataset.sectionId, statusLine);
-    else if (button.dataset.sectionCopy === "text") copySectionText(button.dataset.sectionId, statusLine);
+  // Anywhere in the page: the Citation item of a Copy menu, and the section link button. The menu of a section (data-section-id on its .doc-actions) cites
+  // and links that section; the page's own menu cites the section the address points at, or the whole document. Each says what happened in its own
+  // status line (the shell does so for Text, HTML and Markdown), and a section's status clears itself.
+  const statusOf = (box) => (message) => {
+    const line = box.querySelector(".doc-action-status");
+    if (line) line.textContent = message;
+  };
+  document.addEventListener("click", async (event) => {
+    const box = event.target.closest(".doc-actions");
+    if (!box) return;
+    if (event.target.closest('[data-copy-format="citation"]')) copyCitation(box.dataset.sectionId || "", statusOf(box));
+    const link = event.target.closest("[data-section-link]");
+    if (link) statusOf(box)((await marinCopyText(`${location.origin}${location.pathname}#${box.dataset.sectionId}`)) ? "Link copied." : "Could not copy the link.");
+  });
+  // What a section's menu says clears after a few seconds, so the end of each section is not left with old messages.
+  document.querySelectorAll(".doc-actions[data-section-id] .doc-action-status").forEach((line) => {
+    let timer;
+    new MutationObserver(() => {
+      clearTimeout(timer);
+      if (line.textContent) timer = setTimeout(() => { line.textContent = ""; }, 4000);
+    }).observe(line, { childList: true, characterData: true, subtree: true });
   });
 
   actions.addEventListener("click", (event) => {
-    if (event.target.closest('[data-copy-format="citation"]')) copyCitation();
     const button = event.target.closest("[data-download-format]");
     if (button) download(button.dataset.downloadFormat);
   });
