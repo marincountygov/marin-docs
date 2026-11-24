@@ -1,0 +1,2934 @@
+{
+ "schemaVersion": "1.0.0",
+ "title": "Marin Docs search list",
+ "base": "https://marincountygov.github.io/marin-docs/",
+ "sets": [
+  {
+   "src": "pmrs/search.json",
+   "kind": "PMR"
+  },
+  {
+   "src": "sop/search.json",
+   "kind": "SOP"
+  },
+  {
+   "src": "guides/engage-marin/search.json",
+   "kind": "Guide"
+  },
+  {
+   "src": "guides/public-engagement-plan/search.json",
+   "kind": "Guide"
+  }
+ ],
+ "entries": [
+  {
+   "k": "SOP",
+   "n": "Airfield inspection and hazard identification",
+   "d": "How airport staff inspect the airfield each day and respond to hazards.",
+   "h": "sop/airfield-inspection-and-hazard-identification.html"
+  },
+  {
+   "k": "Guide",
+   "n": "About Engage Marin",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Engage Marin is the County of Marin's online community engagement platform. It gives people a simple way to share ideas, give feedback, and help shape County decisions.",
+   "h": "guides/engage-marin/about-engage-marin.html"
+  },
+  {
+   "k": "Guide",
+   "n": "About page",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Every question has an About page that gives people more background.",
+   "h": "guides/engage-marin/about-page.html"
+  },
+  {
+   "k": "Guide",
+   "n": "About this plan",
+   "a": [
+    "Public Engagement Plan"
+   ],
+   "d": "How the Public Engagement Plan rolls out across County departments, the data behind it, and a closing note from OCE Communications.",
+   "h": "guides/public-engagement-plan/about-this-plan.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Before launch",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Review the public experience before you publish.",
+   "h": "guides/engage-marin/before-launch.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Before you begin",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "A successful Engage Marin effort starts with a clear purpose and ends with a clear account of what the County learned.",
+   "h": "guides/engage-marin/before-you-begin.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Brand assets",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Use approved Engage Marin logos, graphics, and templates when promoting your engagement.",
+   "h": "guides/engage-marin/brand-assets.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Campaigns",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "A campaign brings several related questions together under one larger effort.",
+   "h": "guides/engage-marin/campaigns.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Close",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "End participation, review results, and publish a recap with next steps.",
+   "h": "guides/engage-marin/close.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Closing out",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Closing a question ends new ideas, comments, and votes. People can still read the conversation.",
+   "h": "guides/engage-marin/closing-out.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Community guidelines",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "The Engage Marin Community Guidelines help create a respectful, welcoming, and productive space for everyone.",
+   "h": "guides/engage-marin/community-guidelines.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Community partners",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Partners help bring more people into the conversation through trusted community connections.",
+   "h": "guides/engage-marin/community-partners.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Content limits",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "The length and format limits in this playbook, in one place.",
+   "h": "guides/engage-marin/content-limits.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Create",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Start a question or campaign. Add an About page, welcome video, and kickoff update.",
+   "h": "guides/engage-marin/create.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Digital engagement and AI",
+   "a": [
+    "Public Engagement Plan"
+   ],
+   "d": "Technology extends the reach of engagement when used with intention. Without knowing the rules going in, it can also create liability, public records exposure, and language access failures.",
+   "h": "guides/public-engagement-plan/digital-engagement-and-ai.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Documents by level",
+   "a": [
+    "Public Engagement Plan"
+   ],
+   "d": "Confirm your engagement level and the documents required at each level of the Public Engagement Spectrum.",
+   "h": "guides/public-engagement-plan/documents-by-level.html"
+  },
+  {
+   "k": "Guide",
+   "n": "During engagement",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Once your question is live, people can share ideas, comment, and vote when those features are enabled.",
+   "h": "guides/engage-marin/during-engagement.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Engage Marin Playbook",
+   "d": "Start with a question. End with an answer.",
+   "h": "guides/engage-marin/index.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Engagement or communication?",
+   "a": [
+    "Public Engagement Plan"
+   ],
+   "d": "Determine whether a project requires public engagement or public communication before anything goes public.",
+   "h": "guides/public-engagement-plan/engagement-or-communication.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Engagement toolbox",
+   "a": [
+    "Public Engagement Plan"
+   ],
+   "d": "A reference guide to engagement methods matched to the Public Engagement Spectrum. Not a checklist &mdash; select methods that match the level, communities, and resources available.",
+   "h": "guides/public-engagement-plan/engagement-toolbox.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Engaging for equity",
+   "a": [
+    "Public Engagement Plan"
+   ],
+   "d": "Marin is home to some of the most civically active residents in California and ranks third most racially disparate county in the state. Designing engagement that works requires understanding both.",
+   "h": "guides/public-engagement-plan/engaging-for-equity.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Example engagement",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "This fictional example shows how the parts of an Engage Marin effort work together.",
+   "h": "guides/engage-marin/example-engagement.html"
+  },
+  {
+   "k": "Guide",
+   "n": "First post",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Every question should begin with a welcome post. This starts the conversation and shows that someone is listening.",
+   "h": "guides/engage-marin/first-post.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Five levels of engagement",
+   "a": [
+    "Public Engagement Plan"
+   ],
+   "d": "The five levels of the Public Engagement Spectrum define how much influence the public can realistically have.",
+   "h": "guides/public-engagement-plan/five-levels-of-engagement.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Glossary",
+   "a": [
+    "Public Engagement Plan"
+   ],
+   "d": "Terms used throughout the Public Engagement Plan, defined in plain language.",
+   "h": "guides/public-engagement-plan/glossary.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Hiring a consultant",
+   "a": [
+    "Public Engagement Plan"
+   ],
+   "d": "Engagement is complex work, and needing outside support isn't a failure of capacity. It's a realistic response to what the work takes.",
+   "h": "guides/public-engagement-plan/hiring-a-consultant.html"
+  },
+  {
+   "k": "Guide",
+   "n": "How it works",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Engage Marin helps you manage community engagement from start to finish. You can ask one question or bring several related questions together in a campaign.",
+   "h": "guides/engage-marin/how-it-works.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Launch",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Publish your engagement and invite people through County and partner channels.",
+   "h": "guides/engage-marin/launch.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Learn",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Engage Marin 101 on Marin Learn: notes, slides, and a quiz.",
+   "h": "guides/engage-marin/learn.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Links",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Where to find Engage Marin and its Community Guidelines.",
+   "h": "guides/engage-marin/links.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Moderation",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Engage Marin uses automated tools and human review to help keep conversations safe and respectful.",
+   "h": "guides/engage-marin/moderation.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Monitor",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Follow ideas, comments, votes, and participation.",
+   "h": "guides/engage-marin/monitor.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Multilingual engagement and language access",
+   "a": [
+    "Public Engagement Plan"
+   ],
+   "d": "Nearly one in five Marin residents is Hispanic, and a significant portion of the county's population speaks English less than very well.",
+   "h": "guides/public-engagement-plan/multilingual-engagement-and-language-access.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Organize",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Set themes to group related ideas and understand what people share.",
+   "h": "guides/engage-marin/organize.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Outreach",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Publishing your question is only the first step. Outreach helps people find it and understand why they should participate.",
+   "h": "guides/engage-marin/outreach.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Partner",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Work with trusted community groups to shape outreach and reach more people.",
+   "h": "guides/engage-marin/partner.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Plan",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Decide what you want to learn, who you want to hear from, and how you'll use their feedback.",
+   "h": "guides/engage-marin/plan.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Post updates",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Use Updates to keep people informed.",
+   "h": "guides/engage-marin/post-updates.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Public Engagement Plan",
+   "d": "A guide for staff on how to meaningfully engage the public and ensure community input shapes County decisions.",
+   "h": "guides/public-engagement-plan/index.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Questions",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "A question is where people share ideas, comment, and vote.",
+   "h": "guides/engage-marin/questions.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Reaching underrepresented communities",
+   "a": [
+    "Public Engagement Plan"
+   ],
+   "d": "The communities most often described as hard to reach aren't disengaged. They face barriers that standard outreach wasn't designed to address.",
+   "h": "guides/public-engagement-plan/reaching-underrepresented-communities.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Ready to start?",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "You don't need every detail worked out before reaching out.",
+   "h": "guides/engage-marin/ready-to-start.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Sample engagement timelines",
+   "a": [
+    "Public Engagement Plan"
+   ],
+   "d": "There is no standard engagement timeline &mdash; history, language access needs, staff capacity, Board calendar, and trust all shape it. This table gives you a floor, not a ceiling.",
+   "h": "guides/public-engagement-plan/sample-engagement-timelines.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Set themes",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Use Themes to group related ideas and understand common interests.",
+   "h": "guides/engage-marin/set-themes.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Seven required steps",
+   "a": [
+    "Public Engagement Plan"
+   ],
+   "d": "All seven required steps, every time. Internal alignment comes before external engagement.",
+   "h": "guides/public-engagement-plan/seven-required-steps.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Update",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Post updates when appropriate to share progress and keep people informed.",
+   "h": "guides/engage-marin/update.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Welcome video",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "A welcome video makes the conversation more personal and helps build trust. You can add videos to campaigns and questions.",
+   "h": "guides/engage-marin/welcome-video.html"
+  },
+  {
+   "k": "Guide",
+   "n": "What to expect",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Engage Marin makes community engagement easier, but a successful effort still takes planning, outreach, and follow-through.",
+   "h": "guides/engage-marin/what-to-expect.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Why engagement matters in Marin",
+   "a": [
+    "Public Engagement Plan"
+   ],
+   "d": "Marin County isn't one community &mdash; effective engagement starts with knowing which community you're actually in.",
+   "h": "guides/public-engagement-plan/why-engagement-matters-in-marin.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Why partners matter",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Good engagement starts with trust.",
+   "h": "guides/engage-marin/why-partners-matter.html"
+  },
+  {
+   "k": "Guide",
+   "n": "Your commitment",
+   "a": [
+    "Engage Marin Playbook"
+   ],
+   "d": "Engage Marin provides the tools and support. Your team brings the subject knowledge and stays involved throughout the conversation.",
+   "h": "guides/engage-marin/your-commitment.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 1: Purpose & Authority",
+   "a": [
+    "PMR 1",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulations Manual is prescribed for the purpose of carrying out the personnel program pursuant to Chapter 2.56 of the Marin County C…",
+   "h": "pmrs/pmr-1.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 1.1 Purpose",
+   "a": [
+    "PMR 1.1"
+   ],
+   "d": "The goal of these regulations is to establish equitable and lawful procedures for dealing with personnel matters, to attract and retain for the County service…",
+   "h": "pmrs/pmr-1.html#1-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 1.3 Authority",
+   "a": [
+    "PMR 1.3"
+   ],
+   "d": "The ultimate determination of personnel policy is the responsibility of the Board of Supervisors, after development by the Director of Human Resources and Coun…",
+   "h": "pmrs/pmr-1.html#1-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 1.4 Effect of Collective Bargaining Agreements",
+   "a": [
+    "PMR 1.4"
+   ],
+   "d": "If a provision of these Personnel Management Regulations is in conflict with a provision of an applicable collective bargaining agreement negotiated between th…",
+   "h": "pmrs/pmr-1.html#1-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 1.5 No Contract Created",
+   "a": [
+    "PMR 1.5"
+   ],
+   "d": "The Personnel Management Regulations do not create any contract of employment, express or implied, or any rights in the nature of a contract.",
+   "h": "pmrs/pmr-1.html#1-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 1.6 Right to Amend, Delete or Suspend",
+   "a": [
+    "PMR 1.6"
+   ],
+   "d": "These policies may be amended by adding, deleting or changing such policies from time to time upon giving at least one calendar week written notice to each of…",
+   "h": "pmrs/pmr-1.html#1-6"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 2: Definitions",
+   "a": [
+    "PMR 2",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) defines words and terminology used by these County of Marin PMRs.",
+   "h": "pmrs/pmr-2.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 2.1 Definitions",
+   "a": [
+    "PMR 2.1"
+   ],
+   "d": "Unless otherwise defined by the context, words used in these PMRs will have the following meanings: A. Administrator. The County Administrator or his or her de…",
+   "h": "pmrs/pmr-2.html#2-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 20: Employee Standards of Conduct",
+   "a": [
+    "PMR 20",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) defines general standards of conduct for County employees. Please also see related PMRs in this section associated w…",
+   "h": "pmrs/pmr-20.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 20.1 Code of Ethics",
+   "a": [
+    "PMR 20.1"
+   ],
+   "d": "Each officer, official and employee has an obligation to the citizens, to the people’s elected representatives and to fellow employees to meet the highest ethi…",
+   "h": "pmrs/pmr-20.html#20-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 20.2 General Prohibitions",
+   "a": [
+    "PMR 20.2"
+   ],
+   "d": "Discrimination Prohibited. No person employed by the County of Marin, or seeking employment therewith, shall be discriminated against in recruitment, examinati…",
+   "h": "pmrs/pmr-20.html#20-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 20.3 Improper Political Activity",
+   "a": [
+    "PMR 20.3"
+   ],
+   "d": "Political Activity Prohibited. Coercion of or by employees or use of positions for political purposes is prohibited. Employees of federally grant-aided program…",
+   "h": "pmrs/pmr-20.html#20-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 20.4 Maintenance of Confidential and/or Privileged Information",
+   "a": [
+    "PMR 20.4"
+   ],
+   "d": "Information used and/or accessed in the course of employment, if privileged by virtue of the employee’s position and/or confidential, will not be discussed out…",
+   "h": "pmrs/pmr-20.html#20-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 20.5 Outside Employment",
+   "a": [
+    "PMR 20.5"
+   ],
+   "d": "General. No full-time appointed officer or employee may engage in outside employment unless prior written approval is granted. Outside employment must not be i…",
+   "h": "pmrs/pmr-20.html#20-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 20.6 Drug and/or Alcohol Use",
+   "a": [
+    "PMR 20.6"
+   ],
+   "d": "In order to ensure safe and productive work practices free from the influence of impairing drugs and alcohol, and to comply with the federal Drug-Free Workplac…",
+   "h": "pmrs/pmr-20.html#20-6"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 20.7 Use of County Facilities or Property",
+   "a": [
+    "PMR 20.7"
+   ],
+   "d": "No County property will be used by an employee without express authorization of the department head or designee and as necessitated by the employee’s position.",
+   "h": "pmrs/pmr-20.html#20-7"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 20.8 Smoking Prohibited",
+   "a": [
+    "PMR 20.8"
+   ],
+   "d": "Smoking cigarettes, cigars or other tobacco products is prohibited in all places of employment with enclosed facilities 24 hours a day. This includes common wo…",
+   "h": "pmrs/pmr-20.html#20-8"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 20.9 Employee Responsibilities as Disaster Service Workers",
+   "a": [
+    "PMR 20.9"
+   ],
+   "d": "A Disaster Service Worker provides disaster service assistance during an emergency pursuant to State of California Title 19, CCR, §2570.2(a). All County of Mar…",
+   "h": "pmrs/pmr-20.html#20-9"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 21: EEO and Anti-Harassment",
+   "a": [
+    "PMR 21",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) defines County of Marin policy and procedure for Equal Employment Opportunity, Anti-Harassment and Anti-Retaliation…",
+   "h": "pmrs/pmr-21.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 21.1 Policy",
+   "a": [
+    "PMR 21.1"
+   ],
+   "d": "The Marin County Board of Supervisors, in compliance with all applicable federal, state and local laws, is committed to being an equal opportunity employer and…",
+   "h": "pmrs/pmr-21.html#21-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 21.2 Discrimination and Retaliation",
+   "a": [
+    "PMR 21.2"
+   ],
+   "d": "Discrimination Defined 1. In conformance with the Board policy to provide a workplace free from discrimination and to provide for equal employment opportunitie…",
+   "h": "pmrs/pmr-21.html#21-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 21.3 Harassment",
+   "a": [
+    "PMR 21.3"
+   ],
+   "d": "Harassment Defined 1. Harassment constitutes a violation of this policy. 2. Harassment is unwelcome verbal, physical, visual, written or environmental miscondu…",
+   "h": "pmrs/pmr-21.html#21-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 21.4 Complaint Resolution Process for Alleged Discrimination, Harassment or Retaliation",
+   "a": [
+    "PMR 21.4"
+   ],
+   "d": "Reporting Obligations 1. Supervisors and Managers Supervisors and managers are responsible for taking all steps necessary for all employees to promote equal op…",
+   "h": "pmrs/pmr-21.html#21-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 21.5 Discrimination Appeals",
+   "a": [
+    "PMR 21.5"
+   ],
+   "d": "Right to Internal Appeal If an applicant or employee is dissatisfied with the determination of a discrimination, harassment or retaliation complaint under 21.4…",
+   "h": "pmrs/pmr-21.html#21-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 21.6 External Complaint",
+   "a": [
+    "PMR 21.6"
+   ],
+   "d": "The Human Resources Department will make available upon request information from the Department of Fair Employment and Housing and/or the Equal Employment Oppo…",
+   "h": "pmrs/pmr-21.html#21-6"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 22: DOT Drug and Alcohol Policy- Safety Sensitive Positions",
+   "a": [
+    "PMR 22",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) establishes the County of Marin policies and procedures to comply with the United States Department of Transportatio…",
+   "h": "pmrs/pmr-22.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 22.1 General",
+   "a": [
+    "PMR 22.1"
+   ],
+   "d": "Effective January 1, 1995, the County of Marin is required to comply with the United States Department of Transportation regulation implementing the Federal Om…",
+   "h": "pmrs/pmr-22.html#22-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 22.2 Employee Questions",
+   "a": [
+    "PMR 22.2"
+   ],
+   "d": "Employees shall refer any questions regarding their rights and obligations under the new regulations to the Human Resources Department.",
+   "h": "pmrs/pmr-22.html#22-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 22.3 Covered Employees",
+   "a": [
+    "PMR 22.3"
+   ],
+   "d": "Employees holding positions in the following classifications are subject to this policy, as well as others who meet the definition under 22.4 below: - Deputy S…",
+   "h": "pmrs/pmr-22.html#22-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 22.4 Definitions",
+   "a": [
+    "PMR 22.4"
+   ],
+   "d": "Safety Sensitive Function. The regulations of the FHWA prohibit certain conduct (see Section 22.5, below) while performing and prior to performing safety sensi…",
+   "h": "pmrs/pmr-22.html#22-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 22.5 Prohibitions Mandated by the Regulations",
+   "a": [
+    "PMR 22.5"
+   ],
+   "d": "Covered employees shall not be under the influence or in possession of controlled substances or alcohol during any work hours. This includes, but is not limite…",
+   "h": "pmrs/pmr-22.html#22-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 22.6 Consequences of Employee Found to have Alcohol Concentration Levels of 0.02 or Greater but Less Than 0.04",
+   "a": [
+    "PMR 22.6"
+   ],
+   "d": "An employee whose alcohol test indicates an alcohol concentration level of at least 0.02 but less than 0.04 will be removed from his or her safety sensitive po…",
+   "h": "pmrs/pmr-22.html#22-6"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 22.7 Circumstances Under Which Drug and Alcohol Testing will be Imposed On Covered Employees",
+   "a": [
+    "PMR 22.7"
+   ],
+   "d": "Pre-Employment Testing. All applicants for classifications which are covered by the DOT regulations (see covered employee above) as well as all employees who t…",
+   "h": "pmrs/pmr-22.html#22-7"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 22.8 Procedures to be used for Detection of Drugs and Alcohol",
+   "a": [
+    "PMR 22.8"
+   ],
+   "d": "Alcohol Testing 1. Alcohol testing will be conducted by a trained breath alcohol technician (BAT) by using an evidential breath testing device (EBT) approved b…",
+   "h": "pmrs/pmr-22.html#22-8"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 22.9 Refusal to Submit to an Alcohol and/or Drug Test",
+   "a": [
+    "PMR 22.9"
+   ],
+   "d": "A covered employee who refuses to submit to any required drug/alcohol testing will be treated in the same manner as an employee who tests 0.04 or greater on an…",
+   "h": "pmrs/pmr-22.html#22-9"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 22.10 Consequences of Failing and Alcohol and/or Drug Test",
+   "a": [
+    "PMR 22.10"
+   ],
+   "d": "A positive result from a drug or alcohol test may result in disciplinary action, up to and including termination. B. If a covered employee is not terminated, t…",
+   "h": "pmrs/pmr-22.html#22-10"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 22.11 Employee Assistance Program (EAP)",
+   "a": [
+    "PMR 22.11"
+   ],
+   "d": "Employees that believe they have a substance abuse problem are encouraged to use the County EAP provider. The designated provider for this service is Optum at…",
+   "h": "pmrs/pmr-22.html#22-11"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 22.12 Verification of Previous Employment as a Safety Sensitive Employee",
+   "a": [
+    "PMR 22.12"
+   ],
+   "d": "Applicants for safety sensitive positions will be required to comply with DOT regulations that require that the County request from a prior employer particular…",
+   "h": "pmrs/pmr-22.html#22-12"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 23: Electronic Media",
+   "a": [
+    "PMR 23",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) presents policy and procedure for the use of electronic media by County employees.",
+   "h": "pmrs/pmr-23.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 23.1 Scope",
+   "a": [
+    "PMR 23.1"
+   ],
+   "d": "This Personnel Management Regulation applies to all Marin County employees who use any electronic media provided by the County. Electronic media is defined as…",
+   "h": "pmrs/pmr-23.html#23-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 23.2 General Policy and the Use of Electronic Media",
+   "a": [
+    "PMR 23.2"
+   ],
+   "d": "General. This section defines general policy on the use of electronic media. Please also refer to 23.3 and 23.4, for additional requirements associated with e-…",
+   "h": "pmrs/pmr-23.html#23-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 23.3 E-mail, Instant Messaging and Voice Mail",
+   "a": [
+    "PMR 23.3"
+   ],
+   "d": "Right to Review and Monitor. The County reserves the right to access all voice mail, instant messaging, and e-mail left on or transmitted via the County’s comm…",
+   "h": "pmrs/pmr-23.html#23-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 23.4 Internet",
+   "a": [
+    "PMR 23.4"
+   ],
+   "d": "General Usage. The purpose of County Internet services is to distribute information to public constituencies or to conduct research for County job related acti…",
+   "h": "pmrs/pmr-23.html#23-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 23.5 Electronic Media Procedure for New Employees",
+   "a": [
+    "PMR 23.5"
+   ],
+   "d": "Purpose. New employees who will be assigned electronic media will be required to complete the “Electronic Media Agreement and Application Form” (Attachment 1)…",
+   "h": "pmrs/pmr-23.html#23-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 24: Grievance Procedure",
+   "a": [
+    "PMR 24",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) defines the process and rules for grievances, applicable to regular and probationary employees.",
+   "h": "pmrs/pmr-24.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 24.1 Definition, Scope and Right to File",
+   "a": [
+    "PMR 24.1"
+   ],
+   "d": "This procedure applies to all probationary and regular employees unless an applicable memorandum of understanding (collective bargaining agreement) provides ot…",
+   "h": "pmrs/pmr-24.html#24-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 24.2 Informal Grievance",
+   "a": [
+    "PMR 24.2"
+   ],
+   "d": "Within seven calendar days of the event giving rise to a grievance, the grievant will present the grievance informally for disposition by the immediate supervi…",
+   "h": "pmrs/pmr-24.html#24-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 24.3 Formal Grievance",
+   "a": [
+    "PMR 24.3"
+   ],
+   "d": "Grievance Form. If the grievant believes that the informal grievance has not been redressed within 14 calendar days, he or she may initiate a formal grievance…",
+   "h": "pmrs/pmr-24.html#24-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 24.4 Limitations in Decision of Personnel Commission or Arbitrator (Hearing Officer(s))",
+   "a": [
+    "PMR 24.4"
+   ],
+   "d": "The Hearing Officer(s) will neither add to, detract from, nor modify the language of the collective bargaining agreement or of departmental rules and regulatio…",
+   "h": "pmrs/pmr-24.html#24-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 24.5 General Conditions",
+   "a": [
+    "PMR 24.5"
+   ],
+   "d": "The Human Resources Department will act as a central repository for all grievance records. B. Any time limit may be extended only by mutual agreement in writin…",
+   "h": "pmrs/pmr-24.html#24-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 25: Whistleblower Procedure",
+   "a": [
+    "PMR 25",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) provides for employees and applicants to disclose, without reprisal, facts which may be deemed to constitute gross m…",
+   "h": "pmrs/pmr-25.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 25.1 Written Statements",
+   "a": [
+    "PMR 25.1"
+   ],
+   "d": "Any County employee or applicant for County employment will be entitled to file with the Director of Human Resources, under penalty of perjury, a written state…",
+   "h": "pmrs/pmr-25.html#25-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 25.2 Department Head Review",
+   "a": [
+    "PMR 25.2"
+   ],
+   "d": "The Human Resources Director will forward the complaint to the appropriate department head, with a copy to the County Administrator. The department head will i…",
+   "h": "pmrs/pmr-25.html#25-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 25.3 Administrative Review",
+   "a": [
+    "PMR 25.3"
+   ],
+   "d": "If the complainant is dissatisfied with the department head’s written decision he or she will so advise the Director of Human Resources within seven calendar d…",
+   "h": "pmrs/pmr-25.html#25-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 25.4 Appeal",
+   "a": [
+    "PMR 25.4"
+   ],
+   "d": "If the complainant is dissatisfied with the response of the County Administrator, an appeal may be filed with the Board of Supervisors within seven calendar da…",
+   "h": "pmrs/pmr-25.html#25-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 25.5 Confidentiality",
+   "a": [
+    "PMR 25.5"
+   ],
+   "d": "Nothing contained in this policy will be deemed to make any record public if the record is preempted from disclosure by Government Code Section 6254, or requir…",
+   "h": "pmrs/pmr-25.html#25-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 25.6 Reprisals",
+   "a": [
+    "PMR 25.6"
+   ],
+   "d": "The County Administrator will make all reasonable efforts to assure that reprisals denominated in Government Code Section 53298 and 53298.5 are not undertaken…",
+   "h": "pmrs/pmr-25.html#25-6"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 25.7 Complaints",
+   "a": [
+    "PMR 25.7"
+   ],
+   "d": "If an employee or applicant is complaining about the Director of Human Resources, the department head or the County Administrator, the complaint should be dire…",
+   "h": "pmrs/pmr-25.html#25-7"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 26: Workplace Security, Safety and Violence in the Workplace",
+   "a": [
+    "PMR 26",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) defines conduct, prohibitions, responsibilities, and investigation requirements associated with workplace security a…",
+   "h": "pmrs/pmr-26.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 26.1 General",
+   "a": [
+    "PMR 26.1"
+   ],
+   "d": "It is the intent of the County to provide for the safety and security of County employees at all work locations, as well as providing a safe environment for ci…",
+   "h": "pmrs/pmr-26.html#26-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 26.2 Expressly Prohibited Conduct",
+   "a": [
+    "PMR 26.2"
+   ],
+   "d": "The County expressly prohibits harassment, intimidation, threats or workplace violence as defined below. (Also see PMR 21 – Equal Employment Opportunity and An…",
+   "h": "pmrs/pmr-26.html#26-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 26.3 Responsibilities",
+   "a": [
+    "PMR 26.3"
+   ],
+   "d": "All department heads, managers, and supervisors are responsible for maintaining a safe and secure environment through implementation of the County Injury and I…",
+   "h": "pmrs/pmr-26.html#26-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 26.4 Incident or Employee Complaint Investigations",
+   "a": [
+    "PMR 26.4"
+   ],
+   "d": "Department heads are responsible to ensure that all employee complaints are heard, evaluated and responded to appropriately. Regardless of the complaint, an in…",
+   "h": "pmrs/pmr-26.html#26-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 26.5 No Retaliation",
+   "a": [
+    "PMR 26.5"
+   ],
+   "d": "No employee will retaliate against another employee who reports an incident pursuant to this section.",
+   "h": "pmrs/pmr-26.html#26-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 27: Telework Policy",
+   "a": [
+    "PMR 27",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) presents policies and procedures for teleworking by County employees. This PMR is applicable to all County departmen…",
+   "h": "pmrs/pmr-27.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 27.1 Definitions",
+   "a": [
+    "PMR 27.1"
+   ],
+   "d": "Telework. An alternative work mode in which the employee works at home or some other remote location instead of working in his/her principal work location. B.…",
+   "h": "pmrs/pmr-27.html#27-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 27.2 Eligibility",
+   "a": [
+    "PMR 27.2"
+   ],
+   "d": "An employee may be eligible as a teleworker if: 1. The nature of his/her job, or a portion of his/her job: Is primarily “knowledge-based” and involves handling…",
+   "h": "pmrs/pmr-27.html#27-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 27.3 Authorization Forms and Approval Process",
+   "a": [
+    "PMR 27.3"
+   ],
+   "d": "An employee may become a teleworker if he/she: 1. Meets the eligibility requirements identified above as determined by the department head or designee, 2. Has…",
+   "h": "pmrs/pmr-27.html#27-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 27.4 General Telework Requirements and Considerations",
+   "a": [
+    "PMR 27.4"
+   ],
+   "d": "In assessing telework assignments, departments are encouraged to consider that teleworking is preferred to be in whole days only, since one of the goals of tel…",
+   "h": "pmrs/pmr-27.html#27-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 27.5 Telework Office Use and Equipment",
+   "a": [
+    "PMR 27.5"
+   ],
+   "d": "Most teleworkers will need to have computers and other information technology at their telework location. Some teleworkers’ jobs may not involve computer use o…",
+   "h": "pmrs/pmr-27.html#27-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 27.6 Health, Safety and Risk Management",
+   "a": [
+    "PMR 27.6"
+   ],
+   "d": "In order to maintain a businesslike atmosphere and minimize the chance of accidents, teleworkers are expected to keep their home offices as clean and free from…",
+   "h": "pmrs/pmr-27.html#27-6"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 27.7 Other County Rules While Teleworking",
+   "a": [
+    "PMR 27.7"
+   ],
+   "d": "Existing laws, rules, policies and contract provisions of the County are applicable to all teleworkers, including department or division level policies and pro…",
+   "h": "pmrs/pmr-27.html#27-7"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 27.8 Travel Expenses",
+   "a": [
+    "PMR 27.8"
+   ],
+   "d": "On a case-by-case basis an employee’s home, rather than the principal office, may be designated as the headquarters for purposes of calculating mileage or per…",
+   "h": "pmrs/pmr-27.html#27-8"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 27.9 Training",
+   "a": [
+    "PMR 27.9"
+   ],
+   "d": "In addition to technology training, special management workshops for teleworkers and their supervisors may be given on effective teleworking. Workshops will em…",
+   "h": "pmrs/pmr-27.html#27-9"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 3: Personnel Commission",
+   "a": [
+    "PMR 3",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) establishes the creation, organization, duties, authority, and meeting rules for the County of Marin Personnel Commi…",
+   "h": "pmrs/pmr-3.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 3.1 Creation and Organization of the Personnel Commission",
+   "a": [
+    "PMR 3.1"
+   ],
+   "d": "Composition. The Personnel Commission will consist of five members, to be appointed by a four-fifths vote of the Board of Supervisors, from among the qualified…",
+   "h": "pmrs/pmr-3.html#3-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 3.2 Duties and Authority of the Personnel Commission",
+   "a": [
+    "PMR 3.2"
+   ],
+   "d": "General. The Personnel Commission provides planning and policy advice to the Board of Supervisors, County Administrator, and Director of Human Resources on all…",
+   "h": "pmrs/pmr-3.html#3-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 3.3 Commission Meetings",
+   "a": [
+    "PMR 3.3"
+   ],
+   "d": "The Personnel Commission will meet at least once each calendar quarter and on the call of the Chair or of three members of the Commission. B. All meetings will…",
+   "h": "pmrs/pmr-3.html#3-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 3.4 Affirmative Action Advisory Committee",
+   "a": [
+    "PMR 3.4"
+   ],
+   "d": "Establishment. By direction of the Board of Supervisors and action of the Personnel Commission, an Affirmative Action Advisory Committee will be appointed by t…",
+   "h": "pmrs/pmr-3.html#3-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 30: Recruitment and Application Process",
+   "a": [
+    "PMR 30",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) defines the recruitment and application process associated with the hiring and promotion of all regular County of Ma…",
+   "h": "pmrs/pmr-30.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 30.1 General",
+   "a": [
+    "PMR 30.1"
+   ],
+   "d": "Recruitment processes as determined necessary will seek out and secure qualified individuals to apply for positions at all levels of the Merit System.",
+   "h": "pmrs/pmr-30.html#30-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 30.2 Recruitment Initiated",
+   "a": [
+    "PMR 30.2"
+   ],
+   "d": "The department head will submit a completed Personnel Requisition Form to the Human Resources Department whenever a vacancy occurs or is anticipated. A Personn…",
+   "h": "pmrs/pmr-30.html#30-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 30.3 Existing Eligible List",
+   "a": [
+    "PMR 30.3"
+   ],
+   "d": "The Human Resources Department will verify the vacant, budgeted position or anticipated vacancy, and determine whether a current “eligible list” exists for the…",
+   "h": "pmrs/pmr-30.html#30-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 30.4 Recruitment Planning",
+   "a": [
+    "PMR 30.4"
+   ],
+   "d": "The Human Resources Department staff will meet with the appointing authority or designee to review the duties and requirements of the position and plan the rec…",
+   "h": "pmrs/pmr-30.html#30-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 30.5 Promotional Recruitments",
+   "a": [
+    "PMR 30.5"
+   ],
+   "d": "When appropriate, as determined by the Director of Human Resources in consultation with the department head or designee, promotional examinations may be conduc…",
+   "h": "pmrs/pmr-30.html#30-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 30.6 Announcement of Recruitments",
+   "a": [
+    "PMR 30.6"
+   ],
+   "d": "When a position in the Merit System becomes vacant, and a current eligible list does not exist, the Human Resources Department will post notice of such vacancy…",
+   "h": "pmrs/pmr-30.html#30-6"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 30.7 Open and Continuous Recruitment",
+   "a": [
+    "PMR 30.7"
+   ],
+   "d": "Continuous recruitments for a given class may be announced by a single notice. Open and continuous recruitments may be closed at any time without further notic…",
+   "h": "pmrs/pmr-30.html#30-7"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 30.8 Entry Level Recruiting",
+   "a": [
+    "PMR 30.8"
+   ],
+   "d": "When a journey level position vacates, the position may be filled by an entry-level recruitment. The recruitment level will be determined by the Director of Hu…",
+   "h": "pmrs/pmr-30.html#30-8"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 30.9 Applications for Employment or Promotion",
+   "a": [
+    "PMR 30.9"
+   ],
+   "d": "Unless otherwise announced, all applications for employment or promotion must be made upon a standard County employment application form. Supplemental applicat…",
+   "h": "pmrs/pmr-30.html#30-9"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 30.10 Qualifications of Applicants",
+   "a": [
+    "PMR 30.10"
+   ],
+   "d": "In order to qualify for an examination and/or appointment, an individual must: 1. Meet all the general requirements pertaining to filing applications for posit…",
+   "h": "pmrs/pmr-30.html#30-10"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 30.11 Background Investigation",
+   "a": [
+    "PMR 30.11"
+   ],
+   "d": "Candidates for County employment may be subject to appropriate investigation including but not limited to: 1. Employment history investigation. 2. Personal and…",
+   "h": "pmrs/pmr-30.html#30-11"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 30.12 Disqualification of Applicants",
+   "a": [
+    "PMR 30.12"
+   ],
+   "d": "The Human Resources Department may refuse to accept an application, to examine an applicant, or otherwise consider any person for employment and remove their n…",
+   "h": "pmrs/pmr-30.html#30-12"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 31: Examination Process",
+   "a": [
+    "PMR 31",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) defines the rules of the examination process for regular County of Marin positions, pursuant to the Merit System.",
+   "h": "pmrs/pmr-31.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 31.1 General",
+   "a": [
+    "PMR 31.1"
+   ],
+   "d": "Within the Merit System, the Director of Human Resources will order an examination whenever feasible and economical in relation to the nature of the position,…",
+   "h": "pmrs/pmr-31.html#31-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 31.2 Reasonable Accommodation in Testing",
+   "a": [
+    "PMR 31.2"
+   ],
+   "d": "Should an otherwise qualified applicant for a position, who is disabled within the definition of the state or federal law, request reasonable accommodation for…",
+   "h": "pmrs/pmr-31.html#31-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 31.3 Examinations for Open and Continuous Recruitment",
+   "a": [
+    "PMR 31.3"
+   ],
+   "d": "Examinations for open and continuous recruitments may be administered periodically as applicants are available or as appointments are necessary. The names of a…",
+   "h": "pmrs/pmr-31.html#31-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 31.4 Passing Scores",
+   "a": [
+    "PMR 31.4"
+   ],
+   "d": "Unless otherwise provided in the recruiting announcement or other official notice, a final score of at least 70% will be required for passing each total examin…",
+   "h": "pmrs/pmr-31.html#31-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 31.5 Current Employee Preference",
+   "a": [
+    "PMR 31.5"
+   ],
+   "d": "A regular employee of Marin County who is successful in an open competitive examination will have two (2) points added to the final examination score. An emplo…",
+   "h": "pmrs/pmr-31.html#31-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 31.6 Veteran's Preference",
+   "a": [
+    "PMR 31.6"
+   ],
+   "d": "A person who is successful in an open competitive examination and who has served on active duty in one of the Armed Forces of the United States of America will…",
+   "h": "pmrs/pmr-31.html#31-6"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 31.7 Disabled Veterans",
+   "a": [
+    "PMR 31.7"
+   ],
+   "d": "A veteran who has a service-connected disability rated at not less than 30 percent by an authorized agency of the United States Government and who is eligible…",
+   "h": "pmrs/pmr-31.html#31-7"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 31.8 Promotion Without Examination",
+   "a": [
+    "PMR 31.8"
+   ],
+   "d": "Using the attached form, an appointing authority may request, and the Director of Human Resources may approve, the promotion of a County employee without exami…",
+   "h": "pmrs/pmr-31.html#31-8"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 31.9 Eligible Lists",
+   "a": [
+    "PMR 31.9"
+   ],
+   "d": "The names of candidates successfully passing an examination will be entered on an eligible list in order of standing from the highest score to the lowest passi…",
+   "h": "pmrs/pmr-31.html#31-9"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 31.10 Duration of Eligible Lists",
+   "a": [
+    "PMR 31.10"
+   ],
+   "d": "An eligible list resulting from an open competitive examination will be in effect for six months from the date it is established, and may be extended by the Di…",
+   "h": "pmrs/pmr-31.html#31-10"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 31.11 Examination Appeals",
+   "a": [
+    "PMR 31.11"
+   ],
+   "d": "Applicants may appeal examination procedures to the County Personnel Commission. The bases for appeal of an examination are appropriateness or correctness of i…",
+   "h": "pmrs/pmr-31.html#31-11"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 32: Certification Process",
+   "a": [
+    "PMR 32",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) delineates the certification process for the most qualified candidates on eligible lists, i.e.: (1) re-employment fo…",
+   "h": "pmrs/pmr-32.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 32.1 Certification",
+   "a": [
+    "PMR 32.1"
+   ],
+   "d": "The Director of Human Resources will certify to the appointing authority the highest scoring candidates from the eligible list. Where possible, four scores mor…",
+   "h": "pmrs/pmr-32.html#32-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 32.2 Certification With Veteran's Preference",
+   "a": [
+    "PMR 32.2"
+   ],
+   "d": "Notwithstanding any of the above, certifications from eligible lists established from entrance examinations will not exclude any eligible candidates who would…",
+   "h": "pmrs/pmr-32.html#32-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 32.3 Certification With Current Employee Preference",
+   "a": [
+    "PMR 32.3"
+   ],
+   "d": "Certification from eligible lists established from open examinations will not exclude any eligible candidates who would have been certified based upon the exam…",
+   "h": "pmrs/pmr-32.html#32-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 32.4 Alternate Eligible List",
+   "a": [
+    "PMR 32.4"
+   ],
+   "d": "Regardless of whether an eligible list is in existence for a classification, certification may also be made from a list created for another class of the same o…",
+   "h": "pmrs/pmr-32.html#32-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 32.5 Transfer List",
+   "a": [
+    "PMR 32.5"
+   ],
+   "d": "Pursuant to PMR 45, employees who have passed their initial probationary period (or six months of the probationary period if longer than six months) may reques…",
+   "h": "pmrs/pmr-32.html#32-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 32.6 Order of Lists",
+   "a": [
+    "PMR 32.6"
+   ],
+   "d": "If more than one employment list exists for a class, the lists will be certified in the following order: (1) re-employment following reduction in force, (2) pr…",
+   "h": "pmrs/pmr-32.html#32-6"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 33: Selection and Offer of Employment",
+   "a": [
+    "PMR 33",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) defines the rules for selection, interviewing, and offers of employment.",
+   "h": "pmrs/pmr-33.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 33.1 Selection Interviews",
+   "a": [
+    "PMR 33.1"
+   ],
+   "d": "The appointing authority or designee will interview all certified candidates who are interested in being considered for a vacancy. If a candidate is recertifie…",
+   "h": "pmrs/pmr-33.html#33-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 33.2 Offer of Employment",
+   "a": [
+    "PMR 33.2"
+   ],
+   "d": "Department heads or their appointed representative will be authorized to make an offer of employment or promotion. All offers of employment will be made on a c…",
+   "h": "pmrs/pmr-33.html#33-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 33.3 Background Investigations",
+   "a": [
+    "PMR 33.3"
+   ],
+   "d": "Background review, including reference checks, will be conducted prior to a conditional offer of employment and, in some cases, promotion. B. Law enforcement,…",
+   "h": "pmrs/pmr-33.html#33-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 33.4 Physical and/or Psychological Examination",
+   "a": [
+    "PMR 33.4"
+   ],
+   "d": "Employee physical and/or psychological examinations where relevant and/or mandated, will be part of a conditional offer of employment or, in some cases, promot…",
+   "h": "pmrs/pmr-33.html#33-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 33.5 Appointing Authority Responsibilities",
+   "a": [
+    "PMR 33.5"
+   ],
+   "d": "Prior to appointment or promotion, the appointing authority will review the personnel file of candidates who are past or current employees. B. The appointing a…",
+   "h": "pmrs/pmr-33.html#33-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 33.6 Selection Appeals",
+   "a": [
+    "PMR 33.6"
+   ],
+   "d": "This procedure is for an individual certified as eligible for appointment to positions in the Merit System to appeal departmental selection procedures regardin…",
+   "h": "pmrs/pmr-33.html#33-6"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 34: Appointment and Orientations",
+   "a": [
+    "PMR 34",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) defines the types of rules for appointment and orientations.",
+   "h": "pmrs/pmr-34.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 34.1 Appointment",
+   "a": [
+    "PMR 34.1"
+   ],
+   "d": "Offers of appointments will be made in writing. The appointing authority will notify the candidate of his/her decision to appoint and will reach an agreement a…",
+   "h": "pmrs/pmr-34.html#34-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 34.2 Types of Appointment",
+   "a": [
+    "PMR 34.2"
+   ],
+   "d": "At Will Appointment. Appointment of an employee to a position excluded from the Merit System, pursuant to PMR 1.2, employees in probationary status, employees…",
+   "h": "pmrs/pmr-34.html#34-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 34.3 Report of Appointments",
+   "a": [
+    "PMR 34.3"
+   ],
+   "d": "All appointments to positions in the County service will be reported promptly to the Director of Human Resources by the appointing authority. B. Upon a candida…",
+   "h": "pmrs/pmr-34.html#34-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 34.4 County Orientations",
+   "a": [
+    "PMR 34.4"
+   ],
+   "d": "County Benefits Orientation. The Human Resources Department will schedule new employee benefits orientation sessions, including requirements of union membershi…",
+   "h": "pmrs/pmr-34.html#34-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 34.5 Department Orientation",
+   "a": [
+    "PMR 34.5"
+   ],
+   "d": "Immediately upon reporting for duty in a position, each new employee will be given an explanation (preferably in writing) of the purpose, duties and responsibi…",
+   "h": "pmrs/pmr-34.html#34-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 35: Probation Period",
+   "a": [
+    "PMR 35",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) defines probation period rules.",
+   "h": "pmrs/pmr-35.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 35.1 Purpose",
+   "a": [
+    "PMR 35.1"
+   ],
+   "d": "The probationary period is the final phase of the examination process. It is a trial period during which an employee is required to demonstrate competency in t…",
+   "h": "pmrs/pmr-35.html#35-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 35.2 Probationary Period",
+   "a": [
+    "PMR 35.2"
+   ],
+   "d": "Upon initial or promotional appointment in the Merit System an employee will serve a probationary period of two thousand eighty (2,080) working hours (exclusiv…",
+   "h": "pmrs/pmr-35.html#35-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 25.3 Actual Service Required",
+   "a": [
+    "PMR 25.3"
+   ],
+   "d": "The probationary period will be a period of actual service beginning with the date of original appointment or promotion to a regular full-time or part-time pos…",
+   "h": "pmrs/pmr-35.html#25-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 35.4 Probationary Period for Newly Created Positions",
+   "a": [
+    "PMR 35.4"
+   ],
+   "d": "When a new classification is created, a determination for length of probationary period will be made by the Director of Human Resources.",
+   "h": "pmrs/pmr-35.html#35-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 35.5 Changes in Probationary Period for Existing Classifications",
+   "a": [
+    "PMR 35.5"
+   ],
+   "d": "If a Department Head determines that a change in probationary period is justified, reasons for such change should be submitted to the Director of Human Resourc…",
+   "h": "pmrs/pmr-35.html#35-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 35.6 Regular Appointment",
+   "a": [
+    "PMR 35.6"
+   ],
+   "d": "An employee in the Merit System who successfully completes the initial probationary period will acquire regular hire status.",
+   "h": "pmrs/pmr-35.html#35-6"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 35.7 Release During Probation",
+   "a": [
+    "PMR 35.7"
+   ],
+   "d": "At any time during the probationary period an employee may be released from employment without cause and without right of appeal. The probationary employee wil…",
+   "h": "pmrs/pmr-35.html#35-7"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 35.8 Release From Probation Upon Promotion or Transfer",
+   "a": [
+    "PMR 35.8"
+   ],
+   "d": "An employee who is promoted or transferred from a regular position and who is released during the probationary period will be reinstated in his or her original…",
+   "h": "pmrs/pmr-35.html#35-8"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 35.9 Regular Status in New Program",
+   "a": [
+    "PMR 35.9"
+   ],
+   "d": "At such time as the County Merit System is extended to cover a new program, incumbent employees with regular status will continue to have regular status if the…",
+   "h": "pmrs/pmr-35.html#35-9"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 35.10 Promotions During Probation",
+   "a": [
+    "PMR 35.10"
+   ],
+   "d": "A new employee serving initial probation is not eligible to be promoted until he or she passes the probationary period or the first half of the probation if pr…",
+   "h": "pmrs/pmr-35.html#35-10"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 36: Reemployment",
+   "a": [
+    "PMR 36",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation describes rules for reemployment following employee layoffs, demotions, or resignations.",
+   "h": "pmrs/pmr-36.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 36.1 Reemployment Following Layoff",
+   "a": [
+    "PMR 36.1"
+   ],
+   "d": "Eligibility for Reemployment Following Layoff. Regular employees who are laid off or demoted in lieu of layoff will be entitled to reemployment in the classifi…",
+   "h": "pmrs/pmr-36.html#36-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 36.2 Reemployment Following Resignation",
+   "a": [
+    "PMR 36.2"
+   ],
+   "d": "Reemployment Within 60 Days of Resignation. A regular employee who resigns under positive circumstances will be eligible for reemployment within 60 days of res…",
+   "h": "pmrs/pmr-36.html#36-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 36.3 Priority Reemployment Lists",
+   "a": [
+    "PMR 36.3"
+   ],
+   "d": "The department reemployment list for employees who are laid off or demoted in lieu of lay off will be used first, followed by the countywide reemployment list…",
+   "h": "pmrs/pmr-36.html#36-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 36.4 Status, Salary, Benefits and Seniority Upon Reemployment",
+   "a": [
+    "PMR 36.4"
+   ],
+   "d": "Status. Regular employees who are reemployed in the same classification are not required to serve a probationary period. B. Salary. Regular employees who are r…",
+   "h": "pmrs/pmr-36.html#36-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 36.5 Applying for County Openings",
+   "a": [
+    "PMR 36.5"
+   ],
+   "d": "Employees who are laid off or demoted in lieu of lay off may compete in promotional examinations in the department from which laid off, as well as County promo…",
+   "h": "pmrs/pmr-36.html#36-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 36.6 Temporary Employment",
+   "a": [
+    "PMR 36.6"
+   ],
+   "d": "If an employee who was laid off or resigned (and is in good standing) accepts temporary employment, he or she does not forfeit reemployment rights.",
+   "h": "pmrs/pmr-36.html#36-6"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 4: Employee Relations Resolution",
+   "a": [
+    "PMR 4",
+    "Personnel Management Regulations"
+   ],
+   "d": "Pursuant to relevant law, this Personnel Management Regulation (PMR) restates the County’s Employee-Employer Relations Resolution No. 2001-86 established for t…",
+   "h": "pmrs/pmr-4.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 4.1 Employee's Rights",
+   "a": [
+    "PMR 4.1"
+   ],
+   "d": "Enumeration. Each employee of the County of Marin will enjoy, among others, the following rights: 1. The right to organize and join an employee organization of…",
+   "h": "pmrs/pmr-4.html#4-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 4.2 Representation Units",
+   "a": [
+    "PMR 4.2"
+   ],
+   "d": "For the purpose of this resolution, a representation unit is the largest feasible grouping of county employees, which has a community of interest. B. Manageria…",
+   "h": "pmrs/pmr-4.html#4-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 4.3 Rights of Certified Employee Organizations",
+   "a": [
+    "PMR 4.3"
+   ],
+   "d": "An employee organization certified as the representative of a majority of all employees in a representation unit in accordance with the procedure hereinafter s…",
+   "h": "pmrs/pmr-4.html#4-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 4.4 Certification",
+   "a": [
+    "PMR 4.4"
+   ],
+   "d": "Employee Organization Definition. For the purpose of this resolution, the term \"employee organization\" will mean any organization, professional society, or uni…",
+   "h": "pmrs/pmr-4.html#4-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 4.5 Certification Procedure",
+   "a": [
+    "PMR 4.5"
+   ],
+   "d": "The organization must be prepared to submit to an inspection by a disinterested party, of either authorization cards signed by employees, or a certified list o…",
+   "h": "pmrs/pmr-4.html#4-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 4.6 Effect of Decision",
+   "a": [
+    "PMR 4.6"
+   ],
+   "d": "A decision establishing and defining a representation unit will be accompanied by a certification that an employee organization represents a majority of all em…",
+   "h": "pmrs/pmr-4.html#4-6"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 4.7 Modification of Established Unit and Decertification",
+   "a": [
+    "PMR 4.7"
+   ],
+   "d": "A petition for modification of a unit and/or decertification may be filed with the Director of Human Resources after the initial one year or during a window pe…",
+   "h": "pmrs/pmr-4.html#4-7"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 4.8 Conferences",
+   "a": [
+    "PMR 4.8"
+   ],
+   "d": "General. Each certified organization may meet and confer with County representatives to the extent reasonably necessary to represent its members regarding sala…",
+   "h": "pmrs/pmr-4.html#4-8"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 4.9 Collective Bargaining",
+   "a": [
+    "PMR 4.9"
+   ],
+   "d": "Agreements. Any collective bargaining agreement reached by County representatives and representatives of an organization certified as representing a majority o…",
+   "h": "pmrs/pmr-4.html#4-9"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 4.10 Grievances",
+   "a": [
+    "PMR 4.10"
+   ],
+   "d": "A grievance procedure will be established by the Personnel Commission and adopted by the Board of Supervisors which will provide a uniform procedure available…",
+   "h": "pmrs/pmr-4.html#4-10"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 4.11 Other Laws",
+   "a": [
+    "PMR 4.11"
+   ],
+   "d": "Nothing contained herein will be deemed to modify or abrogate existing rights and responsibilities of the County and/or its employees to the extent they are go…",
+   "h": "pmrs/pmr-4.html#4-11"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 4.12 Jurisdiction",
+   "a": [
+    "PMR 4.12"
+   ],
+   "d": "Other than as specifically indicated above with respect to certification and representation units, the County of Marin will not assume responsibility for deter…",
+   "h": "pmrs/pmr-4.html#4-12"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 40: Position Classification System",
+   "a": [
+    "PMR 40",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) defines rules for job classifications under the County’s Merit System, pursuant to Marin County Code 2.56.",
+   "h": "pmrs/pmr-40.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 40.1 Classification Plan",
+   "a": [
+    "PMR 40.1"
+   ],
+   "d": "A classification plan for all positions in the Merit System will be administered by the Director of Human Resources. The plan will consist of classifications a…",
+   "h": "pmrs/pmr-40.html#40-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 40.2 Allocation of Positions",
+   "a": [
+    "PMR 40.2"
+   ],
+   "d": "All positions in the Merit System will be allocated to an appropriate classification in the classification plan by the Board of Supervisors. The classification…",
+   "h": "pmrs/pmr-40.html#40-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 40.3 Position Classification",
+   "a": [
+    "PMR 40.3"
+   ],
+   "d": "All positions will be allocated to a classification in accordance with duties, responsibilities, and standards of the job. A written description, known as a cl…",
+   "h": "pmrs/pmr-40.html#40-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 40.4 Classification Series, Careers Ladders and Upward Mobility",
+   "a": [
+    "PMR 40.4"
+   ],
+   "d": "When feasible, the Director of Human Resources will recommend the establishment of classification series which illustrate a progressive career path for employe…",
+   "h": "pmrs/pmr-40.html#40-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 40.5 Class Title",
+   "a": [
+    "PMR 40.5"
+   ],
+   "d": "The classification title will be the title of each position in the class and will be used in all personnel records, payrolls and personnel transactions. The de…",
+   "h": "pmrs/pmr-40.html#40-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 40.6 Title and Specification Changes",
+   "a": [
+    "PMR 40.6"
+   ],
+   "d": "Where the duties of a position have not substantially changed, the position may be retitled and/or the specification modified to update and/or more accurately…",
+   "h": "pmrs/pmr-40.html#40-6"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 40.7 Changes Directed by Personnel Commission",
+   "a": [
+    "PMR 40.7"
+   ],
+   "d": "The Personnel Commission may direct study of positions in the Merit System and recommend necessary changes to the Board of Supervisors.",
+   "h": "pmrs/pmr-40.html#40-7"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 40.8 Interpretation of Class Specifications/Descriptions",
+   "a": [
+    "PMR 40.8"
+   ],
+   "d": "Class specifications are not restrictive but will indicate the basis on which a position is allocated to its proper classification as determined by its functio…",
+   "h": "pmrs/pmr-40.html#40-8"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 40.9 Establishment of New Classifications",
+   "a": [
+    "PMR 40.9"
+   ],
+   "d": "The Director of Human Resources may recommend adding classifications to the classification plan whenever he or she deems it necessary. The recommendation will…",
+   "h": "pmrs/pmr-40.html#40-9"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 40.10 Classification Studies",
+   "a": [
+    "PMR 40.10"
+   ],
+   "d": "Conduct of Studies. The Director of Human Resources may recommend the reclassification of any position or group of positions in the Merit System after conducti…",
+   "h": "pmrs/pmr-40.html#40-10"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 40.11 Classification Appeal Procedure",
+   "a": [
+    "PMR 40.11"
+   ],
+   "d": "Where there is a dispute between the employee and his or her department as to whether the employee is properly classified, the employee may request a meeting w…",
+   "h": "pmrs/pmr-40.html#40-11"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 40.12 Reorganization",
+   "a": [
+    "PMR 40.12"
+   ],
+   "d": "New or Modified Classifications. The Director of Human Resources may also study and recommend classifications for an approved departmental reorganization. Each…",
+   "h": "pmrs/pmr-40.html#40-12"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 40.13 Sliding Classifications",
+   "a": [
+    "PMR 40.13"
+   ],
+   "d": "Classifications within a classification series may be designated by Human Resources as sliding classifications. Such a classification series allows movement fr…",
+   "h": "pmrs/pmr-40.html#40-13"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 40.14 Decision Authority",
+   "a": [
+    "PMR 40.14"
+   ],
+   "d": "Final decision and ratification of classification changes and reorganizations rests with the Board of Supervisors.",
+   "h": "pmrs/pmr-40.html#40-14"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 40.15 Y-Rate Upon Reclassification",
+   "a": [
+    "PMR 40.15"
+   ],
+   "d": "If an employee is reclassified to a classification with a lower salary range, the salary will be determined in the same manner as a demotion, or, on the recomm…",
+   "h": "pmrs/pmr-40.html#40-15"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 41: Compensation",
+   "a": [
+    "PMR 41",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) describes compensation policies for County employees.",
+   "h": "pmrs/pmr-41.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 41.1 Salary on Initial Hire",
+   "a": [
+    "PMR 41.1"
+   ],
+   "d": "A probationary, regular, or provisional employee will be placed on the first step of the salary range of the classification into which the employee is hired. A…",
+   "h": "pmrs/pmr-41.html#41-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 41.2 Salary on Promotion",
+   "a": [
+    "PMR 41.2"
+   ],
+   "d": "Unless an applicable memorandum of understanding provides otherwise, a regular employee or probationary employee after six months of employment who is promoted…",
+   "h": "pmrs/pmr-41.html#41-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 41.3 Salary on Temporary Promotion",
+   "a": [
+    "PMR 41.3"
+   ],
+   "d": "A probationary or regular employee who is assigned to fill substantially the full duties of a higher classification for more than ten (10) days due to prolonge…",
+   "h": "pmrs/pmr-41.html#41-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 41.4 Salary on Voluntary Demotion",
+   "a": [
+    "PMR 41.4"
+   ],
+   "d": "A regular employee who is voluntarily demoted will be placed within the salary range for the class into which demoted. The salary will be set at the step which…",
+   "h": "pmrs/pmr-41.html#41-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 41.5 Salary on Demotion to Trainee or Entry Level",
+   "a": [
+    "PMR 41.5"
+   ],
+   "d": "A regular employee who seeks to move to a trainee or entry level position which leads to an established, budgeted position with greater responsibility and a hi…",
+   "h": "pmrs/pmr-41.html#41-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 41.6 Salary on Reclassification",
+   "a": [
+    "PMR 41.6"
+   ],
+   "d": "A regular employee who is reclassified will receive the salary set forth below. 1. If reclassified to a classification with the same salary range, the salary w…",
+   "h": "pmrs/pmr-41.html#41-6"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 41.7 Salary on Transfer",
+   "a": [
+    "PMR 41.7"
+   ],
+   "d": "When a regular employee, or a probationary employee who has been employed longer than six months is transferred to a position in the same classification or wit…",
+   "h": "pmrs/pmr-41.html#41-7"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 41.8 Salary Placement for Temporary Employees",
+   "a": [
+    "PMR 41.8"
+   ],
+   "d": "Salary on Initial Hire. An employee hired in temporary status, i.e. extra hire, special appointment, or emergency, will be paid an hourly rate based upon the f…",
+   "h": "pmrs/pmr-41.html#41-8"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 41.9 Merit Step Increases",
+   "a": [
+    "PMR 41.9"
+   ],
+   "d": "A probationary or regular employee, who performs successfully (meets standards or above) as indicated on the performance evaluation, upon completion of probati…",
+   "h": "pmrs/pmr-41.html#41-9"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 41.10 Special Merit Step Increase",
+   "a": [
+    "PMR 41.10"
+   ],
+   "d": "The department head may request and, upon recommendation from Human Resources, the County Administrator may approve additional step increases based upon merit…",
+   "h": "pmrs/pmr-41.html#41-10"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 41.11 Overtime",
+   "a": [
+    "PMR 41.11"
+   ],
+   "d": "Non-exempt employees may be required to work overtime at the discretion of the supervisor as authorized by the manager. B. Unless an applicable MOU provides ot…",
+   "h": "pmrs/pmr-41.html#41-11"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 41.12 Compensatory Time",
+   "a": [
+    "PMR 41.12"
+   ],
+   "d": "Unless an applicable memorandum of understanding provides otherwise, the employee may request, and the supervisor, as authorized by his or her manager, will ha…",
+   "h": "pmrs/pmr-41.html#41-12"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 41.13 Payday",
+   "a": [
+    "PMR 41.13"
+   ],
+   "d": "Payday occurs biweekly on the Friday following the end of the payroll period. In the event the normal payday falls on a holiday, payday will occur the day befo…",
+   "h": "pmrs/pmr-41.html#41-13"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 41.14 Payroll Errors",
+   "a": [
+    "PMR 41.14"
+   ],
+   "d": "Any payroll error resulting in insufficient payment to an employee will be corrected and a supplemental check issued, not later than five (5) working days from…",
+   "h": "pmrs/pmr-41.html#41-14"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 41.15 Timesheets",
+   "a": [
+    "PMR 41.15"
+   ],
+   "d": "Each employee must accurately complete and sign a timesheet and submit it to their supervisor not later than the last working day of the payroll period or as o…",
+   "h": "pmrs/pmr-41.html#41-15"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 41.16 Payment Upon Separation",
+   "a": [
+    "PMR 41.16"
+   ],
+   "d": "An employee leaving County employment will receive all earned salary, all vacation accrued, all earned and accrued overtime and compensatory time, accrued, pro…",
+   "h": "pmrs/pmr-41.html#41-16"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 41.17 Overtime for Exempt Employees",
+   "a": [
+    "PMR 41.17"
+   ],
+   "d": "Under unusual circumstances of major projects or excessive overtime over a sustained period of time, such as a declared emergency, upon written request from th…",
+   "h": "pmrs/pmr-41.html#41-17"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 42: Benefits",
+   "a": [
+    "PMR 42",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) describes County policy and procedure for employee benefits.",
+   "h": "pmrs/pmr-42.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 42.1 Insurance Coverage",
+   "a": [
+    "PMR 42.1"
+   ],
+   "d": "Eligibility. All full time probationary, regular, and provisional employees and at-will employees other than temporary (extra hire or special appointment and e…",
+   "h": "pmrs/pmr-42.html#42-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 42.2 Dependent Family Coverage",
+   "a": [
+    "PMR 42.2"
+   ],
+   "d": "Any County employee eligible for insurance benefits as set forth in 42.1.A, above, may enroll his or her dependents for coverage in any County medical, dental…",
+   "h": "pmrs/pmr-42.html#42-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 42.3 Domestic Partner Coverage",
+   "a": [
+    "PMR 42.3"
+   ],
+   "d": "Eligibility. Any County employee eligible for insurance benefits as set forth in 42.1.A may enroll his or her registered domestic partner for coverage in any C…",
+   "h": "pmrs/pmr-42.html#42-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 42.4 Workers' Compensation",
+   "a": [
+    "PMR 42.4"
+   ],
+   "d": "All employees are entitled to workers’ compensation benefits. This coverage is automatically applied and immediate and protects each employee from an illness o…",
+   "h": "pmrs/pmr-42.html#42-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 42.5 Retirement",
+   "a": [
+    "PMR 42.5"
+   ],
+   "d": "All probationary, regular, provisional and at-will employees other than temporary (extra hire, special appointment and emergency employees) working three-fourt…",
+   "h": "pmrs/pmr-42.html#42-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 42.6 Tuition Reimbursement",
+   "a": [
+    "PMR 42.6"
+   ],
+   "d": "Eligibility. All employees except temporary employees are eligible for tuition reimbursement. Probationary employees are eligible upon prior approval of the de…",
+   "h": "pmrs/pmr-42.html#42-6"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 42.7 National Organization for Women (NOW) Release Time",
+   "a": [
+    "PMR 42.7"
+   ],
+   "d": "Eligibility. Female employees holding regular positions in clerical, technical, paraprofessional, skilled craft, service – maintenance, and protective service…",
+   "h": "pmrs/pmr-42.html#42-7"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 42.8 Employee Assistance Program",
+   "a": [
+    "PMR 42.8"
+   ],
+   "d": "Eligibility. All employees except temporary employees are eligible for participation in the Employee Assistance Program (EAP), as provided by the County. The e…",
+   "h": "pmrs/pmr-42.html#42-8"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 42.9 COBRA",
+   "a": [
+    "PMR 42.9"
+   ],
+   "d": "Eligibility. All County employees receiving insurance, covered spouses, covered domestic partners, and covered dependents are eligible for continued insurance…",
+   "h": "pmrs/pmr-42.html#42-9"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 42.10 Benefits Upon Separation",
+   "a": [
+    "PMR 42.10"
+   ],
+   "d": "Insurance. Medical, dental and vision insurance, as well as the Medical Care Reimbursement Account, are available under COBRA, as set forth in Section 42.9, ab…",
+   "h": "pmrs/pmr-42.html#42-10"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 42.11 Temporary Employees",
+   "a": [
+    "PMR 42.11"
+   ],
+   "d": "Temporary employees, defined as extra hire, special appointment and emergency employees are not eligible for any benefit other than as required by State and fe…",
+   "h": "pmrs/pmr-42.html#42-11"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 43: Performance Planning & Evaluation",
+   "a": [
+    "PMR 43",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) describes the rules for conducting performance planning and evaluation for County employees.",
+   "h": "pmrs/pmr-43.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 43.1 Purpose of Planning and Evaluation",
+   "a": [
+    "PMR 43.1"
+   ],
+   "d": "The purpose of employee performance planning and evaluations will be to achieve the following: 1. Assist an employee to perform his/her job more effectively fo…",
+   "h": "pmrs/pmr-43.html#43-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 43.2 Performance Planning",
+   "a": [
+    "PMR 43.2"
+   ],
+   "d": "Annually, the supervisor and employee will discuss and establish the performance goals and work objectives based on the employee’s class specification for the…",
+   "h": "pmrs/pmr-43.html#43-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 43.3 Written Evaluation",
+   "a": [
+    "PMR 43.3"
+   ],
+   "d": "Evaluation of the work performance of employees will be recorded in a written performance evaluation on an approved County Performance Evaluation Form (attache…",
+   "h": "pmrs/pmr-43.html#43-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 43.4 Procedure",
+   "a": [
+    "PMR 43.4"
+   ],
+   "d": "An employee’s evaluation shall be completed by a supervisor or manager who is knowledgeable of the employee’s work during the evaluation period. In most instan…",
+   "h": "pmrs/pmr-43.html#43-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 43.5 Merit Increase",
+   "a": [
+    "PMR 43.5"
+   ],
+   "d": "An employee must have a performance evaluation with a rating of competent and effective or above, as set forth in PMR 43.3 above, to receive a merit increase.…",
+   "h": "pmrs/pmr-43.html#43-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 43.6 Timelines",
+   "a": [
+    "PMR 43.6"
+   ],
+   "d": "Non-probationary, regular hire, full-time and part-time employees will be evaluated after every year (12 months) in paid status (excluding overtime and/or comp…",
+   "h": "pmrs/pmr-43.html#43-6"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 43.7 Probationary Employee Assessment",
+   "a": [
+    "PMR 43.7"
+   ],
+   "d": "As the probationary period is the last step in the examination process, the supervisor must assess whether or not the probationary employee has demonstrated co…",
+   "h": "pmrs/pmr-43.html#43-7"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 43.8 Employee's Response",
+   "a": [
+    "PMR 43.8"
+   ],
+   "d": "An employee will sign his or her performance evaluation acknowledging (in writing) its receipt within ten (10) calendar days and will be provided a copy of the…",
+   "h": "pmrs/pmr-43.html#43-8"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44: Leaves of Absence",
+   "a": [
+    "PMR 44",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) presents rules for the various types of leaves of absence applicable to County employees.",
+   "h": "pmrs/pmr-44.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.1 Sick Leave",
+   "a": [
+    "PMR 44.1"
+   ],
+   "d": "Defined. Sick leave is leave from duty with pay which may be granted to an employee for the following reasons: 1. The diagnosis, care, treatment of, or prevent…",
+   "h": "pmrs/pmr-44.html#44-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.2 Catastrophic Leave Donation Plan",
+   "a": [
+    "PMR 44.2"
+   ],
+   "d": "Definitions. 1. A Catastrophic Leave Bank (CLB) shall be maintained by the Human Resources Department. The CLB is designed to provide relief to employees who a…",
+   "h": "pmrs/pmr-44.html#44-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.3 Vacation Leave",
+   "a": [
+    "PMR 44.3"
+   ],
+   "d": "Eligible Employees. All employees, except Contingent (temporary) employees, and elected officials, are entitled to accrue vacation leave. Part-time employees a…",
+   "h": "pmrs/pmr-44.html#44-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.4 Holidays",
+   "a": [
+    "PMR 44.4"
+   ],
+   "d": "Observed County Holidays. The following holidays are observed by the County. Unless an applicable CBA provides otherwise, all regular, probationary, provisiona…",
+   "h": "pmrs/pmr-44.html#44-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.5 Family and Medical Care Leave",
+   "a": [
+    "PMR 44.5"
+   ],
+   "d": "Statement of Policy. This Section provides eligible employees with Family and Medical Care Leave as required by the Family and Medical Leave Act (FMLA) and the…",
+   "h": "pmrs/pmr-44.html#44-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.6 School Activities Leave",
+   "a": [
+    "PMR 44.6"
+   ],
+   "d": "School Visit Leave (California Labor Code 230.8) 1. Definition. The County provides eligible employees school visit leave of up to forty (40) hours each calend…",
+   "h": "pmrs/pmr-44.html#44-6"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.7 Bereavement Leave",
+   "a": [
+    "PMR 44.7"
+   ],
+   "d": "Definition. Bereavement leave up to 5 (five) working days (37 ½ or 40 hours) shall be granted by the Department Head or the employee’s manager/supervisor to be…",
+   "h": "pmrs/pmr-44.html#44-7"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.8 Reproductive Loss Leave",
+   "a": [
+    "PMR 44.8"
+   ],
+   "d": "In accordance with applicable law, the County will provide Reproductive Loss Leave for up to 5 (five) working days (37 ½ or 40 hours), which will be granted by…",
+   "h": "pmrs/pmr-44.html#44-8"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.9 Personal Leave",
+   "a": [
+    "PMR 44.9"
+   ],
+   "d": "Definition and Use of Personal Leave. Personal leave is paid leave granted by this PMR or the applicable CBA. Personal leave may not be taken without written r…",
+   "h": "pmrs/pmr-44.html#44-9"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.10 Management Leave",
+   "a": [
+    "PMR 44.10"
+   ],
+   "d": "Definition and Use of Management Leave. Management leave is paid leave granted through this PMR and credited to eligible regular hire employees as acknowledgem…",
+   "h": "pmrs/pmr-44.html#44-10"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.11 Military Related Leaves",
+   "a": [
+    "PMR 44.11"
+   ],
+   "d": "In addition to military exigency leave and military caregiver leave described in section 44.5, military leave will be granted in accordance with the provisions…",
+   "h": "pmrs/pmr-44.html#44-11"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.12 Voting Leave",
+   "a": [
+    "PMR 44.12"
+   ],
+   "d": "In accordance with applicable law, employees whose work schedule prevents them from voting at a statewide election may take up to two (2) hours off with pay at…",
+   "h": "pmrs/pmr-44.html#44-12"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.13 Jury Duty",
+   "a": [
+    "PMR 44.13"
+   ],
+   "d": "Every employee of the County who is summoned or required to serve as a trial juror is entitled to be absent from the County during the period of service. Such…",
+   "h": "pmrs/pmr-44.html#44-13"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.14 Pregnancy Disability Leave (PDL) and Paid Parental Leave",
+   "a": [
+    "PMR 44.14"
+   ],
+   "d": "Pregnancy Disability Leave (PDL) 1. Definition of PDL. Employees will be entitled to take an unpaid leave for their own disability due to pregnancy, childbirth…",
+   "h": "pmrs/pmr-44.html#44-14"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.15 Pregnant Workers Fairness Act (PWFA) Accommodation",
+   "a": [
+    "PMR 44.15"
+   ],
+   "d": "In accordance with the Pregnant Workers Fairness ACT (PWFA), the County will provide reasonable accommodations to qualified employees and applicants with known…",
+   "h": "pmrs/pmr-44.html#44-15"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.16 Lactation Accommodation",
+   "a": [
+    "PMR 44.16"
+   ],
+   "d": "In accordance with applicable law, the County will provide the following lactation accommodation(s) to employees who are breastfeeding: A. Lactation time – rea…",
+   "h": "pmrs/pmr-44.html#44-16"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.17 Organ and Bone Marrow Donation Leave",
+   "a": [
+    "PMR 44.17"
+   ],
+   "d": "In accordance with applicable law, the County will provide a leave of absence to qualified employees who choose to donate organs or bone marrow. The following…",
+   "h": "pmrs/pmr-44.html#44-17"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.18 Domestic Violence, Sexual Assault and Stalking Victims Leave",
+   "a": [
+    "PMR 44.18"
+   ],
+   "d": "In accordance with applicable law, any employee who is a victim of crime such as domestic violence, stalking, sexual assault, or a crime resulting in physical…",
+   "h": "pmrs/pmr-44.html#44-18"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.19 Crime Victims Leave",
+   "a": [
+    "PMR 44.19"
+   ],
+   "d": "Definition. In accordance with applicable law, an employee who is a victim or who is an immediate family member of a victim of a violent or serious felony (as…",
+   "h": "pmrs/pmr-44.html#44-19"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.20 Administrative Leave",
+   "a": [
+    "PMR 44.20"
+   ],
+   "d": "Administrative Leave is leave with pay given at the sole discretion of the County. Employees placed on Administrative Leave will be relieved of their regular d…",
+   "h": "pmrs/pmr-44.html#44-20"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.21 Fitness for Duty Leave",
+   "a": [
+    "PMR 44.21"
+   ],
+   "d": "Where permitted by law, an employee may be required by the department head or designee to take a physical and/or psychological examination paid for by the Coun…",
+   "h": "pmrs/pmr-44.html#44-21"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.22 Leave Without Pay",
+   "a": [
+    "PMR 44.22"
+   ],
+   "d": "Non-medical Leave Without Pay. Non-medical leave without pay is leave which may be granted after all vacation leave, compensatory time off, and other accrued a…",
+   "h": "pmrs/pmr-44.html#44-22"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.23 Special Leave for Distress Not Otherwise Covered",
+   "a": [
+    "PMR 44.23"
+   ],
+   "d": "Definition. In extraordinary circumstances, leave with pay for serious economic hardship, illness or distress not otherwise covered by any leave policy may be…",
+   "h": "pmrs/pmr-44.html#44-23"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.24 Sabbatical Leave",
+   "a": [
+    "PMR 44.24"
+   ],
+   "d": "Regular hire employees with seven years or more of continuous County service may request a Sabbatical leave without pay for up to six calendar months for such…",
+   "h": "pmrs/pmr-44.html#44-24"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 44.25 Career Development Release Time",
+   "a": [
+    "PMR 44.25"
+   ],
+   "d": "Definition and Usage. Eligible employees may take up to twenty-two and one-half (22.5) hours (three (3) workdays) for employees in 37.5-hour classifications an…",
+   "h": "pmrs/pmr-44.html#44-25"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 45: Transfer and Voluntary Demotion",
+   "a": [
+    "PMR 45",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) defines rules for transfer and voluntary demotion.",
+   "h": "pmrs/pmr-45.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 45.1 Transfer",
+   "a": [
+    "PMR 45.1"
+   ],
+   "d": "All regular employees, except probationary employees during the first six months of employment, may initiate a request to transfer to the same classification i…",
+   "h": "pmrs/pmr-45.html#45-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 45.2 Voluntary Demotion",
+   "a": [
+    "PMR 45.2"
+   ],
+   "d": "Any employee may voluntarily demote to a vacant position with a lower salary for which the employee meets the minimum qualifications, upon the written request…",
+   "h": "pmrs/pmr-45.html#45-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 46: Personnel Records and Files",
+   "a": [
+    "PMR 46",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) defines rules for the management, confidentiality, access, and release of personnel records and files.",
+   "h": "pmrs/pmr-46.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 46.1 Official Personnel File",
+   "a": [
+    "PMR 46.1"
+   ],
+   "d": "The County maintains an official personnel file for each employee in the Human Resources Department. The employee’s department may maintain a duplicate file. A…",
+   "h": "pmrs/pmr-46.html#46-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 46.2 Notifying the County of Changes in Personal Information",
+   "a": [
+    "PMR 46.2"
+   ],
+   "d": "Each employee is responsible to promptly notify the employee’s supervisor and department administration of any changes in relevant personal information, includ…",
+   "h": "pmrs/pmr-46.html#46-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 46.3 Employee Access to Personnel File",
+   "a": [
+    "PMR 46.3"
+   ],
+   "d": "Inspection of File. An employee may inspect his or her own official personnel file or department file or authorize inspection in writing by another person, at…",
+   "h": "pmrs/pmr-46.html#46-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 46.4 Medical Information",
+   "a": [
+    "PMR 46.4"
+   ],
+   "d": "Separate Confidential Files. All medical information of an employee or applicant is kept separately and is treated as confidential, in accordance with applicab…",
+   "h": "pmrs/pmr-46.html#46-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 46.5 Requests for References and Release of Information in Personnel File",
+   "a": [
+    "PMR 46.5"
+   ],
+   "d": "Public Information. Upon request, the County will release to the public information about its employees as required by the Public Records Act. The County will…",
+   "h": "pmrs/pmr-46.html#46-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 46.6 Supervisor's Working Folder",
+   "a": [
+    "PMR 46.6"
+   ],
+   "d": "Supervisors are encouraged to maintain notes about employee performance throughout the year in a working folder or day planner, in order to provide the highest…",
+   "h": "pmrs/pmr-46.html#46-6"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 47: Employee Discipline",
+   "a": [
+    "PMR 47",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) specifies the bases and rules for disciplinary action for County employees.",
+   "h": "pmrs/pmr-47.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 47.1 Authority",
+   "a": [
+    "PMR 47.1"
+   ],
+   "d": "County officers designated as having appointing authority may demote, suspend, reduce in compensation or dismiss regular employees in the Merit System. Manager…",
+   "h": "pmrs/pmr-47.html#47-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 47.2 Types of Disciplinary Action",
+   "a": [
+    "PMR 47.2"
+   ],
+   "d": "Oral Warning. A formal discussion with an employee, usually by the employee’s immediate supervisor, about performance or conduct problems, the need for the emp…",
+   "h": "pmrs/pmr-47.html#47-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 47.3 Grounds for Disciplinary Action",
+   "a": [
+    "PMR 47.3"
+   ],
+   "d": "The maintenance of regular status in the Merit System by an employee requires appropriate behavior and competent service. Any regular employee is subject to di…",
+   "h": "pmrs/pmr-47.html#47-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 47.4 Discipline of Exempt Employees",
+   "a": [
+    "PMR 47.4"
+   ],
+   "d": "Except for a violation of a major safety rule, exempt employees not eligible for overtime are not subject to (1) suspensions other than in full work week incre…",
+   "h": "pmrs/pmr-47.html#47-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 47.5 Possible Investigation",
+   "a": [
+    "PMR 47.5"
+   ],
+   "d": "When an act of an employee that may be cause for disciplinary action is reported to the employee’s supervisor, it may be necessary to conduct an investigation…",
+   "h": "pmrs/pmr-47.html#47-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 47.6 Procedures for Taking Disciplinary Action and Related Appeal Rights",
+   "a": [
+    "PMR 47.6"
+   ],
+   "d": "Oral Warning. Following a formal discussion, a supervisor or manager may summarize the oral warning, provide the summary to the employee, or supervisor, and pl…",
+   "h": "pmrs/pmr-47.html#47-6"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 47.7 Appeal Hearing Request by Employee",
+   "a": [
+    "PMR 47.7"
+   ],
+   "d": "Suspension of Five Days or Less. A regular employee will have the right to an appeal hearing before the County Administrator. The employee must, within ten cal…",
+   "h": "pmrs/pmr-47.html#47-7"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 47.8 Procedure for Hearing Before Personnel Commission",
+   "a": [
+    "PMR 47.8"
+   ],
+   "d": "Upon receipt of an appeal from a dismissal, suspension in excess of five days, reduction in compensation or demotion for cause, or any suspension or more sever…",
+   "h": "pmrs/pmr-47.html#47-8"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 47.9 Written Findings and Decision",
+   "a": [
+    "PMR 47.9"
+   ],
+   "d": "The Personnel Commission will render findings and a decision. The findings and decision or recommended decision will be rendered as soon after the conclusion o…",
+   "h": "pmrs/pmr-47.html#47-9"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 47.10 Judicial Review",
+   "a": [
+    "PMR 47.10"
+   ],
+   "d": "Petition for Writ of Mandate. Judicial review of any decision of the Personnel Commission may be had pursuant to Section 1094.5 of the California Code of Civil…",
+   "h": "pmrs/pmr-47.html#47-10"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 48: Non-Disciplinary Separation",
+   "a": [
+    "PMR 48",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) defines rules pertaining to employees who separate from County employment for non-disciplinary reasons.",
+   "h": "pmrs/pmr-48.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 48.1 Resignation",
+   "a": [
+    "PMR 48.1"
+   ],
+   "d": "A regular employee who wishes to leave employment in good standing will file a written notice of resignation with the appointing authority, giving at least two…",
+   "h": "pmrs/pmr-48.html#48-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 48.2 Reduction in Force (Lay Off)",
+   "a": [
+    "PMR 48.2"
+   ],
+   "d": "Authority to Reduce in Force (Lay off). The Board of Supervisors may abolish a position and lay-off, demote or transfer the employee holding the position in th…",
+   "h": "pmrs/pmr-48.html#48-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 48.3 Exhausting All Leave",
+   "a": [
+    "PMR 48.3"
+   ],
+   "d": "When an employee exhausts all paid leaves, including time afforded public safety employees pursuant to Government Code section 4850, supplemental leave provide…",
+   "h": "pmrs/pmr-48.html#48-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 48.4 Job Abandonment",
+   "a": [
+    "PMR 48.4"
+   ],
+   "d": "An employee is deemed to have resigned if the employee is absent for five consecutive workdays without prior authorization and without notification during the…",
+   "h": "pmrs/pmr-48.html#48-4"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 48.5 End of Fixed Term Appointment",
+   "a": [
+    "PMR 48.5"
+   ],
+   "d": "When an appointment is made for a fixed term and that term ends, the separation is simply due to completion of the term and is in no way a disciplinary separat…",
+   "h": "pmrs/pmr-48.html#48-5"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 48.6 Physical or Mental Incapacity",
+   "a": [
+    "PMR 48.6"
+   ],
+   "d": "If an employee is determined by their own or the County’s physician to be unable to perform the essential functions of the job, with or without reasonable acco…",
+   "h": "pmrs/pmr-48.html#48-6"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 48.7 Retirement",
+   "a": [
+    "PMR 48.7"
+   ],
+   "d": "A regular employee who wishes to and is eligible to retire will submit the appropriate paperwork to the Retirement Office, and file a written notice of retirem…",
+   "h": "pmrs/pmr-48.html#48-7"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 49: Reasonable Accommodation",
+   "a": [
+    "PMR 49",
+    "Personnel Management Regulations"
+   ],
+   "d": "This Personnel Management Regulation (PMR) defines County of Marin policy and procedure on Reasonable Accommodation for employment.",
+   "h": "pmrs/pmr-49.html"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 49.1 General",
+   "a": [
+    "PMR 49.1"
+   ],
+   "d": "The County of Marin will provide reasonable accommodation to persons who have a known qualifying medical condition, physical disability or mental disability wh…",
+   "h": "pmrs/pmr-49.html#49-1"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 49.2 Reasonable Accommodation in the Hiring Process",
+   "a": [
+    "PMR 49.2"
+   ],
+   "d": "Upon request, reasonable accommodations will be made for qualified job applicants with disabilities. An accommodation request should be submitted with the empl…",
+   "h": "pmrs/pmr-49.html#49-2"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 49.3 Reasonable Accommodation in Employment",
+   "a": [
+    "PMR 49.3"
+   ],
+   "d": "Request for Reasonable Accommodation. An employee who believes he/she/they is a qualified employee with a disability must complete an Employee Reasonable Accom…",
+   "h": "pmrs/pmr-49.html#49-3"
+  },
+  {
+   "k": "PMR",
+   "n": "PMR 49.4 The Interactive Process",
+   "a": [
+    "PMR 49.4"
+   ],
+   "d": "Once the need for reasonable accommodation arises either by the employee’s request or by the County’s knowledge of the employee’s disability, the County by and…",
+   "h": "pmrs/pmr-49.html#49-4"
+  }
+ ]
+}

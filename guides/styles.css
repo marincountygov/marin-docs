@@ -1,4 +1,5 @@
 @import url("../vendor/marinos/marinos.css");
+@import url("../doc-nav.css");
 
 /* Widen the whole docs-shell (header, page, footer) on guide pages only —
    this stylesheet is never loaded by sop/ or brand/ pages, so this can't leak
@@ -12,68 +13,25 @@
   max-width: 1440px;
 }
 
-.guide-layout {
+.guide-layout,
+.pmr-layout {
   display: grid;
   grid-template-columns: 14rem minmax(0, 1fr) 15.5rem;
   gap: 2.5rem;
   align-items: start;
 }
 
-.pmr-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 15.5rem;
-  gap: 2.5rem;
-  align-items: start;
-}
-
-.pmr-hero h1 {
+/* Page titles match Marin Learn's reader title: 2.25rem, 1.75rem on small screens. */
+.pmr-hero h1,
+.doc-title {
   font-size: 2.25rem;
 }
 
-.guide-outline {
-  position: sticky;
-  top: 1rem;
-  align-self: start;
-  font-size: 0.9rem;
-}
-
-.guide-outline h2 {
-  margin: 0 0 0.5rem;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--app-text);
-}
-
-.guide-outline > div + div {
-  margin-top: 1.25rem;
-}
-
-.guide-outline ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.guide-outline li {
-  margin: 0;
-  padding: 0;
-}
-
-.guide-outline a {
-  display: block;
-  padding: 0.15rem 0;
-  color: var(--app-muted);
-  text-decoration: none;
-}
-
-.guide-outline a:hover {
-  color: var(--app-accent);
-  text-decoration: underline;
-}
-
-.guide-outline a[aria-current="page"] {
-  color: var(--app-accent);
-  font-weight: 700;
+@media (max-width: 30rem) {
+  .pmr-hero h1,
+  .doc-title {
+    font-size: 1.75rem;
+  }
 }
 
 .guide-callout {
@@ -279,56 +237,6 @@ nav.guide-lifecycle a,
   font-size: 0.9rem;
 }
 
-.guide-pager {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  margin: 2.5rem 0 0;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--app-border);
-}
-
-.guide-pager a {
-  display: block;
-  max-width: 48%;
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--app-border);
-  border-radius: var(--pico-border-radius);
-  color: var(--app-text);
-  text-decoration: none;
-}
-
-.guide-pager a:hover {
-  border-color: var(--app-accent);
-}
-
-.guide-pager__next {
-  margin-left: auto;
-  text-align: right;
-}
-
-.guide-pager__direction {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  color: var(--app-muted);
-  font-size: 0.8rem;
-}
-
-.guide-pager__next .guide-pager__direction {
-  justify-content: flex-end;
-}
-
-.guide-pager__arrow {
-  width: 1rem;
-  height: 1rem;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
 .guide-glossary {
   margin: 0;
 }
@@ -349,7 +257,6 @@ nav.guide-lifecycle a,
     grid-template-columns: 1fr;
   }
 
-  .guide-outline,
   .toc {
     position: static;
     order: -1;
@@ -357,5 +264,36 @@ nav.guide-lifecycle a,
     border: 1px solid var(--app-border);
     border-radius: var(--pico-border-radius);
     background: var(--app-surface);
+  }
+}
+
+/* The list page of a set: a card for each group, listing its documents as links (see plans/DOCS-SET-LANDING-PLAN.md). */
+.docs-grid--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.docs-grid--2 + section {
+  margin-top: 2rem;
+}
+
+.set-card h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.set-card ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.set-search {
+  max-width: 28rem;
+  margin: 1.5rem 0;
+}
+
+@media (max-width: 48rem) {
+  .docs-grid--2 {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

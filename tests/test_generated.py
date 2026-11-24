@@ -74,7 +74,7 @@ class PageTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             copy = Path(temp) / "repo"
             (copy / "scripts").mkdir(parents=True)
-            for script in ("build-guide.js", "guide-schema.js"):
+            for script in ("build-guide.js", "guide-schema.js", "doc-nav.js", "doc-pager.js", "shell-chrome.js"):
                 shutil.copy(ROOT / "scripts" / script, copy / "scripts" / script)
             shutil.copytree(ROOT / "guides", copy / "guides")
             result = subprocess.run(["node", "scripts/build-guide.js"], cwd=copy, capture_output=True, text=True)
@@ -93,7 +93,7 @@ class PageTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             copy = Path(temp) / "repo"
             (copy / "scripts").mkdir(parents=True)
-            for script in ("build-guide.js", "guide-schema.js"):
+            for script in ("build-guide.js", "guide-schema.js", "doc-nav.js", "doc-pager.js", "shell-chrome.js"):
                 shutil.copy(ROOT / "scripts" / script, copy / "scripts" / script)
             shutil.copytree(ROOT / "guides/schema", copy / "guides/schema")
             guide = copy / "guides/handbook"
@@ -184,6 +184,76 @@ class PageTests(unittest.TestCase):
                 if str(target).startswith(str(ROOT)) and not parsed.path.startswith("/"):
                     ok = target.is_file() or (target.is_dir() and (target / "index.html").is_file())
                     self.assertTrue(ok, f"{name}: {ref} does not exist")
+
+    @staticmethod
+    def listed_sop_pages():
+        """The SOP pages named by the structured list (sop/sops.json). The others stay in place but are left off every list."""
+        graph = json.loads((ROOT / "sop" / "sops.json").read_text(encoding="utf-8"))["@graph"]
+        ids = {i["item"]["@id"] for n in graph if "itemListElement" in n for i in n["itemListElement"]}
+        listed = []
+        for page in sorted((ROOT / "sop").glob("*.html")):
+            block = re.search(r'<script type="application/ld\+json">(.*?)</script>', page.read_text(encoding="utf-8"), re.S)
+            if block and any(n.get("@id") in ids for n in ([json.loads(block.group(1))] + (json.loads(block.group(1)).get("@graph") or []))):
+                listed.append(page)
+        return listed
+
+    def test_an_sop_that_is_not_listed_is_in_no_list(self):
+        listed = {p.name for p in self.listed_sop_pages()}
+        index = json.loads((ROOT / "search-index.json").read_text(encoding="utf-8"))["entries"]
+        in_search = {e["h"].split("/")[-1] for e in index if e["k"] == "SOP"}
+        in_set_file = {e["h"].split("#")[0] for e in json.loads((ROOT / "sop" / "search.json").read_text(encoding="utf-8"))}
+        self.assertEqual(in_search, listed)
+        self.assertEqual(in_set_file, listed)
+        for page in (ROOT / "sop").glob("*.html"):
+            if page.name not in listed and page.name != "index.html":
+                self.assertNotIn('class="doc-nav"', page.read_text(encoding="utf-8"), f"{page.name} is not listed and has no navigation")
+
+    def test_search_files_are_current(self):
+        result = subprocess.run(["node", str(ROOT / "scripts" / "build-search-index.js"), "--check"], capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_every_document_has_the_set_navigation(self):
+        """Each guide page, PMR and SOP has the left navigation (scripts/doc-nav.js), with exactly one current link: its own page."""
+        pages = [p for p in (ROOT / "guides").glob("*/*.html")]
+        pages += [p for p in (ROOT / "pmrs").glob("pmr-*.html")]
+        pages += self.listed_sop_pages()
+        self.assertGreater(len(pages), 60)
+        for page in sorted(pages):
+            html = page.read_text(encoding="utf-8")
+            navs = re.findall(r'<aside class="doc-nav".*?</aside>', html, re.S)
+            self.assertEqual(len(navs), 1, f"{page.relative_to(ROOT)}: one doc-nav")
+            current = re.findall(r'<a href="([^"]+)" aria-current="page"', navs[0])
+            self.assertEqual(current, [page.name], f"{page.relative_to(ROOT)}: the current link is its own page")
+
+    def test_regulations_link_to_their_neighbours(self):
+        """Each PMR page ends with Previous and Next links, in the order of the manual: the first has no Previous, the last no Next."""
+        pages = sorted((ROOT / "pmrs").glob("pmr-*.html"), key=lambda p: int(re.search(r"(\d+)", p.stem).group(1)))
+        self.assertGreater(len(pages), 20)
+        for i, page in enumerate(pages):
+            html = page.read_text(encoding="utf-8")
+            prev = re.findall(r'class="doc-pager__prev" href="([^"]+)"', html)
+            nxt = re.findall(r'class="doc-pager__next" href="([^"]+)"', html)
+            self.assertEqual(prev, [pages[i - 1].name] if i else [], f"{page.name}: Previous")
+            self.assertEqual(nxt, [pages[i + 1].name] if i < len(pages) - 1 else [], f"{page.name}: Next")
+
+    def test_the_search_list_names_text_files_that_exist(self):
+        """search-index.json names the text file of each set (for snippets); each exists and every entry has a name, a place to open and text."""
+        doc = json.loads((ROOT / "search-index.json").read_text(encoding="utf-8"))
+        self.assertTrue(doc["sets"])
+        for entry in doc["sets"]:
+            path = ROOT / entry["src"]
+            self.assertTrue(path.is_file(), f"{entry['src']} exists")
+            for e in json.loads(path.read_text(encoding="utf-8")):
+                self.assertTrue(e["n"] and e["h"], f"{entry['src']}: {e}")
+                self.assertTrue((path.parent / e["h"].split("#")[0]).is_file(), f"{entry['src']}: {e['h']} opens a page")
+
+    def test_every_page_can_highlight_searched_words(self):
+        for page in list((ROOT / "pmrs").glob("pmr-*.html")) + list((ROOT / "guides").glob("*/*.html")) + self.listed_sop_pages():
+            self.assertIn("doc-highlight.js", page.read_text(encoding="utf-8"), page.name)
+
+    def test_sop_navigation_is_current(self):
+        result = subprocess.run(["node", str(ROOT / "scripts" / "build-sop-nav.js"), "--check"], capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
 
     def test_sop_json_ld(self):
         for page in sorted((ROOT / "sop").glob("*.html")):
