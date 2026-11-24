@@ -1,4 +1,4 @@
-// The JSON downloads of a guide page. Copy and Download in Text, HTML and Markdown are the shell's: the .doc-actions
+// The JSON downloads of a document, and Print or save as PDF (the print dialog; doc-nav.css has the print layout). Copy and Download in Text, HTML and Markdown are the shell's: the .doc-actions
 // container carries data-formats-for="article.content" and data-file-name, and the shell (marinContentFormats,
 // marinFormatMenus) reads the page and passes it to marinCopyRich, marinCopyText and marinDownload. This adds the two
 // formats only a guide has: the page's own structured data and the whole guide's.
@@ -14,6 +14,10 @@
   };
 
   async function download(format) {
+    if (format === "print") {
+      window.print();
+      return;
+    }
     if (format === "json") {
       const script = document.querySelector('script[type="application/ld+json"]');
       if (!script) return say("No JSON is available for this page.");

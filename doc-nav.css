@@ -207,3 +207,74 @@
 .set-search .search-snippet {
   margin-top: 0.15rem;
 }
+
+/* Printing a document (a guide page, a regulation, an SOP): only the document. The navigation, the search, the actions, the pager and the
+   side columns are left off; the text fills the page; a link to another site shows its address, because paper has no link. The shell
+   already leaves off its own header, footer and Feedback button. The browser adds the address of the page, the date and page numbers. */
+@media print {
+  @page {
+    margin: 2cm 1.8cm;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .doc-nav,
+  .doc-nav__search,
+  .set-search,
+  .doc-pager,
+  .doc-actions,
+  .heading-anchor,
+  .guide-lifecycle,
+  .docs-toc,
+  .toc,
+  .app-test-banner {
+    display: none !important;
+  }
+
+  main .guide-layout,
+  main .pmr-layout,
+  main .docs-layout {
+    display: block;
+  }
+
+  main .guide-layout article,
+  main .pmr-layout article,
+  main .docs-layout article,
+  main article.content {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    break-after: avoid;
+  }
+
+  p,
+  li,
+  dd {
+    orphans: 3;
+    widows: 3;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    overflow-wrap: anywhere;
+  }
+
+  mark.search-hit {
+    padding: 0;
+    background: none;
+  }
+}
