@@ -9,6 +9,7 @@ const path = require("path");
 const ROOT = path.resolve(__dirname, "..");
 const { renderDocNav } = require("./doc-nav.js");
 const { renderDocPager } = require("./doc-pager.js");
+const { renderDocDetails } = require("./doc-details.js");
 const { shellBody, bodyAttrs, homeScript } = require("./shell-chrome.js");
 const read = (f) => JSON.parse(fs.readFileSync(path.join(ROOT, "pmrs/data", f), "utf8"))["@graph"];
 const manual = read("manual.jsonld");
@@ -70,7 +71,13 @@ for (const group of groups) {
     const sections = provisions.sort((a, b) => a.position - b.position).map((p) => ({ id: p.legislationIdentifier.replace(/\./g, "-"), label: `${p.legislationIdentifier} ${p.name || ""}`.trim(), text: p.text }));
     const outline = sections.map((x) => [x.id, x.label]).concat([["source", "Source"]]);
     const toc = `<aside class="toc" aria-label="On this page"><h2>On this page</h2><ul>${outline.map((o) => `<li><a href="#${o[0]}">${esc(o[1])}</a></li>`).join("")}</ul></aside>`;
-    const facts = [["Effective", local(pmr, "effective-date")], ["Prepared by", local(pmr, "prepared-by")], ["Approved", local(pmr, "approved-by")]].filter((f) => f[1]);
+    // The details are the data's own words ("as written": the dates and names are shown as the regulation gives them), and the two dates the data
+    // holds for a few regulations, with the names Schema.org gives them. A row with no value is not drawn.
+    const details = renderDocDetails({
+      label: "About this regulation",
+      rows: [["Effective", local(pmr, "effective-date")], ["Applies from", pmr.legislationDateOfApplicability], ["Version dated", pmr.legislationDateVersion],
+        ["Prepared by", local(pmr, "prepared-by")], ["Approved by", local(pmr, "approved-by")]],
+    });
     const nav = renderDocNav({
       label: "Personnel Management Regulations",
       set: { name: "Personnel Management Regulations", href: "./" },
@@ -79,7 +86,7 @@ for (const group of groups) {
       groups: groups.map((g) => ({ name: `${g.legislationIdentifier}: ${g.name}`, items: refs(g).sort((a, b) => a.position - b.position).map((p) => ({ label: `PMR ${number(p)}: ${p.name || ""}`, href: `${slug(p)}.html`, current: p === pmr })) })),
     });
     const body = `<div class="pmr-layout">${nav}<article>${docActions(slug(pmr))}<section class="hero pmr-hero"><h1>PMR ${esc(number(pmr))}: ${esc(pmr.name || "")}</h1>` + (pmr.description ? `<p class="lede">${esc(pmr.description)}</p>` : "") + `</section>` +
-      (facts.length ? `<section aria-label="About this regulation"><ul>${facts.map((f) => `<li>${f[0]}: ${esc(f[1])}</li>`).join("")}</ul></section>` : "") +
+      details +
       sections.map((x) => `<section>${heading(x.id, esc(x.label))}${x.text ? paragraphs(x.text) : ""}</section>`).join("") +
       `<section>${heading("source", "Source")}<p><a href="${esc(source.url)}">${esc(source.name)}</a></p></section>${renderDocPager({ label: "Regulations", prev: stepLink(inOrder[inOrder.indexOf(pmr) - 1]), next: stepLink(inOrder[inOrder.indexOf(pmr) + 1]) })}</article>${toc}</div>` +
       `<script type="application/ld+json">${JSON.stringify({ "@context": context, "@graph": [pmr, ...provisions] }).replace(/</g, "\\u003c")}</script><script src="../guides/guide-actions.js" defer></script>`;

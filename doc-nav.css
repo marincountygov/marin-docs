@@ -278,3 +278,12 @@
     background: none;
   }
 }
+
+/* The details of a document (scripts/doc-details.js): who prepared it, who approved it, when it applies. */
+.doc-details {
+  margin: 1rem 0 1.5rem;
+}
+
+.doc-details .details {
+  margin: 0;
+}
