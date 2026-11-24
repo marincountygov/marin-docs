@@ -1,0 +1,210 @@
+@import url("search-text.css");
+/* The document set outline: the left navigation of guide pages, PMRs and SOPs (scripts/doc-nav.js).
+   Imported by guides/styles.css and sop/styles.css. A long set (the PMRs) scrolls inside its column. */
+.doc-nav {
+  position: sticky;
+  top: 1rem;
+  align-self: start;
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  font-size: 0.9rem;
+}
+
+.doc-nav__set {
+  margin: 0 0 1rem;
+  font-weight: 700;
+}
+
+.doc-nav .doc-nav__set a {
+  color: var(--app-text);
+  text-decoration: none;
+}
+
+.doc-nav .doc-nav__set a:hover {
+  color: var(--app-accent);
+  text-decoration: underline;
+}
+
+.doc-nav details {
+  margin: 0 0 0.75rem;
+}
+
+.doc-nav summary,
+.doc-nav details[open] > summary:not([role]) {
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--app-text);
+}
+
+.doc-nav details ul {
+  margin-top: 0.35rem;
+}
+
+.doc-nav h2 {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--app-text);
+}
+
+.doc-nav > div + div {
+  margin-top: 1.25rem;
+}
+
+.doc-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.doc-nav li {
+  margin: 0;
+  padding: 0;
+}
+
+.doc-nav a {
+  display: block;
+  padding: 0.15rem 0;
+  color: var(--app-muted);
+  text-decoration: none;
+}
+
+.doc-nav a:hover {
+  color: var(--app-accent);
+  text-decoration: underline;
+}
+
+.doc-nav a[aria-current="page"] {
+  color: var(--app-accent);
+  font-weight: 700;
+}
+
+@media (max-width: 850px) {
+  .doc-nav {
+    position: static;
+    order: -1;
+    max-height: none;
+    padding: 1rem;
+    border: 1px solid var(--app-border);
+    border-radius: var(--pico-border-radius);
+    background: var(--app-surface);
+  }
+}
+
+/* The search box in the left navigation (and on a set's list page): doc-search.js. */
+.doc-nav__search {
+  display: block;
+  margin: 0 0 1rem;
+}
+
+.doc-nav__search .search-input-field {
+  margin-bottom: 0;
+}
+
+.doc-nav__search .doc-nav__status {
+  margin: 0.75rem 0 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.doc-nav__search .results-line__count {
+  color: var(--app-text);
+}
+
+.doc-nav__search .results-line__filters,
+.doc-nav__search .results-line__slash {
+  color: var(--app-muted);
+}
+
+.doc-nav__results ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.doc-nav__results li {
+  list-style: none;
+  margin: 0;
+  padding: 0.4rem 0;
+  border-top: 1px solid var(--app-border);
+}
+
+.doc-nav__results a {
+  display: block;
+}
+
+.doc-nav__in {
+  display: block;
+  color: var(--app-muted);
+  font-size: 0.8rem;
+}
+
+/* Previous and next links at the foot of a document (scripts/doc-pager.js). */
+.doc-pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 2.5rem 0 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--app-border);
+}
+
+.doc-pager a {
+  display: block;
+  max-width: 48%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--app-border);
+  border-radius: var(--pico-border-radius);
+  color: var(--app-text);
+  text-decoration: none;
+}
+
+.doc-pager a:hover {
+  border-color: var(--app-accent);
+}
+
+.doc-pager__next {
+  margin-left: auto;
+  text-align: right;
+}
+
+.doc-pager__direction {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--app-muted);
+  font-size: 0.8rem;
+}
+
+.doc-pager__next .doc-pager__direction {
+  justify-content: flex-end;
+}
+
+.doc-pager__arrow {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* On a set's list page the results have room: the name, where it is, and the line of text. */
+.set-search .doc-nav__results li {
+  padding: 0.6rem 0;
+}
+
+.set-search .doc-nav__results a {
+  display: inline;
+}
+
+.set-search .doc-nav__in {
+  display: inline;
+  margin-left: 0.4rem;
+}
+
+.set-search .search-snippet {
+  margin-top: 0.15rem;
+}

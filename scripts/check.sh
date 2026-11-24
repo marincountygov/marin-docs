@@ -35,6 +35,19 @@ fi
 if command -v node >/dev/null 2>&1; then
   node --check "$ROOT_DIR/scripts/build-guide.js"
   node --check "$ROOT_DIR/scripts/build-pmrs.js"
+  node --check "$ROOT_DIR/scripts/build-search-index.js"
+  node --check "$ROOT_DIR/scripts/doc-nav.js"
+  node --check "$ROOT_DIR/scripts/doc-pager.js"
+  node --check "$ROOT_DIR/scripts/build-sop-nav.js"
+  node --check "$ROOT_DIR/home-search.js"
+  node --check "$ROOT_DIR/doc-search.js"
+  node --check "$ROOT_DIR/doc-highlight.js"
+  node --check "$ROOT_DIR/scripts/sop-list.js"
+  node --check "$ROOT_DIR/scripts/shell-chrome.js"
+  node --check "$ROOT_DIR/scripts/apply-shell.js"
+  node --check "$ROOT_DIR/app-home.js"
+  node "$ROOT_DIR/scripts/apply-shell.js" --check
+  node "$ROOT_DIR/scripts/build-search-index.js" --check
   node --check "$ROOT_DIR/scripts/guide-schema.js"
   node --check "$ROOT_DIR/scripts/stamp-updated-dates.js"
   node --check "$ROOT_DIR/sop/flow-view.js"

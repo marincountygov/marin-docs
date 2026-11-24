@@ -17,6 +17,9 @@
 const fs = require("fs");
 const path = require("path");
 const { validate } = require("./guide-schema.js");
+const { renderDocNav } = require("./doc-nav.js");
+const { renderDocPager } = require("./doc-pager.js");
+const { toShell } = require("./shell-chrome.js");
 
 const repoRoot = path.join(__dirname, "..");
 const guidesDir = path.join(repoRoot, "guides");
@@ -280,27 +283,17 @@ function renderLifecycle(current, slug) {
 // --- Page chrome ---
 
 function renderOutline(active) {
-  return `<aside class="guide-outline" aria-label="Guide outline">${groups
-    .map(
-      (g) =>
-        `<div><h2>${esc(g.name)}</h2><ul>${g.pages
-          .map((p) => `<li><a href="${fileFor(p.slug)}"${p === active ? ' aria-current="page"' : ""}>${esc(p.title)}</a></li>`)
-          .join("")}</ul></div>`
-    )
-    .join("")}</aside>`;
+  return renderDocNav({
+    label: "Guide outline",
+    search: { src: "search.json", script: "../../doc-search.js" },
+    groups: groups.map((g) => ({ name: g.name, items: g.pages.map((p) => ({ label: p.title, href: fileFor(p.slug), current: p === active })) })),
+  });
 }
-
-const ARROW_LEFT = '<svg class="guide-pager__arrow" aria-hidden="true" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>';
-const ARROW_RIGHT = '<svg class="guide-pager__arrow" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
 
 function renderPager(active) {
   const i = outlinePages.indexOf(active);
-  const prev = outlinePages[i - 1];
-  const next = outlinePages[i + 1];
-  if (!prev && !next) return "";
-  const prevHtml = prev ? `<a class="guide-pager__prev" href="${fileFor(prev.slug)}"><span class="guide-pager__direction">${ARROW_LEFT}Previous</span>${esc(prev.title)}</a>` : "";
-  const nextHtml = next ? `<a class="guide-pager__next" href="${fileFor(next.slug)}"><span class="guide-pager__direction">Next${ARROW_RIGHT}</span>${esc(next.title)}</a>` : "";
-  return `<nav class="guide-pager" aria-label="Guide pages">${prevHtml}${nextHtml}</nav>`;
+  const link = (p) => (p ? { label: p.title, href: fileFor(p.slug) } : null);
+  return renderDocPager({ label: "Guide pages", prev: link(outlinePages[i - 1]), next: link(outlinePages[i + 1]) });
 }
 
 const CARET = '<svg class="menu-toggle__caret" aria-hidden="true" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4"/></svg>';
@@ -577,7 +570,7 @@ for (const p of allPages) {
     const stamp = fs.readFileSync(file, "utf8").match(/<p class="doc-updated">Updated [^<]*<\/p>/);
     if (stamp) out = next.replace('<p class="doc-updated">Updated recently</p>', stamp[0]);
   }
-  fs.writeFileSync(file, out);
+  fs.writeFileSync(file, toShell(out, path.relative(path.join(__dirname, ".."), file).split(path.sep).join("/")));
 }
 fs.writeFileSync(path.join(guideDir, "structured-data.json"), JSON.stringify(guideLd(built), null, 2) + "\n");
 console.log(`Wrote ${allPages.length} pages and structured-data.json to guides/${guideSlug}/`);

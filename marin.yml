@@ -5,7 +5,7 @@ project:
   repo: marin-docs
   type: app
   owner: County of Marin
-  audience: staff
+  audience: public
   status: alpha
   test: false
 

@@ -1,4 +1,16 @@
 @import url("../vendor/marinos/marinos.css");
+@import url("../doc-nav.css");
+
+/* Page titles match Marin Learn's reader title: 2.25rem, 1.75rem on small screens. */
+.doc-title {
+  font-size: 2.25rem;
+}
+
+@media (max-width: 30rem) {
+  .doc-title {
+    font-size: 1.75rem;
+  }
+}
 
 .card p {
   color: var(--app-muted);
@@ -369,7 +381,8 @@
    a branching chart needs real width, which the fixed 15.5rem TOC column
    doesn't leave room for. Same full-viewport-breakout technique already
    shipped in Marin Decision Maker's diagram (.way-diagram-card--wide). */
-.docs-layout--wide {
+.docs-layout.docs-layout--wide,
+.docs-layout.docs-layout--wide:has(> .doc-nav) {
   grid-template-columns: 1fr;
   width: 100vw;
   margin-left: calc(50% - 50vw);
@@ -377,7 +390,8 @@
   padding: 0 1.5rem;
 }
 
-.docs-layout--wide .toc {
+.docs-layout--wide .toc,
+.docs-layout--wide .doc-nav {
   display: none;
 }
 
@@ -403,6 +417,21 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) 15.5rem;
   gap: 3.5rem;
+}
+
+/* A page with the left navigation (doc-nav.css) has three columns; a page that is not listed has none and keeps two. */
+@media (min-width: 851px) {
+  .docs-layout:has(> .doc-nav) {
+    grid-template-columns: 14rem minmax(0, 1fr) 15.5rem;
+    gap: 2.5rem;
+    align-items: start;
+  }
+}
+
+@media (max-width: 850px) {
+  .docs-layout:has(> .doc-nav) {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .breadcrumb {
