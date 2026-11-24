@@ -32,6 +32,11 @@ if [[ -f "$ROOT_DIR/vendor/marinos/audit-shared-helpers.py" ]]; then
   python3 "$ROOT_DIR/vendor/marinos/audit-shared-helpers.py" "$ROOT_DIR" --fail
 fi
 
+# Lists a hand-written filter column and a filters.json that breaks the schema. This app has neither, so it must list nothing.
+if [[ -f "$ROOT_DIR/vendor/marinos/audit-filter-column.py" ]]; then
+  python3 "$ROOT_DIR/vendor/marinos/audit-filter-column.py" "$ROOT_DIR" --fail
+fi
+
 if command -v node >/dev/null 2>&1; then
   node --check "$ROOT_DIR/scripts/build-guide.js"
   node --check "$ROOT_DIR/scripts/build-pmrs.js"
