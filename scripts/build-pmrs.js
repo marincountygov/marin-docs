@@ -17,6 +17,8 @@ const regs = read("regulations.jsonld");
 const byId = new Map([...manual, ...regs].map((n) => [n["@id"], n]));
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const refs = (n) => [].concat(n.hasPart || []).map((r) => byId.get(r["@id"])).filter(Boolean);
+// A property of the data by its full name (the dates the source gives are "as written"; the date of the last check is ours: see plans/PMR-LAST-CHECKED.md).
+const property = (n, id) => ((n.identifier || []).find((i) => i.propertyID === id) || {}).value;
 const local = (n, key) => ((n.identifier || []).find((i) => i.propertyID === `local:pmr-${key}-as-written`) || {}).value;
 const number = (n) => n.legislationIdentifier.replace(/^PMR\s*/, "");
 const slug = (n) => `pmr-${number(n)}`;
@@ -76,7 +78,10 @@ for (const group of groups) {
     const details = renderDocDetails({
       label: "About this regulation",
       rows: [["Effective", local(pmr, "effective-date")], ["Applies from", pmr.legislationDateOfApplicability], ["Version dated", pmr.legislationDateVersion],
-        ["Prepared by", local(pmr, "prepared-by")], ["Approved by", local(pmr, "approved-by")]],
+        ["Prepared by", local(pmr, "prepared-by")], ["Approved by", local(pmr, "approved-by")],
+        // When the text here was last compared with the published regulation: a date on the regulation, or one on the source for the whole manual.
+        // The data does not carry it yet, so no page shows this row; the row appears on its own once the data has the date.
+        ["Last checked", property(pmr, "local:pmr-last-checked") || property(source, "local:pmr-last-checked")]],
     });
     const nav = renderDocNav({
       label: "Personnel Management Regulations",

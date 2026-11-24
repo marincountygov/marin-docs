@@ -255,6 +255,56 @@ class PageTests(unittest.TestCase):
         self.assertIn("marinSearchHighlight", (ROOT / "vendor" / "marinos" / "marinos.js").read_text(encoding="utf-8"), "the installed shell has the highlighter")
         self.assertFalse((ROOT / "doc-highlight.js").exists() or (ROOT / "search-text.css").exists(), "the copies of the shell's code and styles are gone")
 
+    def build_regulations(self, change=None):
+        """Run the regulations generator in a copy of the repo (its data optionally changed by `change(manual, regulations)`) and return the copy."""
+        temp = tempfile.TemporaryDirectory()
+        self.addCleanup(temp.cleanup)
+        copy = Path(temp.name) / "repo"
+        (copy / "scripts").mkdir(parents=True)
+        for script in ("build-pmrs.js", "doc-nav.js", "doc-pager.js", "doc-details.js", "shell-chrome.js"):
+            shutil.copy(ROOT / "scripts" / script, copy / "scripts" / script)
+        (copy / "guides").mkdir()
+        shutil.copy(ROOT / "guides" / "index.html", copy / "guides" / "index.html")
+        shutil.copytree(ROOT / "pmrs" / "data", copy / "pmrs" / "data")
+        if change:
+            manual_file, regulations_file = copy / "pmrs/data/manual.jsonld", copy / "pmrs/data/regulations.jsonld"
+            manual, regulations = json.loads(manual_file.read_text(encoding="utf-8")), json.loads(regulations_file.read_text(encoding="utf-8"))
+            change(manual, regulations)
+            manual_file.write_text(json.dumps(manual), encoding="utf-8")
+            regulations_file.write_text(json.dumps(regulations), encoding="utf-8")
+        result = subprocess.run(["node", "scripts/build-pmrs.js"], cwd=copy, capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        return copy
+
+    def test_regulation_pages_are_current(self):
+        """The regulation pages are what the generator makes from the data in this repo."""
+        copy = self.build_regulations()
+        stale = [p.name for p in sorted((ROOT / "pmrs").glob("*.html")) if p.read_text(encoding="utf-8") != (copy / "pmrs" / p.name).read_text(encoding="utf-8")]
+        self.assertEqual(stale, [], f"These pages differ from what the generator makes; run node scripts/build-pmrs.js: {stale}")
+
+    def test_last_checked_shows_only_when_the_data_has_a_date(self):
+        """No page has a Last checked row today; a date on the manual's source shows on every regulation, and a date on one regulation wins for that one."""
+        self.assertFalse([p.name for p in (ROOT / "pmrs").glob("pmr-*.html") if "Last checked" in p.read_text(encoding="utf-8")], "the data has no date yet")
+
+        def whole_manual(manual, regulations):
+            source = next(n for n in manual["@graph"] if n.get("@type") == "LegislationObject")
+            source.setdefault("identifier", []).append({"@type": "PropertyValue", "propertyID": "local:pmr-last-checked", "value": "2026-12-01"})
+
+        copy = self.build_regulations(whole_manual)
+        pages = sorted((copy / "pmrs").glob("pmr-*.html"))
+        self.assertGreater(len(pages), 20)
+        for page in pages:
+            self.assertIn("<dt>Last checked</dt><dd>2026-12-01</dd>", page.read_text(encoding="utf-8"), page.name)
+
+        def one_regulation(manual, regulations):
+            whole_manual(manual, regulations)
+            chapter = next(n for n in regulations["@graph"] if n.get("legislationIdentifier") == "PMR 24")
+            chapter.setdefault("identifier", []).append({"@type": "PropertyValue", "propertyID": "local:pmr-last-checked", "value": "2026-12-15"})
+
+        copy = self.build_regulations(one_regulation)
+        self.assertIn("<dt>Last checked</dt><dd>2026-12-15</dd>", (copy / "pmrs" / "pmr-24.html").read_text(encoding="utf-8"))
+        self.assertIn("<dt>Last checked</dt><dd>2026-12-01</dd>", (copy / "pmrs" / "pmr-23.html").read_text(encoding="utf-8"))
+
     def test_regulation_details_are_the_data_and_nothing_else(self):
         """Each regulation page shows the rows its data has, in the data's words, and a regulation with no such data has no block."""
         graph = json.loads((ROOT / "pmrs" / "data" / "regulations.jsonld").read_text(encoding="utf-8"))["@graph"]
