@@ -67,27 +67,6 @@ class PageTests(unittest.TestCase):
     def test_pages_found(self):
         self.assertGreaterEqual(len(PAGES), 20)
 
-    def test_generated_guide_is_current(self):
-        guide = Path("guides/personnel-management-regulations")
-        with tempfile.TemporaryDirectory() as temp:
-            copy = Path(temp) / "repo"
-            (copy / "scripts").mkdir(parents=True)
-            shutil.copy(ROOT / "scripts/build-pmr-guide.js", copy / "scripts/build-pmr-guide.js")
-            shutil.copytree(ROOT / guide, copy / guide)
-            shutil.copytree(ROOT / "guides/public-engagement-plan", copy / "guides/public-engagement-plan", dirs_exist_ok=True)
-            for extra in ("guides/guides.json", "guides/styles.css"):
-                (copy / extra).parent.mkdir(parents=True, exist_ok=True)
-                if (ROOT / extra).exists():
-                    shutil.copy(ROOT / extra, copy / extra)
-            result = subprocess.run(["node", "scripts/build-pmr-guide.js"], cwd=copy, capture_output=True, text=True)
-            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-            stale = []
-            for page in sorted((ROOT / guide).glob("*.html")):
-                made = copy / guide / page.name
-                if UPDATED.sub("", page.read_text(encoding="utf-8")) != UPDATED.sub("", made.read_text(encoding="utf-8")):
-                    stale.append(page.name)
-            self.assertEqual(stale, [], f"These pages differ from what the generator makes; run node scripts/build-pmr-guide.js then node scripts/stamp-updated-dates.js: {stale}")
-
     def test_guides_are_current(self):
         """Every guide built from Markdown matches what the generator makes from its source and config."""
         guides = sorted(p.parent.parent.name for p in (ROOT / "guides").glob("*/data/guide.json"))

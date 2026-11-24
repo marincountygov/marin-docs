@@ -21,7 +21,6 @@ from threading import Thread
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
-PMR = "guides/personnel-management-regulations/grievance-procedure.html"
 SOP = "sop/airfield-inspection-and-hazard-identification.html"
 GUIDE = "guides/public-engagement-plan/glossary.html"
 OVERFLOW = """() => [...document.querySelectorAll('body *')]
@@ -64,38 +63,6 @@ def tabs(page, name, first, second, first_panel, second_panel):
     page.focus(second)
     page.keyboard.press("ArrowLeft")
     require(page.get_attribute(first, "aria-selected") == "true" and page.is_visible(first_panel), f"{name}: arrow keys move between tabs")
-
-
-def check_pmr(browser, base):
-    context = browser.new_context(viewport={"width": 1200, "height": 900}, permissions=["clipboard-read", "clipboard-write"])
-    page = context.new_page()
-    problems = []
-    page.on("pageerror", lambda e: problems.append(str(e)))
-    page.on("console", lambda m: problems.append(m.text) if m.type == "error" and "404" not in m.text else None)
-    url = base + PMR
-    page.goto(url)
-    page.wait_for_selector(".chip-button")
-    tabs(page, "PMR", "#view-tab-interactive", "#view-tab-original", "#interactive-view", "#original-view")
-
-    # Filter chips: Required keeps only required rules; All brings everything back; a topic narrows further.
-    total = page.locator("li[data-status]:visible").count()
-    require(total > 0, "PMR: rules are listed")
-    page.click("[data-status-filter=required]")
-    require(page.get_attribute("[data-status-filter=required]", "aria-pressed") == "true" and page.get_attribute("[data-status-filter=all]", "aria-pressed") == "false", "PMR: the pressed chip changes")
-    require(page.evaluate("[...document.querySelectorAll('li[data-status]')].filter((i) => !i.hidden).every((i) => i.dataset.status === 'required')"), "PMR: Required shows only required rules")
-    required = page.locator("li[data-status]:visible").count()
-    require(0 < required < total, f"PMR: Required narrows the list ({required} of {total})")
-    page.click("[data-status-filter=permitted]")
-    require(page.evaluate("[...document.querySelectorAll('li[data-status]')].filter((i) => !i.hidden).every((i) => i.dataset.status === 'permitted')"), "PMR: Permitted shows only permitted rules")
-    page.click("[data-status-filter=all]")
-    require(page.locator("li[data-status]:visible").count() == total, "PMR: All restores the list")
-    topic = page.locator("[data-category-filter]:not([data-category-filter=all])").first
-    topic.click()
-    require(page.locator("li[data-status]:visible").count() <= total and page.evaluate("[...document.querySelectorAll('li[data-status]')].filter((i) => !i.hidden).every((i) => i.dataset.category === arguments[0])".replace("arguments[0]", json.dumps(topic.get_attribute("data-category-filter")))), "PMR: a topic narrows the list")
-    page.click("[data-category-filter=all]")
-    common(page, "PMR", url)
-    require(not problems, f"PMR: console or page errors: {problems}")
-    context.close()
 
 
 def check_sop(browser, base):
@@ -276,7 +243,6 @@ def main():
     with sync_playwright() as p:
         browser = p.chromium.launch()
         try:
-            check_pmr(browser, base)
             check_sop(browser, base)
             check_guide(browser, base)
             check_engage_marin(browser, base)
@@ -286,7 +252,7 @@ def main():
         finally:
             browser.close()
             server.shutdown()
-    print("Marin Docs browser test (guide, SOP and PMR pages): PASS")
+    print("Marin Docs browser test (guide and SOP pages): PASS")
 
 
 if __name__ == "__main__":

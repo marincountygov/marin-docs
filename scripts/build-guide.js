@@ -64,7 +64,7 @@ function esc(value) {
     .replace(/"/g, "&quot;");
 }
 
-// --- shared chrome (byte-identical to scripts/build-pmr-guide.js) ---
+// --- shared chrome ---
 
 const FAVICON =
 
