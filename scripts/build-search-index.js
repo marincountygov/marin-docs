@@ -83,7 +83,11 @@ for (const file of pages("pmrs").filter((f) => /pmr-\d+\.html$/.test(f))) {
     pmrs.push({ k: "PMR", n: `PMR ${label}`, a: [`PMR ${dotted}`], d: clip(body.replace(/\s+/g, " ").replace(/^[A-Z]\.\s*/, "")) || `Section of PMR ${number}`, h: `${file}#${id}` });
   }
 }
-entries.push(...pmrs); // chapters and their sections stay in the order of the manual
+// The glossary: each defined term, opened at its entry on the glossary page. It is in the set's text file (in the same list as the regulations,
+// so a search of the manual finds a definition) and in the list of names.
+const defined = JSON.parse(read("pmrs/data/definitions.jsonld"))["@graph"].filter((n) => n["@type"] === "DefinedTerm").sort((a, b) => a.name.localeCompare(b.name, "en", { sensitivity: "base" }));
+const glossary = defined.map((t) => ({ k: "PMR", n: t.name, a: ["Glossary"], d: clip(t.description), h: `pmrs/glossary.html#${t["@id"].split("/").pop()}`, full: String(t.description || "").replace(/\s+/g, " ").trim() }));
+entries.push(...pmrs, ...glossary); // chapters and their sections stay in the order of the manual, then the glossary
 
 // ---- the search file of each set ----
 const setFiles = new Map(); // path (from the repo root) -> list of { n, p, h, t }
@@ -120,6 +124,7 @@ for (const e of pmrs) {
   const chapter = pmrs.find((x) => x.h === file);
   pmrSet.push({ n: e.n, p: chapter ? chapter.n : "", h: `${name}#${id}`, t: norm(full) });
 }
+for (const g of glossary) pmrSet.push({ n: g.n, p: "Glossary", h: path.basename(g.h), t: g.full });
 setFiles.set("pmrs/search.json", pmrSet);
 const setOut = new Map([...setFiles].map(([f, list]) => [f, `${JSON.stringify(list)}\n`]));
 

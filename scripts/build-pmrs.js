@@ -27,6 +27,19 @@ const top = manual.find((n) => n.codificationLevel === "code");
 const source = manual.find((n) => n["@type"] === "LegislationObject");
 const groups = refs(top).sort((a, b) => a.position - b.position);
 
+// The glossary: the terms the manual defines (output/regulations/definitions.jsonld), with the section that defines each. It is a page of the set,
+// in the left navigation under "Reference", not one of the regulations (so it is not in the order of the previous and next links).
+const definitions = JSON.parse(fs.readFileSync(path.join(ROOT, "pmrs/data/definitions.jsonld"), "utf8"));
+const terms = definitions["@graph"].filter((n) => n["@type"] === "DefinedTerm").sort((a, b) => a.name.localeCompare(b.name, "en", { sensitivity: "base" }));
+const termId = (t) => t["@id"].split("/").pop();
+// The data names the section that defines a term (.../regulation/pmr-2/2.1): the page and the heading it opens at.
+const definedIn = (t) => {
+  const ref = ((t.subjectOf || [])[0] || {})["@id"] || "";
+  const m = ref.match(/regulation\/pmr-(\d+)\/([\d.]+)$/);
+  return m ? { label: `PMR ${m[2]}`, href: `pmr-${m[1]}.html#${m[2].replace(/\./g, "-")}` } : null;
+};
+const referenceGroup = (current) => ({ name: "Reference", items: [{ label: "Glossary", href: "glossary.html", current }] });
+
 // The page chrome is the one of the guides list: its head (the icon and the shared styles) and the MarinOS shell (scripts/shell-chrome.js).
 const base = fs.readFileSync(path.join(ROOT, "guides/index.html"), "utf8");
 const head = (title, description) => base.slice(0, base.indexOf("<title>")) + `<title>${esc(title)} | Marin Docs</title>` +
@@ -58,10 +71,17 @@ const CARET = '<svg class="menu-toggle__caret" aria-hidden="true" viewBox="0 0 1
 const menuItems = (attribute, items) => items.map(([value, label]) => `<button type="button" data-button-kind="menu-item" ${attribute}="${value}">${label}</button>`).join("");
 // The citation is built when someone copies it (guide-actions.js), from these: the name of the manual, what a section is called (PMR 24.3), and the
 // effective date when the data has one. Nothing else is added to it but the address and the day it was copied.
-const docActions = (fileName, effective) => `<div class="doc-actions" data-formats-for="article" data-file-name="${esc(fileName)}" data-guide-name="pmr" data-guide-json="data/regulations.jsonld" data-citation-base="County of Marin, Personnel Management Regulations" data-citation-prefix="PMR"${effective ? ` data-citation-effective="${esc(effective)}"` : ""}><div class="action-group" role="group" aria-label="Page actions"><button type="button" class="action-button" data-action="share" data-icon="link" aria-label="Copy link" title="Copy link"></button></div>` +
-  `<div class="menu"><button type="button" class="action-button menu-toggle" data-icon="copy" aria-expanded="false" aria-controls="copy-panel" aria-label="Copy, choose a format" title="Copy">${CARET}</button><div id="copy-panel" class="menu-panel" hidden>${menuItems("data-copy-format", [["text", "Text"], ["html", "HTML"], ["markdown", "Markdown"], ["citation", "Citation"]])}</div></div>` +
-  `<div class="menu"><button type="button" class="action-button menu-toggle" data-icon="download" aria-expanded="false" aria-controls="download-panel" aria-label="Download, choose a format" title="Download">${CARET}</button><div id="download-panel" class="menu-panel" hidden>${menuItems("data-download-format", [["text", "Text"], ["html", "HTML"], ["markdown", "Markdown"], ["json", "JSON (this regulation)"], ["guide-json", "JSON (all regulations)"], ["print", "Print or save as PDF"]])}</div></div>` +
-  `<span class="doc-action-status" role="status" aria-live="polite"></span></div>`;
+// A regulation has Citation and the JSON of the regulation and of all of them; the glossary has neither a citation nor an "all" file (see options).
+const docActions = (fileName, effective, options = {}) => {
+  const { citation = true, jsonSrc = "data/regulations.jsonld", jsonThis = "JSON (this regulation)", jsonAll = "JSON (all regulations)" } = options;
+  const cite = citation ? ` data-citation-base="County of Marin, Personnel Management Regulations" data-citation-prefix="PMR"${effective ? ` data-citation-effective="${esc(effective)}"` : ""}` : "";
+  const copyItems = [["text", "Text"], ["html", "HTML"], ["markdown", "Markdown"], ...(citation ? [["citation", "Citation"]] : [])];
+  const downloadItems = [["text", "Text"], ["html", "HTML"], ["markdown", "Markdown"], ["json", jsonThis], ...(jsonAll ? [["guide-json", jsonAll]] : []), ["print", "Print or save as PDF"]];
+  return `<div class="doc-actions" data-formats-for="article" data-file-name="${esc(fileName)}" data-guide-name="pmr" data-guide-json="${jsonSrc}"${cite}><div class="action-group" role="group" aria-label="Page actions"><button type="button" class="action-button" data-action="share" data-icon="link" aria-label="Copy link" title="Copy link"></button></div>` +
+    `<div class="menu"><button type="button" class="action-button menu-toggle" data-icon="copy" aria-expanded="false" aria-controls="copy-panel" aria-label="Copy, choose a format" title="Copy">${CARET}</button><div id="copy-panel" class="menu-panel" hidden>${menuItems("data-copy-format", copyItems)}</div></div>` +
+    `<div class="menu"><button type="button" class="action-button menu-toggle" data-icon="download" aria-expanded="false" aria-controls="download-panel" aria-label="Download, choose a format" title="Download">${CARET}</button><div id="download-panel" class="menu-panel" hidden>${menuItems("data-download-format", downloadItems)}</div></div>` +
+    `<span class="doc-action-status" role="status" aria-live="polite"></span></div>`;
+};
 const context = JSON.parse(fs.readFileSync(path.join(ROOT, "pmrs/data/regulations.jsonld"), "utf8"))["@context"];
 
 // The regulations in the order of the manual (Section 1 to 4), for the previous and next links.
@@ -90,7 +110,7 @@ for (const group of groups) {
       set: { name: "Personnel Management Regulations", href: "./" },
       collapse: true,
       search: { src: "search.json", script: "../doc-search.js" },
-      groups: groups.map((g) => ({ name: `${g.legislationIdentifier}: ${g.name}`, items: refs(g).sort((a, b) => a.position - b.position).map((p) => ({ label: `PMR ${number(p)}: ${p.name || ""}`, href: `${slug(p)}.html`, current: p === pmr })) })),
+      groups: groups.map((g) => ({ name: `${g.legislationIdentifier}: ${g.name}`, items: refs(g).sort((a, b) => a.position - b.position).map((p) => ({ label: `PMR ${number(p)}: ${p.name || ""}`, href: `${slug(p)}.html`, current: p === pmr })) })).concat([referenceGroup(false)]),
     });
     const body = `<div class="pmr-layout">${nav}<article>${docActions(slug(pmr), local(pmr, "effective-date"))}<section class="hero pmr-hero"><h1>PMR ${esc(number(pmr))}: ${esc(pmr.name || "")}</h1>` + (pmr.description ? `<p class="lede">${esc(pmr.description)}</p>` : "") + `</section>` +
       details +
@@ -102,8 +122,29 @@ for (const group of groups) {
   }
 }
 
+// The glossary page: A to Z, a heading for each letter that has a term, each term with its definition and a link to the section that defines it.
+{
+  const letters = [...new Set(terms.map((t) => t.name[0].toUpperCase()))];
+  const toc = `<aside class="toc" aria-label="On this page"><h2>On this page</h2><ul>${letters.map((l) => `<li><a href="#letter-${l}">${l}</a></li>`).join("")}</ul></aside>`;
+  const byLetter = letters.map((l) => `<section>${heading(`letter-${l}`, l)}<dl class="doc-glossary">${terms.filter((t) => t.name[0].toUpperCase() === l).map((t) => {
+    const where = definedIn(t);
+    return `<dt id="${termId(t)}">${esc(t.name)}</dt><dd>${esc(t.description)}${where ? ` <a class="doc-glossary__source" href="${where.href}">${where.label}</a>` : ""}</dd>`;
+  }).join("")}</dl></section>`).join("");
+  const nav = renderDocNav({
+    label: "Personnel Management Regulations",
+    set: { name: "Personnel Management Regulations", href: "./" },
+    collapse: true,
+    search: { src: "search.json", script: "../doc-search.js" },
+    groups: groups.map((g) => ({ name: `${g.legislationIdentifier}: ${g.name}`, items: refs(g).sort((a, b) => a.position - b.position).map((p) => ({ label: `PMR ${number(p)}: ${p.name || ""}`, href: `${slug(p)}.html`, current: false })) })).concat([referenceGroup(true)]),
+  });
+  const body = `<div class="pmr-layout">${nav}<article>${docActions("glossary", null, { citation: false, jsonSrc: "data/definitions.jsonld", jsonThis: "JSON (this glossary)", jsonAll: null })}<section class="hero pmr-hero"><h1>Glossary</h1></section>${byLetter}</article>${toc}</div>` +
+    `<script type="application/ld+json">${JSON.stringify({ "@context": definitions["@context"], "@graph": definitions["@graph"] }).replace(/</g, "\\u003c")}</script><script src="../guides/guide-actions.js" defer></script>`;
+  fs.writeFileSync(path.join(ROOT, "pmrs", "glossary.html"), page("Glossary", "The terms the Personnel Management Regulations define.", body));
+}
+
 // The list page: one card for each Section of the manual, listing its regulations as links, and a search box that looks through the whole manual.
-const cards = groups.map((g) => `<article class="app-card set-card"><h2 id="section-${g.position}">${esc(g.legislationIdentifier)}: ${esc(g.name)}</h2><ul>${refs(g).sort((a, b) => a.position - b.position).map((p) => `<li><a href="./${slug(p)}.html">PMR ${esc(number(p))}: ${esc(p.name || "")}</a></li>`).join("")}</ul></article>`).join("");
+const referenceCard = `<article class="app-card set-card"><h2 id="reference">Reference</h2><ul><li><a href="./glossary.html">Glossary</a></li></ul></article>`;
+const cards = groups.map((g) => `<article class="app-card set-card"><h2 id="section-${g.position}">${esc(g.legislationIdentifier)}: ${esc(g.name)}</h2><ul>${refs(g).sort((a, b) => a.position - b.position).map((p) => `<li><a href="./${slug(p)}.html">PMR ${esc(number(p))}: ${esc(p.name || "")}</a></li>`).join("")}</ul></article>`).join("") + referenceCard;
 const searchBox = `<search class="doc-nav__search set-search" data-doc-search data-search-src="search.json" data-hide="#set-cards" aria-label="Search Personnel Management Regulations" hidden><div class="search-input-field"><label for="doc-nav-search">Search</label><input type="search" id="doc-nav-search" autocomplete="off"></div><p class="doc-nav__status app-help-text" role="status" aria-live="polite"></p><div class="doc-nav__results"></div></search><script src="../doc-search.js" defer></script>`;
 fs.writeFileSync(path.join(ROOT, "pmrs/index.html"), page("Personnel Management Regulations", "The County of Marin's rules for personnel matters.",
   `<section class="hero pmr-hero"><h1>Personnel Management Regulations</h1><p class="lede">The County of Marin's rules for personnel matters.</p></section>${searchBox}<div class="docs-grid docs-grid--2" id="set-cards">${cards}</div><section>${heading("source", "Source")}<p><a href="${esc(source.url)}">${esc(source.name)}</a></p></section>`));
