@@ -287,3 +287,24 @@
 .doc-details .details {
   margin: 0;
 }
+
+/* A glossary (scripts/build-pmrs.js): terms A to Z, each with its definition and a link to where it is defined. */
+.doc-glossary {
+  margin: 0;
+}
+
+.doc-glossary dt {
+  margin-top: 1rem;
+  font-weight: 700;
+}
+
+.doc-glossary dd {
+  margin: 0.15rem 0 0;
+  color: var(--app-muted);
+}
+
+.doc-glossary__source {
+  margin-left: 0.25rem;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}

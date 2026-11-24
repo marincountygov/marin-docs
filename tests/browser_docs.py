@@ -300,6 +300,33 @@ def check_citation(browser, base):
         context.close()
 
 
+def check_glossary(browser, base):
+    """The glossary: reached from a regulation's navigation, found by a search of the manual, its menu has no citation, and a term's link opens
+    the section that defines it."""
+    context = browser.new_context(viewport={"width": 1100, "height": 800})
+    try:
+        page = context.new_page()
+        page.goto(base + "pmrs/pmr-24.html")
+        page.wait_for_selector("marin-app-header .app-header")
+        page.locator(".doc-nav summary", has_text="Reference").click()
+        page.locator(".doc-nav a", has_text="Glossary").click()
+        page.wait_for_url("**/pmrs/glossary.html")
+        require(page.locator("h1").nth(1).inner_text() == "Glossary" and page.locator(".doc-nav a[aria-current=page]").inner_text() == "Glossary", "The glossary opens from the navigation and is marked there")
+        require(page.locator("dl.doc-glossary dt").count() >= 20, "The terms are listed")
+        page.click(".doc-actions [aria-controls=copy-panel]")
+        require(page.locator("#copy-panel button").all_text_contents() == ["Text", "HTML", "Markdown"], "The glossary has no citation")
+        page.keyboard.press("Escape")
+        page.fill(".doc-nav__search input", "anniversary")
+        page.wait_for_selector(".doc-nav__results a")
+        require(page.locator(".doc-nav__results a", has_text="Anniversary Date").count() == 1, "A search of the manual finds the term")
+        page.goto(base + "pmrs/glossary.html")
+        page.locator("a.doc-glossary__source").first.click()
+        page.wait_for_url("**/pmrs/pmr-2.html#2-1")
+        require(page.locator("[id='2-1']").is_visible(), "A term's link opens the section that defines it")
+    finally:
+        context.close()
+
+
 def main():
     server = ThreadingHTTPServer(("127.0.0.1", 0), partial(Handler, directory=str(ROOT)))
     Thread(target=server.serve_forever, daemon=True).start()
@@ -315,6 +342,7 @@ def main():
             check_lifecycle(browser, base)
             check_print(browser, base)
             check_citation(browser, base)
+            check_glossary(browser, base)
         finally:
             browser.close()
             server.shutdown()

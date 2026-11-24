@@ -339,6 +339,32 @@ class PageTests(unittest.TestCase):
             found = re.search(r'data-citation-effective="([^"]*)"', html)
             self.assertEqual(found.group(1) if found else None, effective, f"PMR {number}: the effective date is the data's, or absent")
 
+    def test_the_glossary_is_the_defined_terms_and_each_links_to_its_definition(self):
+        """The glossary has every term the data defines, A to Z, each with the data's definition and a link that lands on a heading of the page that defines it."""
+        data = json.loads((ROOT / "pmrs" / "data" / "definitions.jsonld").read_text(encoding="utf-8"))["@graph"]
+        terms = sorted((n for n in data if n["@type"] == "DefinedTerm"), key=lambda n: n["name"].lower())
+        self.assertGreater(len(terms), 20)
+        html = (ROOT / "pmrs" / "glossary.html").read_text(encoding="utf-8")
+        shown = re.findall(r'<dt id="([^"]+)">(.*?)</dt><dd>(.*?)</dd>', html)
+        self.assertEqual([name for _, name, _ in shown], [t["name"] for t in terms], "every term, A to Z")
+        for (term_id, _, definition), term in zip(shown, terms):
+            self.assertEqual(term_id, term["@id"].split("/")[-1])
+            text = re.sub(r"\s*<a [^>]*>[^<]*</a>", "", definition).replace("&amp;", "&").replace("&#39;", "'").replace("&quot;", '"')
+            self.assertEqual(text, term["description"], f"{term['name']}: the definition is the data's")
+            link = re.search(r'<a class="doc-glossary__source" href="([^"]+)">', definition)
+            self.assertIsNotNone(link, f"{term['name']}: a link to where it is defined")
+            page, anchor = link.group(1).split("#")
+            self.assertIn(f'id="{anchor}"', (ROOT / "pmrs" / page).read_text(encoding="utf-8"), f"{term['name']}: {link.group(1)} lands on a heading")
+        letters = re.findall(r'<h2 id="letter-([A-Z])">', html)
+        self.assertEqual(letters, sorted(set(t["name"][0].upper() for t in terms)), "a heading for each letter that has a term, in order")
+        self.assertEqual(len(re.findall(r'<aside class="doc-nav".*?aria-current="page"[^>]*>Glossary', html, re.S)), 1, "the glossary is marked in its own navigation")
+
+    def test_the_glossary_is_in_every_regulations_navigation_and_on_the_list_page(self):
+        for page in sorted((ROOT / "pmrs").glob("pmr-*.html")):
+            nav = re.search(r'<aside class="doc-nav".*?</aside>', page.read_text(encoding="utf-8"), re.S).group(0)
+            self.assertIn('<summary>Reference</summary><ul><li><a href="glossary.html">Glossary</a></li></ul>', nav, f"{page.name}: Reference, Glossary")
+        self.assertIn('<h2 id="reference">Reference</h2><ul><li><a href="./glossary.html">Glossary</a></li></ul>', (ROOT / "pmrs" / "index.html").read_text(encoding="utf-8"))
+
     def test_sop_navigation_is_current(self):
         result = subprocess.run(["node", str(ROOT / "scripts" / "build-sop-nav.js"), "--check"], capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)

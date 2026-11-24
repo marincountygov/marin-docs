@@ -2929,6 +2929,240 @@
    ],
    "d": "Once the need for reasonable accommodation arises either by the employee’s request or by the County’s knowledge of the employee’s disability, the County by and…",
    "h": "pmrs/pmr-49.html#49-4"
+  },
+  {
+   "k": "PMR",
+   "n": "Administrator",
+   "a": [
+    "Glossary"
+   ],
+   "d": "The County Administrator or his or her designee.",
+   "h": "pmrs/glossary.html#administrator"
+  },
+  {
+   "k": "PMR",
+   "n": "Allocation",
+   "a": [
+    "Glossary"
+   ],
+   "d": "The assignment of a position to an appropriate classification as a budgetary action by the Board of Supervisors.",
+   "h": "pmrs/glossary.html#allocation"
+  },
+  {
+   "k": "PMR",
+   "n": "Anniversary Date",
+   "a": [
+    "Glossary"
+   ],
+   "d": "The date recurring yearly upon an employee's most recent regular appointment.",
+   "h": "pmrs/glossary.html#anniversary-date"
+  },
+  {
+   "k": "PMR",
+   "n": "Applicant",
+   "a": [
+    "Glossary"
+   ],
+   "d": "Any person who, according to these rules, has made formal application for employment.",
+   "h": "pmrs/glossary.html#applicant"
+  },
+  {
+   "k": "PMR",
+   "n": "Appointing Authority",
+   "a": [
+    "Glossary"
+   ],
+   "d": "The person(s) having authority to appoint or to remove persons from positions in the County service or subordinates to whom this authority is delegated.",
+   "h": "pmrs/glossary.html#appointing-authority"
+  },
+  {
+   "k": "PMR",
+   "n": "Appointment",
+   "a": [
+    "Glossary"
+   ],
+   "d": "The offer of and acceptance by a candidate to a position in the county service. Types of appointments are described in PMR 34.2.",
+   "h": "pmrs/glossary.html#appointment"
+  },
+  {
+   "k": "PMR",
+   "n": "Board",
+   "a": [
+    "Glossary"
+   ],
+   "d": "The Board of Supervisors of the County of Marin.",
+   "h": "pmrs/glossary.html#board"
+  },
+  {
+   "k": "PMR",
+   "n": "Certification",
+   "a": [
+    "Glossary"
+   ],
+   "d": "The submission of names of eligible candidates from an employment list to an appointing authority by the Director of Human Resources or his or her designee.",
+   "h": "pmrs/glossary.html#certification"
+  },
+  {
+   "k": "PMR",
+   "n": "Classification or Class",
+   "a": [
+    "Glossary"
+   ],
+   "d": "A position or group of positions having the same title, class specification, minimum qualifications and salary.",
+   "h": "pmrs/glossary.html#classification-or-class"
+  },
+  {
+   "k": "PMR",
+   "n": "Classification Plan",
+   "a": [
+    "Glossary"
+   ],
+   "d": "The arrangement of positions into classes together with specifications describing each classification, approved by the Board of Supervisors.",
+   "h": "pmrs/glossary.html#classification-plan"
+  },
+  {
+   "k": "PMR",
+   "n": "Commission",
+   "a": [
+    "Glossary"
+   ],
+   "d": "The Personnel Commission of the County of Marin.",
+   "h": "pmrs/glossary.html#commission"
+  },
+  {
+   "k": "PMR",
+   "n": "County",
+   "a": [
+    "Glossary"
+   ],
+   "d": "The County of Marin government organization and all special districts governed solely by the Board of Supervisors, e.g. Open Space District.",
+   "h": "pmrs/glossary.html#county"
+  },
+  {
+   "k": "PMR",
+   "n": "Day",
+   "a": [
+    "Glossary"
+   ],
+   "d": "Calendar day. If the final day of a time period falls on a weekend or holiday, the next calendar day following will constitute the final calendar day.",
+   "h": "pmrs/glossary.html#day"
+  },
+  {
+   "k": "PMR",
+   "n": "Demotion",
+   "a": [
+    "Glossary"
+   ],
+   "d": "A change in status of an employee from a position in one classification to a position in another classification with lesser duties and responsibilities, lower…",
+   "h": "pmrs/glossary.html#demotion"
+  },
+  {
+   "k": "PMR",
+   "n": "Eligible Candidate",
+   "a": [
+    "Glossary"
+   ],
+   "d": "A person who has successfully passed all initial examination requirements for a classification for which he/she has made official application and has been plac…",
+   "h": "pmrs/glossary.html#eligible-candidate"
+  },
+  {
+   "k": "PMR",
+   "n": "Eligible List",
+   "a": [
+    "Glossary"
+   ],
+   "d": "An officially promulgated list of eligible candidates for a specific classification in rank order of final examination score, re-employment rights, or transfer.",
+   "h": "pmrs/glossary.html#eligible-list"
+  },
+  {
+   "k": "PMR",
+   "n": "Employee",
+   "a": [
+    "Glossary"
+   ],
+   "d": "A person who is employed by the County.",
+   "h": "pmrs/glossary.html#employee"
+  },
+  {
+   "k": "PMR",
+   "n": "Exempt Employee",
+   "a": [
+    "Glossary"
+   ],
+   "d": "An employee defined under federal law as not subject to overtime payment over 40 hours per week or the equivalent. Also known under federal law as a salaried e…",
+   "h": "pmrs/glossary.html#exempt-employee"
+  },
+  {
+   "k": "PMR",
+   "n": "Merit System",
+   "a": [
+    "Glossary"
+   ],
+   "d": "The system of personnel administration governing all positions and/or classifications and the employees occupying such positions, except those specifically exe…",
+   "h": "pmrs/glossary.html#merit-system"
+  },
+  {
+   "k": "PMR",
+   "n": "Non-Exempt Employee",
+   "a": [
+    "Glossary"
+   ],
+   "d": "An employee who under federal law must be paid premium wages (or compensatory time off) when he or she works over 40 hours per week or the equivalent. Also kno…",
+   "h": "pmrs/glossary.html#non-exempt-employee"
+  },
+  {
+   "k": "PMR",
+   "n": "Overtime",
+   "a": [
+    "Glossary"
+   ],
+   "d": "Authorized work beyond the identified week or work period.",
+   "h": "pmrs/glossary.html#overtime"
+  },
+  {
+   "k": "PMR",
+   "n": "Probationary Period",
+   "a": [
+    "Glossary"
+   ],
+   "d": "A trial period during which an employee in the Merit System is required to demonstrate competency in the knowledge, skills and abilities necessary to successfu…",
+   "h": "pmrs/glossary.html#probationary-period"
+  },
+  {
+   "k": "PMR",
+   "n": "Promotion",
+   "a": [
+    "Glossary"
+   ],
+   "d": "Advancement of an employee from a position in an established classification to a position in an established classification with higher level duties and respons…",
+   "h": "pmrs/glossary.html#promotion"
+  },
+  {
+   "k": "PMR",
+   "n": "Reassignment",
+   "a": [
+    "Glossary"
+   ],
+   "d": "A move of an employee from one division or budget center to another within the same department in the same or similar classification at the same rate of pay.",
+   "h": "pmrs/glossary.html#reassignment"
+  },
+  {
+   "k": "PMR",
+   "n": "Reclassification",
+   "a": [
+    "Glossary"
+   ],
+   "d": "A reallocation of a position and the incumbent, if applicable, to a different or new classification because of a significant change in duties and/or responsibi…",
+   "h": "pmrs/glossary.html#reclassification"
+  },
+  {
+   "k": "PMR",
+   "n": "Reinstatement",
+   "a": [
+    "Glossary"
+   ],
+   "d": "A return to employment of an employee following leave without pay, upon reemployment following layoff, or return within 60 days of resignation.",
+   "h": "pmrs/glossary.html#reinstatement"
   }
  ]
 }
