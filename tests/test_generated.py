@@ -365,6 +365,19 @@ class PageTests(unittest.TestCase):
             self.assertIn('<summary>Reference</summary><ul><li><a href="glossary.html">Glossary</a></li></ul>', nav, f"{page.name}: Reference, Glossary")
         self.assertIn('<h2 id="reference">Reference</h2><ul><li><a href="./glossary.html">Glossary</a></li></ul>', (ROOT / "pmrs" / "index.html").read_text(encoding="utf-8"))
 
+    def test_every_numbered_section_ends_with_its_own_copy_buttons(self):
+        """Each numbered section of each regulation ends with Copy citation and Copy text for that section, left out of the Source section and out of what the page copies."""
+        for page in sorted((ROOT / "pmrs").glob("pmr-*.html")):
+            html = page.read_text(encoding="utf-8")
+            sections = re.findall(r'<section><h2 id="([0-9]+-[0-9]+)">.*?(?=<section>|$)', html, re.S)
+            self.assertTrue(sections, page.name)
+            for section_id in sections:
+                for kind in ("citation", "text"):
+                    self.assertEqual(html.count(f'data-section-copy="{kind}" data-section-id="{section_id}"'), 1, f"{page.name}: {section_id} has one {kind} button")
+            self.assertEqual(html.count('class="section-actions" data-no-copy'), len(sections), f"{page.name}: one set of buttons for each numbered section")
+            source = re.search(r'<section><h2 id="source">.*?</section>', html, re.S).group(0)
+            self.assertNotIn("section-actions", source, f"{page.name}: none in Source")
+
     def test_sop_navigation_is_current(self):
         result = subprocess.run(["node", str(ROOT / "scripts" / "build-sop-nav.js"), "--check"], capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
