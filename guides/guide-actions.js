@@ -1,4 +1,4 @@
-// The JSON downloads of a document, and Print or save as PDF (the print dialog; doc-nav.css has the print layout). Copy and Download in Text, HTML and Markdown are the shell's: the .doc-actions
+// The JSON downloads of a document, the citation of a regulation, and Print or save as PDF (the print dialog; doc-nav.css has the print layout). Copy and Download in Text, HTML and Markdown are the shell's: the .doc-actions
 // container carries data-formats-for="article.content" and data-file-name, and the shell (marinContentFormats,
 // marinFormatMenus) reads the page and passes it to marinCopyRich, marinCopyText and marinDownload. This adds the two
 // formats only a guide has: the page's own structured data and the whole guide's.
@@ -36,7 +36,24 @@
     }
   }
 
+  // Copy citation: for a document that names its manual (data-citation-base), the citation of the section the address points at, or of the whole
+  // document when it points at none. It holds only what the page already says: the manual, the document or section as it is headed, the effective
+  // date when the data has one, the address, and the day it was copied.
+  //   County of Marin, Personnel Management Regulations, PMR 24.3 Formal Grievance (effective 2005-01). https://…/pmr-24.html#24-3 (accessed 2026-11-24).
+  async function copyCitation() {
+    const { citationBase: base, citationPrefix: prefix = "", citationEffective: effective } = actions.dataset;
+    const target = location.hash.length > 1 ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
+    const heading = target && target.matches("h2") ? [...target.childNodes].filter((n) => !(n.nodeType === 1 && n.matches(".heading-anchor"))).map((n) => n.textContent).join("").trim() : "";
+    const numbered = /^\d+(\.\d+)*\s/.test(heading); // "24.3 Formal Grievance" is a section; "Source" is not
+    const what = numbered ? `${prefix} ${heading}`.trim() : (document.querySelector("article h1")?.textContent || document.title).trim();
+    const accessed = new Date().toLocaleDateString("en-CA");
+    const url = `${location.origin}${location.pathname}${numbered ? location.hash : ""}`;
+    const text = `${base}, ${what}${effective ? ` (effective ${effective})` : ""}. ${url} (accessed ${accessed}).`;
+    say((await marinCopyText(text)) ? "Citation copied." : "Could not copy the citation.");
+  }
+
   actions.addEventListener("click", (event) => {
+    if (event.target.closest('[data-copy-format="citation"]')) copyCitation();
     const button = event.target.closest("[data-download-format]");
     if (button) download(button.dataset.downloadFormat);
   });

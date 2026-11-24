@@ -327,6 +327,18 @@ class PageTests(unittest.TestCase):
             shown = re.findall(r"<dt>(.*?)</dt><dd>(.*?)</dd>", block.group(0))
             self.assertEqual(shown, [(t, v.replace("&", "&amp;")) for t, v in expected], f"PMR {number}: the details are the data's")
 
+    def test_regulations_can_be_cited_from_the_data(self):
+        """Each regulation's Copy menu has Citation, with the manual's name; the effective date is on the page only where the data has one."""
+        graph = json.loads((ROOT / "pmrs" / "data" / "regulations.jsonld").read_text(encoding="utf-8"))["@graph"]
+        for node in [n for n in graph if n.get("codificationLevel") == "chapter"]:
+            number = node["legislationIdentifier"].replace("PMR", "").strip()
+            html = (ROOT / "pmrs" / f"pmr-{number}.html").read_text(encoding="utf-8")
+            self.assertIn('data-copy-format="citation">Citation</button>', html, f"PMR {number}: Citation")
+            self.assertIn('data-citation-base="County of Marin, Personnel Management Regulations" data-citation-prefix="PMR"', html, f"PMR {number}: the manual")
+            effective = next((i["value"] for i in node.get("identifier", []) if i.get("propertyID") == "local:pmr-effective-date-as-written"), None)
+            found = re.search(r'data-citation-effective="([^"]*)"', html)
+            self.assertEqual(found.group(1) if found else None, effective, f"PMR {number}: the effective date is the data's, or absent")
+
     def test_sop_navigation_is_current(self):
         result = subprocess.run(["node", str(ROOT / "scripts" / "build-sop-nav.js"), "--check"], capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
