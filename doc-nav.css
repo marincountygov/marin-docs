@@ -1,4 +1,3 @@
-@import url("search-text.css");
 /* The document set outline: the left navigation of guide pages, PMRs and SOPs (scripts/doc-nav.js).
    Imported by guides/styles.css and sop/styles.css. A long set (the PMRs) scrolls inside its column. */
 .doc-nav {

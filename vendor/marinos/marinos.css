@@ -1089,6 +1089,22 @@ th[aria-sort="descending"] .sort-button::after {
   min-width: 0;
 }
 
+/* Search results that show where the words are: a line of the text under a result, and the same words marked on the page the
+   result opens (marinSearchSnippet and marinSearchHighlight in the shell). Never the browser's default yellow mark. */
+mark.search-hit {
+  padding: 0 0.1em;
+  border-radius: 0.15em;
+  background: color-mix(in srgb, var(--app-accent) 22%, var(--app-surface));
+  color: var(--app-text);
+}
+
+.search-snippet {
+  display: block;
+  color: var(--app-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
 /* Fields and filters inside the filter panel. The same look in every app, so a filter column in one app is
    recognizable in the next. Order inside the panel: the title row (.search-panel-header, from the shell, with
    the Reset icon button beside the title), then Search, then the other fields, then the filter groups. */
@@ -2156,7 +2172,7 @@ th[aria-sort="descending"] .sort-button::after {
   stroke-linejoin: round;
 }
 
-/* Marin App Shell 2.1.0: component integration only.
+/* Marin App Shell 2.2.0: component integration only.
    General visual rules come from the locked, unmodified Marin UI input. */
 marin-os-banner,
 marin-app-header,

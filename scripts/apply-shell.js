@@ -22,11 +22,11 @@ let changed = 0;
 for (const file of walk("").filter((f) => f.includes("/"))) {
   const html = fs.readFileSync(path.join(ROOT, file), "utf8");
   if (!html.includes('<header class="site-header">')) {
-    // Already has the shell: make sure it has the script that highlights searched words.
-    if (!html.includes("doc-highlight.js") && html.includes('app-home.js" defer></script>')) {
-      if (check) { console.error(`${file}: has no doc-highlight.js`); changed += 1; continue; }
-      const root = "../".repeat(file.split("/").length - 1);
-      fs.writeFileSync(path.join(ROOT, file), html.replace(/<script src="[^"]*app-home\.js" defer><\/script>/, (m) => `${m}<script src="${root}doc-highlight.js" defer></script>`));
+    // Already has the shell. The shell marks searched words on arrival now, so a page must not carry the old copy of that script.
+    const old = /<script src="[^"]*doc-highlight\.js" defer><\/script>/;
+    if (old.test(html)) {
+      if (check) { console.error(`${file}: still loads the old doc-highlight.js`); changed += 1; continue; }
+      fs.writeFileSync(path.join(ROOT, file), html.replace(old, ""));
       changed += 1;
     }
     continue;

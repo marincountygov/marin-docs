@@ -6,8 +6,8 @@
     return;
   }
 
-  const SHELL_VERSION = "2.1.0";
-  const MARIN_UI_VERSION = "1.37.0";
+  const SHELL_VERSION = "2.2.0";
+  const MARIN_UI_VERSION = "1.38.0";
   const MARINOS_URL = "https://marincountygov.github.io/marin-os/";
   const MARINOS_STATUS_URL = `${MARINOS_URL}#status`;
   const CATALOG_URL = `${MARINOS_URL}catalog.json`;
@@ -2354,6 +2354,115 @@
 
   window.marinContentFormats = contentFormats;
   window.marinFormatMenus = formatMenus;
+
+  // ---- Search results that show where the words are -----------------------------------------------------------------
+  // A search of document text shows a line of the text under each result with the matched words marked (marinSearchSnippet),
+  // and marks the same words on the page the result opens. The words travel in sessionStorage, never in the address
+  // (marinSearchRemember on a press, and the highlighter below on arrival). The rules are "Search results that show where the
+  // words are" in Marin UI's docs/components.md; the two classes (mark.search-hit, .search-snippet) are in Marin UI's CSS.
+  const SEARCH_HIT_KEY = "marin-search-hit";
+  const SEARCH_WORD = /[\p{L}\p{N}]+/gu;
+  const searchPlain = (text) => String(text || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+  /** The words of what a person typed, lower case and without accents: what marinSearchSnippet and marinSearchRemember take. */
+  function marinSearchWords(text) {
+    return searchPlain(text).split(/[^a-z0-9]+/).filter(Boolean);
+  }
+
+  const startsAWord = (word, words) => words.some((w) => searchPlain(word).startsWith(w));
+
+  /** A `span.search-snippet` with about a line of `text` around the first word that starts with a typed word, each such word in a
+   * `mark.search-hit`, with an ellipsis on a side that continues. `null` when no word of the text starts with one. */
+  function marinSearchSnippet(text, words) {
+    const source = String(text || "");
+    const first = [...source.matchAll(SEARCH_WORD)].find((m) => startsAWord(m[0], words));
+    if (!first) return null;
+    let start = Math.max(0, first.index - 60);
+    if (start) {
+      const gap = source.indexOf(" ", start);
+      if (gap > -1 && gap < first.index) start = gap + 1;
+    }
+    let end = Math.min(source.length, start + 170);
+    if (end < source.length) {
+      const gap = source.lastIndexOf(" ", end);
+      if (gap > first.index) end = gap;
+    }
+    const part = source.slice(start, end);
+    const span = Object.assign(document.createElement("span"), { className: "search-snippet" });
+    if (start) span.append("\u2026");
+    let at = 0;
+    for (const m of part.matchAll(SEARCH_WORD)) {
+      if (!startsAWord(m[0], words)) continue;
+      span.append(part.slice(at, m.index), Object.assign(document.createElement("mark"), { className: "search-hit", textContent: m[0] }));
+      at = m.index + m[0].length;
+    }
+    span.append(part.slice(at));
+    if (end < source.length) span.append("\u2026");
+    return span;
+  }
+
+  /** Keep the typed words for the page `href` opens (call it when a result is pressed). Quietly does nothing without storage. */
+  function marinSearchRemember(href, words) {
+    try {
+      sessionStorage.setItem(SEARCH_HIT_KEY, JSON.stringify({ path: new URL(href, location.href).pathname, terms: words, at: Date.now() }));
+    } catch {
+      /* no storage: no highlight */
+    }
+  }
+
+  // On arrival: if the words were kept for this page (and are under two minutes old), mark each word that starts with one inside the
+  // page's content ([data-search-highlight], else #start, else #main), scroll to the first mark (or stay at the section the address
+  // names), and let Escape clear the marks. Read once; a reload shows none.
+  function marinSearchHighlight() {
+    let hit = null;
+    try {
+      hit = JSON.parse(sessionStorage.getItem(SEARCH_HIT_KEY) || "null");
+      sessionStorage.removeItem(SEARCH_HIT_KEY);
+    } catch {
+      return;
+    }
+    if (!hit || hit.path !== location.pathname || !Array.isArray(hit.terms) || !hit.terms.length || Date.now() - hit.at > 120000) return;
+    const root = document.querySelector("[data-search-highlight]") || document.getElementById("start") || document.getElementById("main");
+    if (!root) return;
+    const skip = "script, style, nav, aside, .doc-actions, .doc-pager, mark, [data-no-copy], search, template";
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: (n) => (n.parentElement && !n.parentElement.closest(skip) && n.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT),
+    });
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    const marks = [];
+    for (const node of nodes) {
+      const text = node.nodeValue;
+      const found = [...text.matchAll(SEARCH_WORD)].filter((m) => startsAWord(m[0], hit.terms));
+      if (!found.length) continue;
+      const fragment = document.createDocumentFragment();
+      let at = 0;
+      for (const m of found) {
+        fragment.append(text.slice(at, m.index));
+        const mark = Object.assign(document.createElement("mark"), { className: "search-hit", textContent: m[0] });
+        marks.push(mark);
+        fragment.append(mark);
+        at = m.index + m[0].length;
+      }
+      fragment.append(text.slice(at));
+      node.replaceWith(fragment);
+    }
+    if (!marks.length) return;
+    const target = location.hash.length > 1 ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
+    (marks.find((m) => target && target.contains(m)) || marks[0]).scrollIntoView({ block: "center" });
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      marks.forEach((m) => m.replaceWith(document.createTextNode(m.textContent)));
+      root.normalize();
+    });
+  }
+
+  window.marinSearchWords = marinSearchWords;
+  window.marinSearchSnippet = marinSearchSnippet;
+  window.marinSearchRemember = marinSearchRemember;
+  window.marinSearchHighlight = marinSearchHighlight;
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", marinSearchHighlight);
+  else marinSearchHighlight();
 
   // Copy-to-clipboard: any button[data-copy-value] copies that value and
   // shows brief feedback. Announces through #app-status-message if present

@@ -28,7 +28,7 @@ function shellBody(depth, content, mainClass = "page") {
 
 // The attributes the body needs, and the script that points the title link at the app's root (the shell's title link is "./", right on the home page only).
 const bodyAttrs = (depth) => ` data-app-id="marin-docs" data-app-root="${rootOf(depth)}"`;
-const homeScript = (depth) => `<script src="${rootOf(depth)}app-home.js" defer></script><script src="${rootOf(depth)}doc-highlight.js" defer></script>`;
+const homeScript = (depth) => `<script src="${rootOf(depth)}app-home.js" defer></script>`;
 
 function toShell(html, file) {
   if (html.includes("<marin-app-header")) return html;
