@@ -6,36 +6,11 @@
 (() => {
   "use strict";
   const plain = (t) => String(t || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
-  const words = (t) => plain(t).split(/[^a-z0-9]+/).filter(Boolean);
+  const words = (t) => window.marinSearchWords(t);
   const SHOWN = 40;
-  // Where the words are: about a line of the text around the first word that starts with a typed word, the words marked. Shown on a set's
-  // list page; the left navigation is too narrow for it and lists names only.
-  const WORD = /[\p{L}\p{N}]+/gu;
-  const hits = (word, typed) => typed.some((t) => plain(word).startsWith(t));
-  const snippet = (text, typed) => {
-    const first = [...text.matchAll(WORD)].find((m) => hits(m[0], typed));
-    if (!first) return null;
-    let start = Math.max(0, first.index - 60);
-    if (start) { const gap = text.indexOf(" ", start); if (gap > -1 && gap < first.index) start = gap + 1; }
-    let end = Math.min(text.length, start + 170);
-    if (end < text.length) { const gap = text.lastIndexOf(" ", end); if (gap > first.index) end = gap; }
-    const part = text.slice(start, end);
-    const span = Object.assign(document.createElement("span"), { className: "search-snippet" });
-    if (start) span.append("…");
-    let at = 0;
-    for (const m of part.matchAll(WORD)) {
-      if (!hits(m[0], typed)) continue;
-      span.append(part.slice(at, m.index), Object.assign(document.createElement("mark"), { className: "search-hit", textContent: m[0] }));
-      at = m.index + m[0].length;
-    }
-    span.append(part.slice(at));
-    if (end < text.length) span.append("…");
-    return span;
-  };
-  // The words go with the person to the page a result opens (doc-highlight.js there marks them); nothing is added to the address.
-  const remember = (href, typed) => {
-    try { sessionStorage.setItem("marin-search-hit", JSON.stringify({ path: new URL(href, location.href).pathname, terms: typed, at: Date.now() })); } catch { /* no storage: no highlight */ }
-  };
+  // Where the words are, and the words marked on the page a result opens, come from the shell (marinSearchSnippet, marinSearchRemember),
+  // which is loaded after this script on some pages: they are called when someone searches, never while this file loads.
+  // A snippet is shown on a set's list page; the left navigation is too narrow for it and lists names only.
 
   document.querySelectorAll("search[data-doc-search]").forEach((box) => {
     const input = box.querySelector("input[type=search]");
@@ -86,7 +61,7 @@
       const li = document.createElement("li");
       li.append(Object.assign(document.createElement("a"), { href: new URL(e.h, src).href, textContent: e.n }));
       if (e.p) li.append(Object.assign(document.createElement("span"), { className: "doc-nav__in", textContent: e.p }));
-      if (box.dataset.hide && e.t) li.append(snippet(e.t, typedNow) || Object.assign(document.createElement("span"), { className: "search-snippet", textContent: e.t.length > 170 ? `${e.t.slice(0, 169).trimEnd()}…` : e.t }));
+      if (box.dataset.hide && e.t) li.append(window.marinSearchSnippet(e.t, typedNow) || Object.assign(document.createElement("span"), { className: "search-snippet", textContent: e.t.length > 170 ? `${e.t.slice(0, 169).trimEnd()}…` : e.t }));
       return li;
     };
     const clear = () => { results.replaceChildren(); status.replaceChildren(); covered().forEach((el) => { el.hidden = false; }); };
@@ -114,7 +89,7 @@
       else if (event.key === "ArrowDown") { const first = links()[0]; if (first) { event.preventDefault(); first.focus(); } }
       else if (event.key === "Escape") { input.value = ""; clear(); }
     });
-    results.addEventListener("click", (event) => { const link = event.target.closest("a[href]"); if (link) remember(link.href, typedNow); });
+    results.addEventListener("click", (event) => { const link = event.target.closest("a[href]"); if (link) window.marinSearchRemember(link.href, typedNow); });
     results.addEventListener("keydown", (event) => {
       const all = links();
       const at = all.indexOf(document.activeElement);

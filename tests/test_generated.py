@@ -247,9 +247,13 @@ class PageTests(unittest.TestCase):
                 self.assertTrue(e["n"] and e["h"], f"{entry['src']}: {e}")
                 self.assertTrue((path.parent / e["h"].split("#")[0]).is_file(), f"{entry['src']}: {e['h']} opens a page")
 
-    def test_every_page_can_highlight_searched_words(self):
-        for page in list((ROOT / "pmrs").glob("pmr-*.html")) + list((ROOT / "guides").glob("*/*.html")) + self.listed_sop_pages():
-            self.assertIn("doc-highlight.js", page.read_text(encoding="utf-8"), page.name)
+    def test_pages_use_the_shell_to_highlight_searched_words(self):
+        """The shell marks the words a search kept for the page (marinSearchHighlight); no page carries a script of its own for it."""
+        pages = list((ROOT / "pmrs").glob("pmr-*.html")) + list((ROOT / "guides").glob("*/*.html")) + self.listed_sop_pages()
+        for page in pages:
+            self.assertNotIn("doc-highlight.js", page.read_text(encoding="utf-8"), page.name)
+        self.assertIn("marinSearchHighlight", (ROOT / "vendor" / "marinos" / "marinos.js").read_text(encoding="utf-8"), "the installed shell has the highlighter")
+        self.assertFalse((ROOT / "doc-highlight.js").exists() or (ROOT / "search-text.css").exists(), "the copies of the shell's code and styles are gone")
 
     def test_sop_navigation_is_current(self):
         result = subprocess.run(["node", str(ROOT / "scripts" / "build-sop-nav.js"), "--check"], capture_output=True, text=True)

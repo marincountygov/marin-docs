@@ -1,4 +1,3 @@
-@import url("search-text.css");
 /* The search box on the Marin Docs home page. The same look as the search box on the MarinOS home page. */
 .home-search { display: block; margin: 0 0 1.5rem; }
 .home-search .search-input-field { width: 75%; margin-bottom: 0; }
