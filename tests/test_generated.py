@@ -255,6 +255,28 @@ class PageTests(unittest.TestCase):
         self.assertIn("marinSearchHighlight", (ROOT / "vendor" / "marinos" / "marinos.js").read_text(encoding="utf-8"), "the installed shell has the highlighter")
         self.assertFalse((ROOT / "doc-highlight.js").exists() or (ROOT / "search-text.css").exists(), "the copies of the shell's code and styles are gone")
 
+    def test_regulation_details_are_the_data_and_nothing_else(self):
+        """Each regulation page shows the rows its data has, in the data's words, and a regulation with no such data has no block."""
+        graph = json.loads((ROOT / "pmrs" / "data" / "regulations.jsonld").read_text(encoding="utf-8"))["@graph"]
+        chapters = [n for n in graph if n.get("codificationLevel") == "chapter"]
+        self.assertGreater(len(chapters), 20)
+
+        def local(node, key):
+            return next((i["value"] for i in node.get("identifier", []) if i.get("propertyID") == f"local:pmr-{key}-as-written"), None)
+
+        for node in chapters:
+            number = node["legislationIdentifier"].replace("PMR", "").strip()
+            html = (ROOT / "pmrs" / f"pmr-{number}.html").read_text(encoding="utf-8")
+            expected = [(t, v) for t, v in [("Effective", local(node, "effective-date")), ("Applies from", node.get("legislationDateOfApplicability")),
+                                            ("Version dated", node.get("legislationDateVersion")), ("Prepared by", local(node, "prepared-by")),
+                                            ("Approved by", local(node, "approved-by"))] if v]
+            block = re.search(r'<section class="doc-details".*?</section>', html, re.S)
+            if not expected:
+                self.assertIsNone(block, f"PMR {number}: no data, no block")
+                continue
+            shown = re.findall(r"<dt>(.*?)</dt><dd>(.*?)</dd>", block.group(0))
+            self.assertEqual(shown, [(t, v.replace("&", "&amp;")) for t, v in expected], f"PMR {number}: the details are the data's")
+
     def test_sop_navigation_is_current(self):
         result = subprocess.run(["node", str(ROOT / "scripts" / "build-sop-nav.js"), "--check"], capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
