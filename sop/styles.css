@@ -385,6 +385,7 @@
   display: none;
 }
 
+/* audit-cards: exempt (the SOP pages' own card; move it to .app-card when the SOP generator is next changed) */
 .card {
   display: flex;
   padding: 1.25rem;
