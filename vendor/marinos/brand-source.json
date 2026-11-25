@@ -4,7 +4,7 @@
   "upstream": "https://github.com/marincountygov/marin-ui",
   "provenance": {
     "source": "Explicitly imported local marin-ui checkout",
-    "gitCommit": "434dec214e23e96930eb41c2ba07f80bde85c168"
+    "gitCommit": "f29d10ed5028e3b211076a42ef2e21b99f47de60"
   },
   "files": {
     "vendor/icons/lucide/LICENSE": {

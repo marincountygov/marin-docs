@@ -121,6 +121,10 @@ def check_guide(browser, base):
     page.wait_for_selector("[data-action=share]")
     require(page.locator("a.action-button[href$='.pdf']").count() == 0, "Guide: no PDF link (the source PDF is internal)")
     common(page, "Guide", url)
+    # The page's own title is its one h1; the app name is plain text that still links home.
+    visible = page.eval_on_selector_all("h1", "els => els.filter(e => e.getClientRects().length).map(e => e.className)")
+    require(visible == ["doc-title"], f"Guide: the page title is the one visible h1: {visible}")
+    require(page.eval_on_selector(".app-title", "e => e.tagName") == "P" and page.locator(".app-title a.app-title__link").count() == 1, "Guide: the app name is plain text that links home")
     require(not problems, f"Guide: console or page errors: {problems}")
     context.close()
 
@@ -311,7 +315,7 @@ def check_glossary(browser, base):
         page.locator(".doc-nav summary", has_text="Reference").click()
         page.locator(".doc-nav a", has_text="Glossary").click()
         page.wait_for_url("**/pmrs/glossary.html")
-        require(page.locator("h1").nth(1).inner_text() == "Glossary" and page.locator(".doc-nav a[aria-current=page]").inner_text() == "Glossary", "The glossary opens from the navigation and is marked there")
+        require(page.locator("h1").inner_text() == "Glossary" and page.locator(".doc-nav a[aria-current=page]").inner_text() == "Glossary", "The glossary opens from the navigation and is marked there")
         require(page.locator("dl.doc-glossary dt").count() >= 20, "The terms are listed")
         page.click(".doc-actions [aria-controls=copy-panel]")
         require(page.locator("#copy-panel button").all_text_contents() == ["Text", "HTML", "Markdown"], "The glossary has no citation")
