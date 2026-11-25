@@ -2,7 +2,7 @@
 @import url("../doc-nav.css");
 
 /* Page titles match Marin Learn's reader title: 2.25rem, 1.75rem on small screens. */
-.card p {
+.grid > .app-card p {
   color: var(--app-muted);
 }
 
@@ -385,17 +385,14 @@
   display: none;
 }
 
-/* audit-cards: exempt (the SOP pages' own card; move it to .app-card when the SOP generator is next changed) */
-.card {
+/* The SOP list cards are the shared .app-card (surface, padding, shadow); these only lay out what is inside. */
+.grid > .app-card {
   display: flex;
-  padding: 1.25rem;
   flex-direction: column;
-  border: 1px solid var(--app-border);
-  border-radius: var(--pico-border-radius);
-  background: var(--app-surface);
+  margin-bottom: 0;
 }
 
-.card h2 {
+.grid > .app-card h2 {
   margin: 0.65rem 0;
   font-size: 1.2rem;
 }
