@@ -64,6 +64,28 @@ def attr_values(html: str, name: str):
 
 
 class PageTests(unittest.TestCase):
+    def test_a_page_below_the_home_page_has_its_own_title_as_its_one_h1(self):
+        """The shell draws the app name as an h1 unless the header says title-heading="false". A page below the home page has a
+        title of its own (a guide, a regulation, a procedure), so the app name is plain text there and that title is the one h1;
+        the home page has no title of its own and keeps the app name as its h1."""
+        skip = {"node_modules", "vendor", ".git", "plans"}
+        checked = 0
+        for path in sorted(ROOT.rglob("*.html")):
+            if skip & set(path.relative_to(ROOT).parts):
+                continue
+            html = path.read_text(encoding="utf-8")
+            if "<marin-app-header" not in html:
+                continue
+            name = path.relative_to(ROOT).as_posix()
+            checked += 1
+            if name == "index.html":
+                self.assertNotIn('title-heading="false"', html, "the home page keeps the app name as its h1")
+                self.assertEqual(len(re.findall(r"<h1[\s>]", html)), 0, "the home page has no h1 of its own")
+            else:
+                self.assertIn('title-heading="false"', html.split("</marin-app-header>")[0], f"{name}: the app name is plain text")
+                self.assertEqual(len(re.findall(r"<h1[\s>]", html)), 1, f"{name}: the page's own title is its one h1")
+        self.assertGreater(checked, 50, "the pages with the shell header were found")
+
     def test_pages_found(self):
         self.assertGreaterEqual(len(PAGES), 20)
 

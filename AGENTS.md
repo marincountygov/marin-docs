@@ -9,7 +9,7 @@ This is a static, zero-build MarinOS docs-shell application. It uses the MarinOS
 1. Check `marin-ui/docs/components.md` for an existing pattern before writing new CSS or JS.
 2. Prefer existing semantic tokens over raw values.
 3. Keep the default view immediately functional — info/how-to content belongs in the About tab, not stacked above or alongside the content.
-4. Every page below the home page (SOPs, guides, PMRs) has the full MarinOS shell and no breadcrumb: the shell header with the app name, the page content as the default tab, the About/Security/Updates sections, the shell footer and Feedback (`scripts/shell-chrome.js`, as Marin Budget does on its inner pages). The generators add it; for a page written by hand run `node scripts/apply-shell.js`. The SOP sub-pages stay always-visible (their Text/Flow tabs are their own).
+4. Every page below the home page (SOPs, guides, PMRs) has the full MarinOS shell and no breadcrumb: the shell header with the app name drawn as plain text (`title-heading="false"`, so the page's own title is its one h1; the home page keeps the app name as its h1), the page content as the default tab, the About/Security/Updates sections, the shell footer and Feedback (`scripts/shell-chrome.js`, as Marin Budget does on its inner pages). The generators add it; for a page written by hand run `node scripts/apply-shell.js`. The SOP sub-pages stay always-visible (their Text/Flow tabs are their own).
 5. Guide pages (`guides/<guide-slug>/*.html`) follow the same docs-shell pattern as SOPs, plus a local `.guide-layout` three-column grid (guide outline / content / on-this-page) defined in `guides/styles.css` — see the "Guides" section of `README.md` before adding a new guide or a new guide page.
 
 ## Before finishing

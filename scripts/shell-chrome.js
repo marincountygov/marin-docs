@@ -16,7 +16,8 @@ const BODY_OPEN = /<body[^>]*>/;
 const rootOf = (depth) => (depth ? "../".repeat(depth) : "./");
 const depthOf = (file) => file.split("/").length - 1;
 
-const header = () => `<marin-app-header app-name="Marin Docs" app-description="County of Marin procedures and guides."><template data-icon>${ICON}</template></marin-app-header>`;
+// title-heading="false": the page has its own title, which is its one h1, so the app name is plain text that still links home.
+const header = () => `<marin-app-header app-name="Marin Docs" app-description="County of Marin procedures and guides." title-heading="false"><template data-icon>${ICON}</template></marin-app-header>`;
 const info = (root) => `<marin-app-info app-name="Marin Docs" repo="marin-docs" security-src="${root}security.json" security-contact-url="${root}.well-known/security.txt"><template data-about><p>${ABOUT}</p></template></marin-app-info>`;
 const footer = () => '<marin-app-footer app-name="Marin Docs"></marin-app-footer><marin-app-feedback></marin-app-feedback>';
 
