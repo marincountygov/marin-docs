@@ -21,18 +21,7 @@
   align-items: start;
 }
 
-/* Page titles match Marin Learn's reader title: 2.25rem, 1.75rem on small screens. */
-.pmr-hero h1,
-.doc-title {
-  font-size: 2.25rem;
-}
-
-@media (max-width: 30rem) {
-  .pmr-hero h1,
-  .doc-title {
-    font-size: 1.75rem;
-  }
-}
+/* Page titles (.hero h1, .doc-title) get their size from Marin UI: 2.25rem, 1.75rem on small screens. */
 
 .guide-callout {
   margin: 1.5rem 0;
