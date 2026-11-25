@@ -2,16 +2,6 @@
 @import url("../doc-nav.css");
 
 /* Page titles match Marin Learn's reader title: 2.25rem, 1.75rem on small screens. */
-.doc-title {
-  font-size: 2.25rem;
-}
-
-@media (max-width: 30rem) {
-  .doc-title {
-    font-size: 1.75rem;
-  }
-}
-
 .card p {
   color: var(--app-muted);
 }
