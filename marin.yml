@@ -10,7 +10,7 @@ project:
   test: false
 
 platform:
-  shell: 2.7.0
+  shell: 2.8.0
   template: manual
 
 deployment:
